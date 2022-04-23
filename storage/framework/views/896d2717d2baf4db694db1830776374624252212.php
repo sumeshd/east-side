@@ -7,26 +7,26 @@
 <title>Admin</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <!-- plugins:css -->
-<link rel="stylesheet" href="{{ url('assets/vendors/mdi/css/materialdesignicons.min.css') }}">
-<link rel="stylesheet" href="{{ url('assets/vendors/css/vendor.bundle.base.css') }}">
-<link rel="stylesheet" href="{{ url('assets/vendors/css/vendor.bundle.base.css') }}">
-
+<link rel="stylesheet" href="<?php echo e(url('assets/vendors/mdi/css/materialdesignicons.min.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(url('assets/vendors/css/vendor.bundle.base.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(url('assets/vendors/css/vendor.bundle.base.css')); ?>">
 <!-- endinject -->
 <!-- Plugin css for this page -->
-<link rel="stylesheet" href="{{ url('assets/vendors/jvectormap/jquery-jvectormap.css') }}">
-<link rel="stylesheet" href="{{ url('assets/vendors/flag-icon-css/css/flag-icon.min.css') }}">
-<link rel="stylesheet" href="{{ url('assets/vendors/owl-carousel-2/owl.carousel.min.css') }}">
-<link rel="stylesheet" href="{{ url('assets/vendors/owl-carousel-2/owl.theme.default.min.css') }}">
+<link rel="stylesheet" href="<?php echo e(url('assets/vendors/jvectormap/jquery-jvectormap.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(url('assets/vendors/flag-icon-css/css/flag-icon.min.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(url('assets/vendors/owl-carousel-2/owl.carousel.min.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(url('assets/vendors/owl-carousel-2/owl.theme.default.min.css')); ?>">
 <!-- End plugin css for this page -->
 <!-- inject:css -->
 <!-- endinject -->
 <!-- Layout styles -->
-<link rel="stylesheet" href="{{ url('assets/css/style.css') }}">
-<link rel="stylesheet" href="{{ url('assets/css/min.css') }}">
-<link rel="stylesheet" href="{{ url('assets/css/customer.css') }}">
+<link rel="stylesheet" href="<?php echo e(url('assets/css/style.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(url('assets/css/min.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(url('assets/css/customer.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(url('assets/css/execution.css')); ?>">
 
 <!-- End layout styles -->
-<link rel="shortcut icon" href="{{ url('assets/images/favicon.png') }}" />
+<link rel="shortcut icon" href="<?php echo e(url('assets/images/favicon.png')); ?>" />
 </head>
 <body>
 <div class="container-scroller"> 
@@ -41,7 +41,8 @@
       <li class="nav-item menu-items"> <a class="nav-link" href="index.html"> <span class="menu-icon"> <i class="fa fa-square"></i> </span> <span class="menu-title">box</span> </a> </li>
       <li class="nav-item menu-items"> <a class="nav-link" href="index.html"> <span class="menu-icon"> <i class="fa fa-file-text"></i> </span> <span class="menu-title">File</span> </a> </li>
       <li class="nav-item menu-items"> <a class="nav-link" href="index.html"> <span class="menu-icon"> <i class="fa fa-calendar"></i> </span> <span class="menu-title">Calander</span> </a> </li>
-      <li class="nav-item menu-items"> <a class="nav-link" href="{{ route('User.index') }}"> <span class="menu-icon"> <i class="fa fa-user"></i> </span> <span class="menu-title">User</span> </a> </li>
+      <li class="nav-item menu-items"> <a class="nav-link" href="index.html"> <span class="menu-icon"> <i class="fa fa-user"></i> </span> <span class="menu-title">User</span> </a> </li>
+      
       
       <li class="nav-item menu-items">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="true" aria-controls="auth">
@@ -52,10 +53,10 @@
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="presales2.html"> Presales </a></li>
                 <li class="nav-item"> <a class="nav-link" href="postsales.html"> Postsales </a></li>
-                <li class="nav-item"> <a class="nav-link" href="{{ route('Execution.index') }}"> Execution </a></li>
+                <li class="nav-item"> <a class="nav-link" href="<?php echo e(route('Execution.index')); ?>"> Execution </a></li>
               </ul>
             </div>
-          </li>
+        </li>
     </ul>
   </nav>
   
@@ -77,7 +78,7 @@
               <h6 class="p-3 mb-0">Messages</h6>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item preview-item">
-              <div class="preview-thumbnail"> <img src="{{url('assets/images/faces/face4.jpg') }}" alt="image" class="rounded-circle profile-pic"> </div>
+              <div class="preview-thumbnail"> <img src="assets/images/faces/face4.jpg" alt="image" class="rounded-circle profile-pic"> </div>
               <div class="preview-item-content">
                 <p class="preview-subject ellipsis mb-1">Mark send you a message</p>
                 <p class="text-muted mb-0"> 1 Minutes ago </p>
@@ -141,7 +142,7 @@
             </div>
           </li>
           <li class="nav-item dropdown"> <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
-            <div class="navbar-profile"> <img class="img-xs rounded-circle" src="{{url('assets/images/faces/face15.jpg') }}" alt="">
+            <div class="navbar-profile"> <img class="img-xs rounded-circle" src="assets/images/faces/face15.jpg" alt="">
               <p class="mb-0 d-none d-sm-block navbar-profile-name">Henry Klein</p>
               <i class="mdi mdi-menu-down d-none d-sm-block"></i> </div>
             </a>
@@ -181,66 +182,62 @@
           <div class="card">
             <div class="card-body">
               
+              
 
               <div class="container">
-                @yield('content')
+                <?php echo $__env->yieldContent('content'); ?>
               </div>
 
 
 
+
+            </div>
+            <div class="paginationDiv">
+              <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                  <li class="page-item"><a class="page-link" href="#"> <img src="<?php echo e(url('assets/images/aro-lft.jpg')); ?>" alt="img"> </a></li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="#"><img src="<?php echo e(url('assets/images/aro-rht.jpg')); ?>" alt="img"> </a></li>
+                </ul>
+              </nav>
             </div>
           </div>
         </div>
       </div>
     </div>
-    
     <!-- main-panel ends --> 
   </div>
   <!-- page-body-wrapper ends --> 
 </div>
+
+
+
+
+
+
 <!-- container-scroller --> 
 <!-- plugins:js --> 
-<script src="{{ url('assets/vendors/js/vendor.bundle.base.js') }}"></script> 
+<script src="<?php echo e(url('assets/vendors/js/vendor.bundle.base.js')); ?>"></script> 
 <!-- endinject --> 
 <!-- Plugin js for this page --> 
-<script src="{{ url('assets/vendors/chart.js/Chart.min.js') }}"></script> 
-<script src="{{ url('assets/vendors/progressbar.js/progressbar.min.js') }}"></script> 
-<script src="{{ url('assets/vendors/jvectormap/jquery-jvectormap.min.js') }}"></script> 
-<script src="{{ url('assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script> 
-<script src="{{ url('assets/vendors/owl-carousel-2/owl.carousel.min.js') }}"></script> 
+<script src="<?php echo e(url('assets/vendors/chart.js/Chart.min.js')); ?>"></script> 
+<script src="<?php echo e(url('assets/vendors/progressbar.js/progressbar.min.js')); ?>"></script> 
+<script src="<?php echo e(url('assets/vendors/jvectormap/jquery-jvectormap.min.js')); ?>"></script> 
+<script src="<?php echo e(url('assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js')); ?>"></script> 
+<script src="<?php echo e(url('assets/vendors/owl-carousel-2/owl.carousel.min.js')); ?>"></script> 
 <!-- End plugin js for this page --> 
 <!-- inject:js --> 
-<script src="{{ url('assets/js/off-canvas.js') }}"></script> 
-<script src="{{ url('assets/js/hoverable-collapse.js') }}"></script> 
-<script src="{{ url('assets/js/misc.js') }}"></script> 
-<script src="{{ url('assets/js/settings.js') }}"></script> 
-<script src="{{ url('assets/js/todolist.js') }}"></script> 
+<script src="<?php echo e(url('assets/js/off-canvas.js')); ?>"></script> 
+<script src="<?php echo e(url('assets/js/hoverable-collapse.js')); ?>"></script> 
+<script src="<?php echo e(url('assets/js/misc.js')); ?>"></script> 
+<script src="<?php echo e(url('assets/js/settings.js')); ?>"></script> 
+<script src="<?php echo e(url('assets/js/todolist.js')); ?>"></script> 
 <!-- endinject --> 
 <!-- Custom js for this page --> 
-<script src="{{ url('assets/js/dashboard.js') }}"></script> 
-<!-- End custom js for this page --> 
-<script
-  src="https://code.jquery.com/jquery-3.6.0.min.js"
-  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-  crossorigin="anonymous"></script>
-
-<script>
-$(".jDeleteRow").click(function() {
-  var rowCount = $(this).closest('table').find('tbody').length;
-  if (rowCount > 1) {
-    $(this).closest('tbody').remove();
-  }
-});
-
-$(".jAddRow").click(function() {
-  var lastRow = $(this).closest('table').find('tbody').last();
-  var newRow = lastRow.clone(true, true); //use true to copy event bindings with rows.  Doesn't always work with 3rd party plugins.
-  newRow.find('input').val('');
-  newRow.find('.jDeleteRow').removeAttr("disabled");
-  newRow.insertAfter(lastRow);
-});
-</script>
-
-@yield('footer')
+<script src="<?php echo e(url('assets/js/dashboard.js')); ?>"></script> 
+<!-- End custom js for this page -->
+<?php echo $__env->yieldContent('footer'); ?>
 </body>
-</html>
+</html><?php /**PATH C:\xampp\htdocs\php\East Side\east-side\resources\views/project/index_project.blade.php ENDPATH**/ ?>

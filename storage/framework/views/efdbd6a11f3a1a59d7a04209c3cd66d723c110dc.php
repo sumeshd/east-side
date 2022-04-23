@@ -41,7 +41,7 @@
       <li class="nav-item menu-items"> <a class="nav-link" href="index.html"> <span class="menu-icon"> <i class="fa fa-square"></i> </span> <span class="menu-title">box</span> </a> </li>
       <li class="nav-item menu-items"> <a class="nav-link" href="index.html"> <span class="menu-icon"> <i class="fa fa-file-text"></i> </span> <span class="menu-title">File</span> </a> </li>
       <li class="nav-item menu-items"> <a class="nav-link" href="index.html"> <span class="menu-icon"> <i class="fa fa-calendar"></i> </span> <span class="menu-title">Calander</span> </a> </li>
-      <li class="nav-item menu-items"> <a class="nav-link" href="index.html"> <span class="menu-icon"> <i class="fa fa-user"></i> </span> <span class="menu-title">User</span> </a> </li>
+      <li class="nav-item menu-items"> <a class="nav-link" href="<?php echo e(route('User.index')); ?>"> <span class="menu-icon"> <i class="fa fa-user"></i> </span> <span class="menu-title">User</span> </a> </li>
       
       <li class="nav-item menu-items">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="true" aria-controls="auth">
