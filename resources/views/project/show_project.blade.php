@@ -3,7 +3,12 @@
 @section('content')
 
 
-<h2> <span> Project List </span> <a href="{{ route('Project.create') }}" class="combtnDiv"> New Project </a> <a href="#" class="combtnDiv"> Export Data </a> </h2>
+<h2> <span> Project List </span> 
+@can('project-create')
+  <a href="{{ route('Project.create') }}" class="combtnDiv"> New Project </a>
+@endcan
+
+<a href="#" class="combtnDiv"> Export Data </a> </h2>
 
 
 <div class="row" style="margin-top: 20px;">

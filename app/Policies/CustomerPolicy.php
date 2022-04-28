@@ -41,7 +41,7 @@ class CustomerPolicy
      */
     public function create(User $user)
     {
-        return $user->hasPermission('manage_customer');
+        //return $user->hasPermission('manage_customer');
     }
 
     /**

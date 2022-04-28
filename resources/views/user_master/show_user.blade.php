@@ -8,14 +8,26 @@
 </h2>
 
 
+          <div class="row" style="margin-top: 20px;">
+            <div class="col-lg-12">
+              @if($message = Session::get('success'))
+                  <div class="alert alert-success" role="alert">
+                      <p>{{ $message }}</p>
+
+                  </div>
+              @endif
+            </div>
+          </div>
+
+
             <div class="table-responsive">
+              <div id="no-more-tables">
                 <table class="table table-striped">
                   <thead>
                     <tr>
                       <th> User Name </th>
                       <th> Email Address </th>
                       <th> Role </th>
-                      <th> Permission </th>
                       <th> Action </th>
                     </tr>
                   </thead>
@@ -24,21 +36,30 @@
                     <tr>
                       <td class="py-1"><img src="assets/images/round-img.jpg" alt="img"> <span>{{ $user->name}} </span></td>
                       <td> {{ $user->email }} </td>
-                      <td> {{ $user->role->name }} </td>
-                      <td> @foreach($user->role->permissions as $permission)
-                              <li>{{ $permission -> name }}</li>
-                            @endforeach
-                      </td>
                       <td>
-                        <span> <i class="fa fa-gear"></i> <a href="#"> Settings </a> </span> 
-                        <span> <i class="fa fa-eye"></i> <a href=" user/{{ $user->id }}/edit"> Edit </a> </span>
-                        <span> <i class="fa fa-edit"></i> <a href="{{ url('changepass/'.$user->id)  }}"> Change Password </a> </span>
+                        @if(!empty($user->getRoleNames()))
+                          @foreach($user->getRoleNames() as $v)
+                            <label class="badge badge-success">{{ $v }}</label>
+                          @endforeach
+                        @endif
                       </td>
-                    </tr>
-                              
+                     
+                      <td>
+                        <span> <i class="fa fa-edit"></i> <a href=" user/{{ $user->id }}/edit"> Edit </a> </span>
+                        <span>  {!! Form::open(['method' => 'DELETE','route' => ['User.destroy', $user->id]]) !!}
+                                    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                                {!! Form::close() !!}</span>
+                      </td>
+                    </tr>        
                   </tbody>
                   @endforeach
                 </table>
+                
+              </div>
+              <div class="col-lg-12">
+                      {{$userdata->onEachSide(1)->links()}}
+              </div>
+            </div>
 
 
 

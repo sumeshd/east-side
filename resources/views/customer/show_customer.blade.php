@@ -4,7 +4,7 @@
 
 
             <h2> <span> Customer List </span>
-            @can('create', App\Models\Customer::class)
+            @can('customer-create')
              <a href="{{ route('Customer.create') }}" class="combtnDiv"> Add Customer </a>
             @endcan
             </h2>

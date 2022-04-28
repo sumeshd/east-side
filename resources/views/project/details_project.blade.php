@@ -20,8 +20,9 @@
                     </tr>
                   </thead>
 
-                  
+                  @foreach($projects as $project)
                   <tbody>
+                   
                     <tr>
                       <td class="py-1"><img src="{{url('assets/images/round-img.jpg') }}" alt="img"> <span>{{ $project->projectname }} </span></td>
                       <td> {{ $project->status }} </td>
@@ -42,6 +43,7 @@
                         <td></td>
                     </tr>
                   </tbody>
+                  @endforeach
                   
                 </table>
               </div>

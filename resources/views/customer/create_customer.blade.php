@@ -5,9 +5,9 @@
 
 
 <h2> <span>Add Customer  </span>
-@can('create', App\Models\Customer::class)
+
  <a href="{{ route('Customer.index') }}" class="combtnDiv"> Back Customer List </a>
-@endcan
+
 </h2>
 <!---------
 <div class="row">

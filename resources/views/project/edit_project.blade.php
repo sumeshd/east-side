@@ -39,8 +39,9 @@
 
 
 
-
-<form class="row g-5 " action="{{ url('updete_project/'.$data->id) }}" method="POST">
+@foreach($projects as $data)
+<form class="row g-5 " action="{{ url('updete_project/'.$data->id) }}" >
+    @method('PATCH') 
     @csrf
         <div class="table-responsive">
             <div class="customDiv">
@@ -140,7 +141,7 @@
         </div>
 </form>
 
-
+@endforeach
 
 
 

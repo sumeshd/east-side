@@ -12,6 +12,20 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct()
+    {
+         $this->middleware('permission:project-list', ['only' => ['index','show']]);
+         $this->middleware('permission:project-create', ['only' => ['create','store']]);
+         $this->middleware('permission:project-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:project-delete', ['only' => ['destroy']]);
+    }
+
+
+
+
+
+
+
     public function index()
     {
         $project=Project::latest()->paginate(5);
@@ -58,8 +72,9 @@ class ProjectController extends Controller
      */
     public function show(Project $id)
     {
-        $project = Project::find($id);
-        return view('project.details_project',compact('project'));
+        $projects = Project::find($id);
+        //dd($project);
+        return view('project.details_project',compact('projects'));
     }
 
     /**
@@ -70,8 +85,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $id)
     {
-        $data=Project::find($id);
-        return view('project.edit_project',compact('data'));
+        $projects=Project::find($id);
+        return view('project.edit_project',compact('projects'));
     }
 
     /**
