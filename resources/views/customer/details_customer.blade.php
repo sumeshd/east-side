@@ -33,8 +33,12 @@
               
 
                     <tr>
+                        @can('customer-edit')
                         <td><a class="btn btn-warning btn-lg" href="{{ url('customer_edit/'.$data->customer_id)  }}"> Edit</a></td>
+                        @endcan
+                        @can('customer-delete')
                         <td><a class="btn btn-danger btn-lg" href="{{ url('customer_delete/'.$data->customer_id)  }}">Delete</a></td>
+                        @endcan
                         <td></td>
                         <td></td>
                         <td></td>

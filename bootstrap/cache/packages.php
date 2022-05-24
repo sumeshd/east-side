@@ -46,6 +46,17 @@
       'Html' => 'Collective\\Html\\HtmlFacade',
     ),
   ),
+  'mpociot/teamwork' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Mpociot\\Teamwork\\TeamworkServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Teamwork' => 'Mpociot\\Teamwork\\Facades\\Teamwork',
+    ),
+  ),
   'nesbot/carbon' => 
   array (
     'providers' => 

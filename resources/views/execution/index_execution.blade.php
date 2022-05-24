@@ -33,6 +33,10 @@
 
 <!-- End layout styles -->
 <link rel="shortcut icon" href="{{ url('assets/images/favicon.png') }}" />
+<!-- --Bootstrap Css-- -->
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
+
 </head>
 <body>
 <div class="container-scroller"> 
@@ -48,8 +52,7 @@
       <li class="nav-item menu-items"> <a class="nav-link" href="index.html"> <span class="menu-icon"> <i class="fa fa-file-text"></i> </span> <span class="menu-title">File</span> </a> </li>
       <li class="nav-item menu-items"> <a class="nav-link" href="index.html"> <span class="menu-icon"> <i class="fa fa-calendar"></i> </span> <span class="menu-title">Calander</span> </a> </li>
       <li class="nav-item menu-items"> <a class="nav-link" href="index.html"> <span class="menu-icon"> <i class="fa fa-user"></i> </span> <span class="menu-title">User</span> </a> </li>
-      <li class="nav-item menu-items"> <a class="nav-link" href="{{ route('Execution.index') }}"> <span class="menu-icon"> <i class="fa fa-cog"></i> </span> <span class="menu-title">Settings</span> </a> </li>
-    
+     
       <li class="nav-item menu-items">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="true" aria-controls="auth">
               <span class="menu-icon"> <i class="fa fa-cog"></i> </span> <span class="menu-title">Settings</span>
@@ -57,8 +60,6 @@
             </a>
             <div class="collapse show" id="auth">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="presales2.html"> Presales </a></li>
-                <li class="nav-item"> <a class="nav-link" href="postsales.html"> Postsales </a></li>
                 <li class="nav-item"> <a class="nav-link" href="{{ route('Execution.index') }}"> Execution </a></li>
               </ul>
             </div>
@@ -226,6 +227,7 @@
 <!-- container-scroller --> 
 <!-- plugins:js --> 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
 <script src="{{ url('assets/vendors/js/vendor.bundle.base.js') }}"></script> 
 <!-- endinject --> 
 <!-- Plugin js for this page --> 

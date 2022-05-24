@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
-    //use HasFactory;
+    use HasFactory;
 
 
     protected $fillable=[
@@ -17,4 +17,8 @@ class Customer extends Model
         'billing_address_street_1','billing_address_street_2','billing_city','billing_state','billing_zipcode','billing_phone','billing_fax','shipping_attention','shipping_country',
         'shipping_address_street_1','shipping_address_street_2','shipping_city','shipping_state','shipping_zipcode','shipping_phone','shipping_fax','remarks'
     ];
+
+    public function projects(){
+        return $this->belongsToMany(Project::class);
+    }
 }

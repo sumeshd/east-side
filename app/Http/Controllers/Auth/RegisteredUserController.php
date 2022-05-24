@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
+use App\Models\Team;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -44,6 +45,12 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+        $team = Team::create([
+            'owner_id' => $user->id,
+            'name' => $user->name."'s Team",
+        ]);
+
+        $user->attachTeam($team);
 
         event(new Registered($user));
 

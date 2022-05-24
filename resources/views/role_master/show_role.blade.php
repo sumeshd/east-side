@@ -14,16 +14,18 @@
     </div>
 @endif
 
+
+
         <div class="table-responsive">
             <div id="no-more-tables">
                 <table class="table table-striped">
-                  <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Name</th>
-                        <th width="280px">Action</th>
-                    </tr>
-                  </thead>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Name</th>
+                            <th width="280px">Action</th>
+                        </tr>
+                    </thead>
                   @foreach ($roles as $key => $role)
                   <tbody>
                     <tr>

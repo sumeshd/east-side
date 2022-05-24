@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -28,7 +29,14 @@ class ProjectController extends Controller
 
     public function index()
     {
-        $project=Project::latest()->paginate(5);
+        //$customers = Customer::all();
+        //$project=Project::with('customers')->get();
+        // $project->customers()->attach($customers);
+        // $project=Project::with('customers')->get();
+        //dd($project->toArray());
+
+        $project = Project::all();
+        //dd($project);
         return view('project.show_project',compact('project'));
     }
 
@@ -39,7 +47,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('project.create_project');
+        $customers = Customer::orderBy('id','DESC')->get();
+        return view('project.create_project',compact('customers'));
     }
 
     /**
@@ -51,15 +60,22 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-
+            'name' => 'required',
             'projectname' => 'required',
-            'status' => 'required',
-            'budject' => 'required',
-            'team' => 'required',
-            'image' => 'required',
-            'complecation' => 'required',
+            'projectnumber' => 'required',
+            'address_1' => 'required',
+            'pin' => 'required',
+            'customer' => 'required',
         ]);
-        Project::create($request->all());
+        $project=$request->all();
+        $project_type = implode(',', $request->input('project_type'));
+        $project['project_type']= $project_type;
+        $projects=Project::create($project);
+        $projects->customers()->sync($request->customer);
+
+        // $project_id = $project->id;
+        // //dd($project_id);
+        // Customer::where('id',$request->customer_id)->update(['project_id'=>$project_id,'project_name'=>$request->projectname]);
         return redirect()->route('Project.index')
         ->with('success','Project created successfully.');
     }
@@ -86,7 +102,8 @@ class ProjectController extends Controller
     public function edit(Project $id)
     {
         $projects=Project::find($id);
-        return view('project.edit_project',compact('projects'));
+        $customers = Customer::orderBy('id','DESC')->get();
+        return view('project.edit_project',compact('projects','customers'));
     }
 
     /**
@@ -98,15 +115,26 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required',
+            'projectname' => 'required',
+            'projectnumber' => 'required',
+            'address_1' => 'required',
+            'pin' => 'required',
+            'customer' => 'required',
+        ]);
         $project=Project::find($id);
 
+        $project->name=$request->name;
         $project->projectname=$request->projectname;
-        $project->status=$request->status;
-        $project->budject=$request->projectname;
-        $project->team=$request->team;
-        $project->image=$request->image;
-        $project->complecation=$request->complecation;
+        $project->projectnumber=$request->projectnumber;
+        $project->address_1=$request->address_1;
+        $project->address_2=$request->address_2;
+        $project->address_3=$request->address_3;
+        $project->pin=$request->pin;
+        //$project->customer_id=$request->customer_id;
         $project->update();
+        $project->customers()->sync($request->customer);
 
         return redirect()->route('Project.index')
         ->with('success','Project Update Successfully');

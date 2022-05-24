@@ -48,7 +48,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        $this->authorize('create',Customer::class);
+        
         return view('customer.create_customer');
     }
 
@@ -60,7 +60,6 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create',Customer::class);
         $request->validate([
             'customer_first_name'   =>'required',
             'customer_last_name'    =>'required',
@@ -225,15 +224,15 @@ class CustomerController extends Controller
         $customer->customer_phone           =$request->customer_phone;
         $customer->customer_mobile          =$request->customer_mobile;
         $customer->customer_skype_name      =$request->customer_skype_name;
-        $customer->customer_designation     =$request-> customer_designation  ;
-        $customer->customer_department      =$request-> customer_department  ;
+        $customer->customer_designation     =$request->customer_designation  ;
+        $customer->customer_department      =$request->customer_department  ;
         $customer->customer_website         =$request->customer_website   ;
         $customer->customer_pan_number      =$request->customer_pan_number  ;
         $customer->customer_currency        =$request->customer_currency   ;
         $customer->customer_opening_balance =$request->customer_opening_balance   ;
         $customer->customer_payment_terms   =$request->customer_payment_terms  ;
         $customer->customer_enable_portal   =$request->customer_enable_portal    ;
-        $customer->customer_portal_language =$request-> customer_portal_language   ;
+        $customer->customer_portal_language =$request->customer_portal_language   ;
         $customer->customer_facebook_url    =$request->customer_facebook_url         ;
         $customer->customer_twitter_url     =$request->customer_twitter_url ;
 
@@ -255,7 +254,7 @@ class CustomerController extends Controller
         $customer->shipping_state              = $request->shipping_state;
         $customer->shipping_zipcode            = $request->shipping_zipcode;
         $customer->shipping_phone              = $request->shipping_phone;
-        $customer->	shipping_fax               =$request->shipping_fax;
+        $customer->shipping_fax               =$request->shipping_fax;
 
         $customer->remarks=$request->remarks;
         $customer->save();

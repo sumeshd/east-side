@@ -25,6 +25,10 @@
 <link rel="stylesheet" href="{{ url('assets/css/customer.css') }}">
 <link rel="stylesheet" href="{{ url('assets/css/execution.css') }}">
 
+
+<link rel="stylesheet" href="{{ url('assets/css/jquery.nestable.css') }}">
+<link rel="stylesheet" href="{{ url('assets/css/category.css') }}">
+
 <!-- End layout styles -->
 <link rel="shortcut icon" href="{{ url('assets/images/favicon.png') }}" />
 </head>
@@ -37,19 +41,30 @@
     </div>
     <ul class="nav">
       <li class="nav-item menu-items"> <a class="nav-link" href="index.html"> <span class="menu-icon"> <i class="fa fa-home"></i> </span> <span class="menu-title">Dashboard</span> </a> </li>
-      <li class="nav-item menu-items"> <a class="nav-link" href="index.html"> <span class="menu-icon"> <i class="fa fa-envelope"></i> </span> <span class="menu-title">Email</span> </a> </li>
-      <li class="nav-item menu-items"> <a class="nav-link" href="index.html"> <span class="menu-icon"> <i class="fa fa-square"></i> </span> <span class="menu-title">box</span> </a> </li>
       @can('project-list')
       <li class="nav-item menu-items"> <a class="nav-link" href="{{ route('Project.index') }}"> <span class="menu-icon"> <i class="fa fa-file-text"></i> </span> <span class="menu-title">Project</span> </a> </li>
       @endcan      
-      <li class="nav-item menu-items"> <a class="nav-link" href="index.html"> <span class="menu-icon"> <i class="fa fa-calendar"></i> </span> <span class="menu-title">Calander</span> </a> </li>
+      @can('customer-list')     
+      <li class="nav-item menu-items"> <a class="nav-link" href="{{ route('Customer.index') }}"> <span class="menu-icon"> <i class="fa fa-address-card-o"></i> </span> <span class="menu-title">Customer</span> </a> </li>
+      @endcan
       @can('role-list')
       <li class="nav-item menu-items"> <a class="nav-link" href="{{ route('roles.index') }}"> <span class="menu-icon"> <i class="fa fa-registered"></i> </span> <span class="menu-title">Role</span> </a> </li>
       @endcan
       @can('user-list')
       <li class="nav-item menu-items"> <a class="nav-link" href="{{ route('User.index') }}"> <span class="menu-icon"> <i class="fa fa-user"></i> </span> <span class="menu-title">User</span> </a> </li>
       @endcan
+      <li class="nav-item menu-items"> <a class="nav-link" href="{{ route('User.index') }}"> <span class="menu-icon"> <i class="fa fa-cog"></i> </span> <span class="menu-title">Settings</span> </a>
+        <div class="collapse show" id="auth">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{{ route('Category.index')}}"> Category </a></li>
+              </ul>
+        </div>
+      </li>
       
+      
+      
+
+
       <li class="nav-item menu-items">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="true" aria-controls="auth">
               <span class="menu-icon"> <i class="fa fa-cog"></i> </span> <span class="menu-title">Settings</span>
@@ -57,12 +72,10 @@
             </a>
             <div class="collapse show" id="auth">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="presales2.html"> Presales </a></li>
-                <li class="nav-item"> <a class="nav-link" href="postsales.html"> Postsales </a></li>
                 <li class="nav-item"> <a class="nav-link" href="{{ route('Execution.index') }}"> Execution </a></li>
               </ul>
             </div>
-        </li>
+      </li>
     </ul>
   </nav>
   

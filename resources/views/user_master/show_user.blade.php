@@ -4,7 +4,9 @@
 
 
 <h2> <span>All User  </span>
- <a href="{{ route('User.create') }}" class="combtnDiv"> Create User </a>
+  @can('user-create')
+  <a href="{{ route('User.create') }}" class="combtnDiv"> Create User </a>
+  @endcan
 </h2>
 
 
@@ -13,7 +15,6 @@
               @if($message = Session::get('success'))
                   <div class="alert alert-success" role="alert">
                       <p>{{ $message }}</p>
-
                   </div>
               @endif
             </div>
@@ -45,10 +46,15 @@
                       </td>
                      
                       <td>
+                        @can('user-edit')
                         <span> <i class="fa fa-edit"></i> <a href=" user/{{ $user->id }}/edit"> Edit </a> </span>
+                        @endcan
+                        @can('user-delete')
                         <span>  {!! Form::open(['method' => 'DELETE','route' => ['User.destroy', $user->id]]) !!}
                                     {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-                                {!! Form::close() !!}</span>
+                                {!! Form::close() !!}
+                        </span>
+                        @endcan
                       </td>
                     </tr>        
                   </tbody>

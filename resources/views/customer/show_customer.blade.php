@@ -45,9 +45,13 @@
                       <td><div class="percent"> 20%
                           <div class="progressDiv"></div>
                         </div></td>
-                      <td><span> <i class="fa fa-gear"></i> <a href="#"> Settings </a> </span> <span> <i class="fa fa-eye"></i> <a href="{{ url('customer_show/'.$cus->id) }}"> View </a> </span></td>
-                    </tr>
-                              
+                      <td>
+                        <span> <i class="fa fa-gear"></i> <a href="#"> Settings </a> </span>
+                        @can('customer-list')
+                        <span> <i class="fa fa-eye"></i> <a href="{{ url('customer_show/'.$cus->id) }}"> View </a> </span>
+                        @endcan
+                      </td>
+                    </tr>          
                   </tbody>
                   @endforeach
                 </table>

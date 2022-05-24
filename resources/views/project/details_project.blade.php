@@ -35,8 +35,12 @@
               
 
                     <tr>
+                        @can('project-edit')
                         <td><a class="btn btn-warning btn-lg" href="{{ url('edit_project/'.$project->id) }}"> Edit</a></td>
+                        @endcan
+                        @can('project-delete')
                         <td><a class="btn btn-danger btn-lg" href="{{ url('delete_project/'.$project->id) }}">Delete</a></td>
+                        @endcan
                         <td></td>
                         <td></td>
                         <td></td>

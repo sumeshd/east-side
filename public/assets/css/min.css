@@ -33,9 +33,16 @@
 .dashboard-bodypart h2 {
 	text-align: left;
 	color: #03183e;
+    margin-top: 20px;
 	margin-bottom: 25px;
 	font-size: 20px;
 }
+
+.center{
+    text-align: center !important;
+}
+
+
 .dashboard-bodypart::after {
  content: '';
  position: absolute;
@@ -152,7 +159,7 @@ background-color:#f5f9f9 !important;
 	border-bottom: none !important;
 }
 .table-responsive {
-	margin-top: 45px !important;
+	margin-top: 20px !important;
 	    overflow: hidden;
 }
 .table.table-striped thead tr {

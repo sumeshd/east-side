@@ -9,7 +9,7 @@
 
 
 
-{!! Form::model($role, ['method' => 'PATCH','route' => ['roles.update', $role->id]]) !!}
+    {!! Form::model($role, ['method' => 'PATCH','route' => ['roles.update', $role->id]]) !!}
         <div class="table-responsive">
             <div class="customDiv">
                 <div class="row">
@@ -24,7 +24,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-md-12">
                                 <label for="usr">Permission</label>
                                 <div class="form-group">                          
@@ -35,17 +35,148 @@
                                     <div id="color_red"> @error('permission')<li>{{ $message }}</li>@enderror</div>                                            
                                 </div>
                             </div>
-                        </div>
-
+                        </div> -->
                     </div>
+
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h2 class="center"><span>Permissions</span></h2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label class="center" for="usr">Role</label>
+                                <ul>
+                                @php $role = 1;  @endphp
+                                @foreach($permission as $value)
+                                    @if( $role < 5 )
+                                        <li><label></label></li>
+                                    @endif
+                                    @php $role ++ @endphp
+                                @endforeach
+                                </ul>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label class="center" for="usr">User</label>
+                                <ul>
+                                @php $user = 1;  @endphp
+                                @foreach($permission as $value)
+                                    @if( $user > 4 &&  $user < 9 ) 
+                                        <li><label></label></li>
+                                    @endif
+                                    @php $user ++ @endphp
+                                @endforeach
+                                </ul>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label class="center" for="usr">Project</label>
+                                <ul>
+                                @php $project = 1;  @endphp
+                                @foreach($permission as $value)
+                                    @if( $project > 8 && $project < 13 )
+                                            <li><label></label></li> 
+                                    @endif
+                                    @php $project ++ @endphp
+                                @endforeach
+                                </ul>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label class="center" for="usr">Customer</label>
+                                <ul>
+                                @php $customer = 1;  @endphp
+                                @foreach($permission as $value)
+                                    @if( $customer > 12 )
+                                        <li><label></label></li>
+                                        
+                                    @endif
+                                    @php $customer ++ @endphp
+                                @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    </div> -->
+
                 </div>
             </div>
+
+            <div id="no-more-tables">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                            <th>Role</th>
+                            <th>User</th>
+                            <th>Project</th>
+                            <th>Customer</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                                <td>
+                                    <ul>
+                                    @php $role = 1;  @endphp
+                                    @foreach($permission as $value)
+                                        @if( $role < 5 )
+                                            <li>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name')) }}
+                                            {{ $value->name }}</li><br>
+                                        @endif
+                                        @php $role ++ @endphp
+                                    @endforeach
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                    @php $user = 1;  @endphp
+                                    @foreach($permission as $value)
+                                        @if( $user > 4 &&  $user < 9 ) 
+                                            <li>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name')) }}
+                                            {{ $value->name }}</li><br>
+                                        @endif
+                                        @php $user ++ @endphp
+                                    @endforeach
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                    @php $project = 1;  @endphp
+                                    @foreach($permission as $value)
+                                        @if( $project > 8 && $project < 13 )
+                                            <li>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name')) }}
+                                            {{ $value->name }}</li><br> 
+                                        @endif
+                                        @php $project ++ @endphp
+                                    @endforeach
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                    @php $customer = 1;  @endphp
+                                    @foreach($permission as $value)
+                                        @if( $customer > 12 )
+                                        <li>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name')) }}
+                                        {{ $value->name }}</li><br>
+                                            
+                                        @endif
+                                        @php $customer ++ @endphp
+                                    @endforeach
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
             <div class="full">                
                 <button type="submit" class="savDiv">Save</button>
-                <a href="#" class="candiv"> Cancel </a>
-                        
+                <a href="#" class="candiv"> Cancel </a>        
             </div> 
-
         </div>
         {!! Form::close() !!}
 

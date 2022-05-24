@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '6be5cb9beb0a384cd5c9925cafc2e13f1d59afd1',
+        'reference' => '2016b108af6059c77a91dadcfb12c356e8ea35a2',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -388,7 +388,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '6be5cb9beb0a384cd5c9925cafc2e13f1d59afd1',
+            'reference' => '2016b108af6059c77a91dadcfb12c356e8ea35a2',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(
@@ -497,6 +497,15 @@
             'install_path' => __DIR__ . '/../monolog/monolog',
             'aliases' => array(),
             'reference' => 'fd4380d6fc37626e2f799f29d91195040137eba9',
+            'dev_requirement' => false,
+        ),
+        'mpociot/teamwork' => array(
+            'pretty_version' => '7.0.0',
+            'version' => '7.0.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../mpociot/teamwork',
+            'aliases' => array(),
+            'reference' => '261debfee8382be6570f9bbb6f3fea936eadb676',
             'dev_requirement' => false,
         ),
         'mtdowling/cron-expression' => array(

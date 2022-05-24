@@ -11,6 +11,11 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ExecutionController;
 use App\Http\Controllers\UserController;
 
+use App\Http\Controllers\Teamwork\TeamController;
+use App\Http\Controllers\Teamwork\TeamMemberController;
+
+use App\Http\Controllers\CategoryController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -109,6 +114,36 @@ Route::group(['middleware' => ['auth']], function() {
     });
 
 });
+
+
+//==================================Team================================
+Route::group(['prefix' => 'teams', 'namespace' => 'Teamwork'], function()
+{
+    //Route::get('teams', [TeamController::class, 'index']);
+    Route::get('/', [TeamController::class, 'index'])->name('teams.index');
+    Route::get('create', [TeamController::class, 'create'])->name('teams.create');
+    Route::post('teams', [TeamController::class, 'store'])->name('teams.store');
+    Route::get('edit/{id}', [TeamController::class, 'edit'])->name('teams.edit');
+    Route::put('edit/{id}', [TeamController::class, 'update'])->name('teams.update');
+    Route::delete('destroy/{id}', [TeamController::class, 'destroy'])->name('teams.destroy');
+    Route::get('switch/{id}', [TeamController::class, 'switchTeam'])->name('teams.switch');
+
+    Route::get('members/{id}', [TeamMemberController::class, 'show'])->name('teams.members.show');
+    Route::get('members/resend/{invite_id}', [App\Http\Controllers\Teamwork\TeamMemberController::class, 'resendInvite'])->name('teams.members.resend_invite');
+    Route::post('members/{id}', [App\Http\Controllers\Teamwork\TeamMemberController::class, 'invite'])->name('teams.members.invite');
+    Route::delete('members/{id}/{user_id}', [App\Http\Controllers\Teamwork\TeamMemberController::class, 'destroy'])->name('teams.members.destroy');
+    Route::post('user/{teamid}', [TeamMemberController::class, 'adduser'])->name('teams.adduser');
+    Route::get('accept/{token}', [App\Http\Controllers\Teamwork\AuthController::class, 'acceptInvite'])->name('teams.accept_invite');
+});
+
+//Route::get('teams', [TeamController::class, 'index']);
+
+
+
+
+
+Route::resource('Category', CategoryController::class);
+
 
 
 

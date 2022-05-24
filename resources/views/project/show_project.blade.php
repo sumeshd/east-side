@@ -30,30 +30,37 @@
                       <tr>
                         <th> Project </th>
                         <th> Created At </th>
-                        <th> Status </th>
-                        <th> Budget </th>
-                        <th> Team </th>
+                        <th> Project Type </th>
+                        <th> Address</th>
+                        <th> Customer </th>
                         <th> Completion </th>
                         <th> </th>
                       </tr>
                     </thead>
 
-                    @foreach( $project as $pro)
+                    
                     <tbody>
+                    @foreach( $project as $pro)
                       <tr>
-                        <td class="py-1">{{ $pro->image }} <span> {{ $pro->projectname }} </span></td>
-                        <td> {{ $pro->created_at }} </td>
-                        <td> {{ $pro->status }} </td>
-                        <td> {{ $pro->budject }} </td>
-                        <td><ul>
-                            <li> <img src="assets/images/round-img.jpg" alt="img"> </li>
-                            <li> <img src="assets/images/round-img.jpg" alt="img"> </li>
-                            <li> <img src="assets/images/round-img.jpg" alt="img"> </li>
-                          </ul></td>
+                        <td class="py-1"> <span> {{ $pro->projectname }} </span></td>
+                        <td>  {{ $pro->created_at }} </td>
+                        <td>  
+                                {{ $pro->project_type }} 
+                             
+                        </td>
+                        <td>  {{ $pro->address_1 }}{{ $pro->address_2 }}{{ $pro->address_3 }} </td>
+                        <td>  @foreach($pro->customers as $customer)
+                                <li>{{ $customer->customer_first_name }}</li>
+                              @endforeach
+                        </td>
                         <td><div class="percent"> 20%
                             <div class="progressDiv"></div>
                           </div></td>
-                        <td><span> <i class="fa fa-gear"></i> <a href="#"> Settings </a> </span> <span> <i class="fa fa-eye"></i> <a href="{{ url('show/'.$pro->id) }}"> View </a> </span></td>
+                        <td><span> <i class="fa fa-gear"></i> <a href="#"> Settings </a> </span>
+                        @can('project-list')
+                         <span> <i class="fa fa-eye"></i> <a href="{{ url('show/'.$pro->id) }}"> View </a> </span>
+                        @endcan
+                        </td>
                       </tr>
                       @endforeach
                       

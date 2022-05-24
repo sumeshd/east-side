@@ -193,20 +193,57 @@ window.addEventListener('load',()=>{
   const tab_content = document.querySelector(".tab-content-el"); 
   const listItems = document.querySelector(".list-items");
 
+  var newtab_input_number = 0;
   var tab_number = 0;
   var task_number = 0;
   var sub_task_number = 0;
-    $('#btn1').click(function(){
+    
+  $('#btn1').click(function(){
+
+      newtab_input_number += 1;
+      const tabName = document.createElement('div');
+      tabName.classList.add('newtab'+ newtab_input_number);
+      tabName.classList.add('tabpanel');
+      tabName.id="home"+ newtab_input_number;
+      const tabNameHtml =`
+      <div id="destroy`+ newtab_input_number +`">       
+        <div id = "tabName_input`+ newtab_input_number +`" class="container tab_item_box ">
+                  
+        </div>
+        
+        <div id="tabName_box_div`+ newtab_input_number +`" class="container nav_item_input ">
+          <div class="tab_input">
+            <input type="text" class="tab_input_box" id="tabName_box`+ newtab_input_number +`" placeholder="Create A Tab">
+          </div>
+        </div>
+      </div>        
+        `;
+      tabName.innerHTML = tabNameHtml;
+      tab_content.appendChild(tabName);
+      const tab_content_new = document.querySelector("#tabName_input"+ newtab_input_number);
+      const tabName_box = document.querySelector("#tabName_box"+ newtab_input_number);
+      const tabdistroy = document.querySelector("#tabName_box_div"+ newtab_input_number);
+
+
+
+
+
+
+      tabName_box.addEventListener('keyup', (e) => {
+        if(e.keyCode === 13) {
+
         tab_number += 1;
         const list_item = document.createElement('li');
-        list_item.classList.add('nav-item'+tab_number);
+        list_item.classList.add('nav-item'+ newtab_input_number);
         list_item.classList.add('nav-item');
         //list_item.onclick = showpanel(1);
         
-        const newA =`<a class="nav-link" data-toggle="tab" href="#home`+ tab_number +`">checklist</a>
+        const newA =`<a class="nav-link" data-toggle="tab" href="#home`+ newtab_input_number +`">${tabName_box.value}</a>
+        <button class="tabedit" id="tabedit`+ newtab_input_number +`"><i class="fa fa-pencil-square" aria-hidden="true">Edit </i></button>
+        <div class="controls-update" style="display:none;"> <a href="#">update</a></div>
         <form >
         @csrf
-        <input type="hidden" id="tablist`+ tab_number +`" value="checklist`+ tab_number +`">
+        <input type="hidden" id="tablist`+ newtab_input_number +`" value="${tabName_box.value}">
         </form>`;
 
 
@@ -215,26 +252,25 @@ window.addEventListener('load',()=>{
   
 
         const navTab = document.createElement('div');
-        navTab.classList.add('home'+ tab_number);
-        navTab.classList.add('tabpanel');
-        navTab.id="home"+ tab_number;
+        navTab.classList.add('home'+ newtab_input_number + tab_number);
+        
   
         const newnavtabhtml =`       
-        <div id = "tab_item_input`+ tab_number +`" class="container tab_item_box ">
-          <input type="hidden" id="tablist_id`+ tab_number +`" name="tablist_id`+ tab_number +`">
+        <div id = "tab_item_input`+ newtab_input_number + tab_number +`" class="container tab_item_box ">
+          <input type="hidden" id="tablist_id`+ newtab_input_number + tab_number +`" name="tablist_id`+ newtab_input_number + tab_number +`">
                  
         </div>
         
-        <div id="nav_item_input`+ tab_number +`" class="container nav_item_input ">
+        <div id="nav_item_input`+ newtab_input_number + tab_number +`" class="container nav_item_input ">
           <div class="tab_input">
-            <input type="text" class="tab_input_box" id="tab_input_box`+ tab_number +`" placeholder="Create A Task">
+            <input type="text" class="tab_input_box" id="tab_input_box`+ newtab_input_number + tab_number +`" placeholder="Create A Task">
           </div>
         </div>        
         `;
         navTab.innerHTML = newnavtabhtml;
-        tab_content.appendChild(navTab);
+        tab_content_new.appendChild(navTab);
         
-        let tablist = $("#tablist"+tab_number).val();
+        let tablist = $("#tablist"+ newtab_input_number ).val();
         //alert(tablist);
         $.ajax({
           url: "{{ url ('/execution/tablist') }}",
@@ -243,13 +279,16 @@ window.addEventListener('load',()=>{
             tablist:tablist,
           },
           success:function(response){
-              $("#tablist_id"+tab_number).val(response);
+              $("#tablist_id"+ newtab_input_number +tab_number).val(response);
               
               // const tablist_id = document.querySelector("#tablist_id"+tab_number).val(response); 
             console.log(response);
           }
 
         });
+        tabName_box.value="";
+        tabdistroy.style.display = "none";
+
   
   //----------------------------------------------------------------------
   
@@ -272,8 +311,8 @@ window.addEventListener('load',()=>{
   //---------------------------  Task Part------------------------------------------------>
     
   
-        const tab_item_input = document.querySelector("#tab_item_input"+tab_number);
-        const tab_input_box = document.querySelector("#tab_input_box"+tab_number);
+        const tab_item_input = document.querySelector("#tab_item_input"+ newtab_input_number +tab_number);
+        const tab_input_box = document.querySelector("#tab_input_box"+ newtab_input_number +tab_number);
   
         //$('#tab_add_box'+tab_number).click(function(){
         //const tab_add_box = document.querySelector(".tab_add_box");
@@ -285,18 +324,18 @@ window.addEventListener('load',()=>{
          
         const tab_el_el = document.createElement('div');
         tab_el_el.classList.add('tab_input');
-        tab_el_el.classList.add('tab_input'+tab_number+task_number);
+        tab_el_el.classList.add('tab_input'+ newtab_input_number +tab_number+task_number);
         const newC=`
         <form id="userForm">
         @csrf
           <h2 class="tab_heading" id="tablist">${tab_input_box.value} </h2>
-          <input type="hidden" id="tasklist`+ tab_number + task_number +`" value="${tab_input_box.value}">
+          <input type="hidden" id="tasklist`+ newtab_input_number + tab_number + task_number +`" value="${tab_input_box.value}">
         </form>
-        <div class="task" id="task_div`+ tab_number + task_number +`" >
-          <input type="hidden" id="tasklist_id`+ tab_number + task_number +`" name="tasklist_id`+ tab_number + task_number +`">
+        <div class="task" id="task_div`+ newtab_input_number + tab_number + task_number +`" >
+          <input type="hidden" id="tasklist_id`+ newtab_input_number + tab_number + task_number +`" name="tasklist_id`+ newtab_input_number + tab_number + task_number +`">
         </div>
         <div >
-          <input type="text" class="task_input_box" id="task_input`+ tab_number + task_number +`" placeholder="Create A Sub-Task"/>
+          <input type="text" class="task_input_box" id="task_input`+ newtab_input_number + tab_number + task_number +`" placeholder="Create A Sub-Task"/>
         </div>
         <div class="icon3-part">
           <a href="#"> <img src="{{ url('assets/images/icon/chach-icon1.png') }}" alt="icon"> </a>
@@ -310,8 +349,8 @@ window.addEventListener('load',()=>{
               tab_item_input.appendChild(tab_el_el);
               tab_input_box.value="";
 
-        const tablist_id = document.querySelector("#tablist_id"+tab_number).value;
-        let tasklist = $("#tasklist"+tab_number+task_number).val();
+        const tablist_id = document.querySelector("#tablist_id"+ newtab_input_number +tab_number).value;
+        let tasklist = $("#tasklist"+ newtab_input_number + tab_number + task_number).val();
         alert("My Tablist id " + tablist_id);
         
         $.ajax({
@@ -323,7 +362,7 @@ window.addEventListener('load',()=>{
             
           },
           success:function(response){
-            $("#tasklist_id"+tab_number+task_number).val(response);
+            $("#tasklist_id"+ newtab_input_number +tab_number+task_number).val(response);
             //$('#userForm').trigger("reset");
             // const tasklist_id=document.querySelector("#tasklist_id"+tab_number+task_number).val(response); 
             //console.log(response);
@@ -332,8 +371,8 @@ window.addEventListener('load',()=>{
         });//end ajax
                    
          //const task_button=document.querySelector("#task"+number);
-         const list_el = document.querySelector("#task_div"+tab_number+task_number);
-         const task_input_box = document.querySelector("#task_input"+tab_number+task_number);      
+         const list_el = document.querySelector("#task_div"+ newtab_input_number +tab_number+task_number);
+         const task_input_box = document.querySelector("#task_input"+ newtab_input_number +tab_number+task_number);      
           
       /*--------------------- SubTask Part  ---------------------------------*/
          //task_button.addEventListener('click', taskbutton);
@@ -344,10 +383,10 @@ window.addEventListener('load',()=>{
           if(e.keyCode === 13) {
             sub_task_number += 1; 
             const task_content_el = document.createElement('div');
-            task_content_el.classList.add('task_content'+tab_number+task_number+sub_task_number);
+            task_content_el.classList.add('task_content'+ newtab_input_number +tab_number+task_number+sub_task_number);
             task_content_el.classList.add('task_content_el');
             const tasks=task_input_box.value;
-  
+            alert("My Tablist id " + tasks);
           // const task_input_el=document.createElement('input');
           // task_input_el.classList.add('task_input_el');
           // task_input_el.type="text";
@@ -357,7 +396,7 @@ window.addEventListener('load',()=>{
             const newTaskC=`
             <form id="userForm">
             @csrf
-              <input type="text" class="task_input_el" id="subtask_list`+ tab_number + task_number + sub_task_number +`" value="`+tasks+`">
+              <input type="text" class="task_input_el" id="subtask_list`+ newtab_input_number + tab_number + task_number + sub_task_number +`" value="`+tasks+`">
             </form>
 
             <div class="subtask-icon-sec">
@@ -368,16 +407,17 @@ window.addEventListener('load',()=>{
             </div>
 
 
-            <span id="taske_delete`+ tab_number + task_number + sub_task_number +`" class="taske_delete"><i class="far fa-trash-alt"></i></span>`
+            <span id="taske_delete`+ newtab_input_number + tab_number + task_number + sub_task_number +`" class="taske_delete"><i class="far fa-trash-alt"></i></span>`
             task_content_el.innerHTML=newTaskC;
             //$(this).append(`<span><i class="far fa-trash-alt"></i></span>`);
             list_el.appendChild(task_content_el);
             task_input_box.value="";
           
 
-            const tasklist_id=document.querySelector("#tasklist_id"+tab_number+task_number).value;
-            const subtasklist=document.querySelector("#subtask_list"+tab_number+task_number+sub_task_number).value;
+            const tasklist_id= document.querySelector("#tasklist_id"+ newtab_input_number +tab_number+task_number).value;
+            const subtasklist= $("#subtask_list"+ newtab_input_number + tab_number + task_number + sub_task_number ).val();
             alert("Tasklist id "+tasklist_id);
+            alert("subtasklist "+subtasklist);
             $.ajax({
               url: "{{ url('/execution/subtasklist') }}",
               type: "GET",
@@ -392,11 +432,11 @@ window.addEventListener('load',()=>{
               }
             });//end ajax
 
-          const task_content_delete = document.querySelector(".task_content"+tab_number+task_number+sub_task_number);
-          const task_delete = document.querySelector("#taske_delete"+tab_number+task_number+sub_task_number);
-          task_delete.addEventListener('click', (e) => {
-            list_el.removeChild(task_content_el);
-          });//task_number += 1;
+          // const task_content_delete = document.querySelector(".task_content"+tab_number+task_number+sub_task_number);
+          // const task_delete = document.querySelector("#taske_delete"+tab_number+task_number+sub_task_number);
+          // task_delete.addEventListener('click', (e) => {
+          //   list_el.removeChild(task_content_el);
+          // });//task_number += 1;
         }
       });//end key
       
@@ -406,22 +446,10 @@ window.addEventListener('load',()=>{
    });
   
               
-            //});
+  }//
+          });
   
   });
-
-
-
-//         function sleep (ms) {
-//   return new Promise(resolve => setTimeout(resolve, ms))
-// }
-
-// async timeoutHandler() {
-//   await sleep(1)
-//    // heavy duty code here
-// }
-
-// setTimeout(timeoutHandler, 10000)
 
 
 
@@ -442,6 +470,44 @@ window.addEventListener('load',()=>{
           $(activeTab).fadeIn();
           return false;
       });
+
+
+
+
+  //     $('.edit-on-click').click(function() {
+  //   var $text = $(this),
+  //     $input = $('<input type="text" />')
+
+  //   $text.hide()
+  //     .after($input);
+      
+  //   $('.controls-update').show();
+
+  //   $input.val($text.html()).show().focus()
+  //     .keypress(function(e) {
+  //       var key = e.which
+  //       $('.controls-update').click(function() // enter key
+  //       {
+  //         $input.hide();
+  //         $text.html($input.val())
+  //           .show();
+  //         return false;
+  //       });
+  //     })
+  //     .focusout(function() {
+  //       $input.hide();
+  //       $text.show();
+  //     })
+  // });
+  
+  // $('.controls-update').click(function() {
+  // 	$('.controls-update').hide();
+  // });
+
+    $(document).on('click','.tabedit',function(){
+      var test = $(this).attr('text');
+      alert(test);
+    })
 
 
  
