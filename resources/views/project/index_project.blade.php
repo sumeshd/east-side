@@ -53,10 +53,12 @@
       @can('user-list')
       <li class="nav-item menu-items"> <a class="nav-link" href="{{ route('User.index') }}"> <span class="menu-icon"> <i class="fa fa-user"></i> </span> <span class="menu-title">User</span> </a> </li>
       @endcan
-      <li class="nav-item menu-items"> <a class="nav-link" href="{{ route('User.index') }}"> <span class="menu-icon"> <i class="fa fa-cog"></i> </span> <span class="menu-title">Settings</span> </a>
+      <li class="nav-item menu-items"> <a class="nav-link" href="#"> <span class="menu-icon"> <i class="fa fa-cog"></i> </span> <span class="menu-title">Settings</span> </a>
         <div class="collapse show" id="auth">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="{{ route('Category.index')}}"> Category </a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ url('resales') }}"> Presales </a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ url('Postsales') }}"> Postsales </a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ url('execution') }}"> Execution </a></li>
               </ul>
         </div>
       </li>
@@ -72,7 +74,7 @@
             </a>
             <div class="collapse show" id="auth">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="{{ route('Execution.index') }}"> Execution </a></li>
+                <li class="nav-item"> <a class="nav-link" href=""> Execution </a></li>
               </ul>
             </div>
       </li>

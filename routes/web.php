@@ -16,6 +16,8 @@ use App\Http\Controllers\Teamwork\TeamMemberController;
 
 use App\Http\Controllers\CategoryController;
 
+use App\Http\Controllers\SettingsController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -144,8 +146,18 @@ Route::group(['prefix' => 'teams', 'namespace' => 'Teamwork'], function()
 
 Route::resource('Category', CategoryController::class);
 
+Route::resource('Settings', SettingsController::class );
+Route::get('presales', [SettingsController::class,'presales'] );
+Route::get('postsales', [SettingsController::class,'postsales'] );
+Route::get('execution', [SettingsController::class,'execution'] );
+Route::get('presalesstore', [SettingsController::class,'presalesstore'] );
+Route::get('postsalesstore', [SettingsController::class,'postsalesstore'] );
+Route::get('executionstore', [SettingsController::class,'executionstore'] );
+Route::get('parent', [SettingsController::class,'fetch']);
 
 
+
+Route::get('settingsview', [SettingsController::class,'settingsview']);
 
 
 Route::group(['middleware' => ['auth']], function() {
