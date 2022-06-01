@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ProjectController extends Controller
 {
@@ -69,6 +70,7 @@ class ProjectController extends Controller
         ]);
         $project=$request->all();
         $project_type = implode(',', $request->input('project_type'));
+        $project['slug'] = Str::slug($request->slug);
         $project['project_type']= $project_type;
         $projects=Project::create($project);
         $projects->customers()->sync($request->customer);
@@ -86,11 +88,11 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function show(Project $id)
+    public function show($id)
     {
-        $projects = Project::find($id);
-        //dd($project);
-        return view('project.details_project',compact('projects'));
+        $project = Project::where('id',$id)->first();
+        //dd($projects);
+        return view('project.details_project',compact('project'));
     }
 
     /**

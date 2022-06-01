@@ -7,6 +7,8 @@ use App\Models\Settings;
 use App\Models\Settings_presales;
 use App\Models\Settings_postsales;
 use App\Models\Settings_execution;
+use App\Models\Image;
+use Auth;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
@@ -446,14 +448,8 @@ class SettingsController extends Controller
                         }
                         
                     }
-                    //return $menu;
-                    dd($menu);
-
-
-
-
-
-
+                    // $menu;
+                    //dd($menu);
 
 
          return view('settings_master.view_settings',compact('settings_presaless','settings_postsales','settings_execution','menu'));
@@ -477,4 +473,57 @@ class SettingsController extends Controller
         }
 
     }
+
+
+    public function gallery(Request $request)
+    {
+        $images = Image::all();
+        return view('settings_master.gallery',compact('images'));
+    }
+
+
+    public function imageadd()
+    {
+        return view('settings_master.image_settings');
+    }
+
+    public function imageupload(Request $request)
+    {
+        $this->validate($request , [
+            'image' => 'required',
+            
+        ]);
+
+        $images = $request->image;
+        foreach($images as $image){
+            $image_new_name = $request->image_name . $image->getClientOriginalName();
+            $image->move('images',$image_new_name);
+            $galary = new Image();
+            $galary->user_id = Auth::user()->id;
+            $galary->image = 'images/'.$image_new_name;
+            $galary->save();
+        }
+        //dd($images);
+        return redirect('gallery')
+        ->with('success','New Image Added successfully.');
+    }
+
+
+    public function imagedelete($id)
+    {
+        $image = Image::find($id);
+        $image->delete();
+        return redirect('gallery')
+        ->with('success','Image Deleted successfully...');
+        
+    }
+
+
+    public function comment()
+    {
+        return view('project.comment');
+    }
+
+
+
 }

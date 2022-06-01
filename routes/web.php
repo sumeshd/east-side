@@ -14,10 +14,9 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Teamwork\TeamController;
 use App\Http\Controllers\Teamwork\TeamMemberController;
 
-use App\Http\Controllers\CategoryController;
-
 use App\Http\Controllers\SettingsController;
 
+use App\Http\Controllers\CommentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -144,7 +143,7 @@ Route::group(['prefix' => 'teams', 'namespace' => 'Teamwork'], function()
 
 
 
-Route::resource('Category', CategoryController::class);
+
 
 Route::resource('Settings', SettingsController::class );
 Route::get('presales', [SettingsController::class,'presales'] );
@@ -156,8 +155,19 @@ Route::get('executionstore', [SettingsController::class,'executionstore'] );
 Route::get('parent', [SettingsController::class,'fetch']);
 
 
-
+Route::get('gallery', [SettingsController::class,'gallery']);
+Route::get('settings/imageadd', [SettingsController::class,'imageadd']);
+Route::post('image/upload', [SettingsController::class,'imageupload']);
+Route::delete('image/delete/{id}', [SettingsController::class,'imagedelete']);
 Route::get('settingsview', [SettingsController::class,'settingsview']);
+
+
+
+
+
+
+Route::post('comment', [CommentController::class, 'store']);
+Route::post('/reply/store', 'CommentController@replyStore')->name('reply.add');
 
 
 Route::group(['middleware' => ['auth']], function() {

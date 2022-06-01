@@ -56,4 +56,10 @@ class User extends Authenticatable
     //     return $this->role->permissions()->where('name',$name)->exists();
     // }
 
+    public function project() {
+  
+        return $this->hasMany(Project::class);
+     
+    }
+
 }

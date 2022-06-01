@@ -17,11 +17,12 @@
             </div>
             
             <div class="progressDiv tabpanel" id="Presales">
-              @foreach($menu as $menus)
+              {!! getpresales() !!}
+              
               <div class="row">
                 <div class="col-md-7">
                   <div class="progressDiv-in">
-                    <h3> EGF PreSales Progress </h3>
+                    <h3> EGF PreSales Progress  </h3>
 
                    <!--  @foreach( $settings_presaless as $presales)
                     <div class="progressDiv-inbox"> <span> <img src="{{ url('assets/images/settings/psale-icon1.png') }}"> </span>
@@ -33,14 +34,14 @@
 
                     
                       <div class="progressDiv-inbox"> <span> <img src="{{ url('assets/images/settings/psale-icon1.png') }}"> </span>
-                      <h4> {{ $menus['presales_name'] }} <small> 01 Nov 21</small> </h4>
+                      <h4>  <small> 01 Nov 21</small> </h4>
                       <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit </p>
                       <a href="#" class="viewbtn" > View check list</a> </div>
                     
-                      @foreach( $menus['children'] as $children )
-                        <li> {{ $children['presales_name'] }}</li>
+                     
+                        <li> </li>
                         
-                      @endforeach
+                     
 
                     
                   </div>
@@ -51,11 +52,11 @@
                     <h3 id="preh3">  <small> Filled by Mrs Y </small> </h3>
 
 
-                    @foreach( $menus['children'] as $children )
+                    
                       <div class="col-checkbox">
                         <label class="chekk">
                         <input type="checkbox" >
-                        <span class="checkmark"></span>{{ $children['presales_name'] }} </label>
+                        <span class="checkmark"></span> </label>
                         
                         <div id="div8" class="hide8">
                           <ul>
@@ -68,7 +69,7 @@
                         </div>
 
                       </div>
-                    @endforeach
+                   
 
                     
                     <!-- <div class="col-checkbox">
@@ -82,7 +83,7 @@
                   </div>
                 </div>
               </div>
-              @endforeach
+             
             </div>
             
 
