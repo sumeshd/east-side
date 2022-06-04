@@ -3,7 +3,7 @@
   display: block;
   margin: 0;
   padding: 0;
-  max-width: 600px;
+  max-width: 640px;
   list-style: none;
   font-size: 13px;
   line-height: 20px; }
@@ -36,7 +36,7 @@
   color: #333;
   text-decoration: none;
   font-weight: bold;
-  border: 1px solid #ccc;
+  border: 1px solid #076272;
   background: #fafafa;
   border-radius: 3px;
   box-sizing: border-box; }
@@ -87,7 +87,7 @@
   margin: 5px 0;
   padding: 0;
   min-height: 30px;
-  background: #f2fbff;
+  background: #81c1c1;
   border: 1px dashed #b6bcbf;
   box-sizing: border-box;
   -moz-box-sizing: border-box; }
@@ -95,9 +95,10 @@
 .dd-empty {
   border: 1px dashed #bbb;
   min-height: 100px;
-  background-color: #e5e5e5;
+  background-color: #81c1c1;
   background-size: 60px 60px;
-  background-position: 0 0, 30px 30px; }
+  background-position: 0 0, 30px 30px;
+  border-radius: 4px; }
 
 .dd-dragel {
   position: absolute;
@@ -110,3 +111,19 @@
 
 .dd-nochildren .dd-placeholder {
   display: none; }
+
+.settingsDiv1{
+  border: 1px solid #fff;
+  border-radius : 4px;
+  box-shadow: 2px 2px 2px #e5e5e5;
+  /*height: 50px;*/
+  width: 65%;
+  margin-bottom: 25px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.settingsDiv2 a{
+  margin-left: 25px;
+  margin-right: 25px;
+}

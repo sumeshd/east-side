@@ -36,10 +36,13 @@
                 		<div class="card mb-3">
                 			<img src="<?php echo e(url($image->image)); ?>" class="card-img-top" alt="Broken" height="280" >
                 			<div class="card-body">
+                				<p class="card-text" style="color:black;"><?php echo e($image->created_at->diffForHumans()); ?> </p>
                 				<form action="image/delete/<?php echo e($image->id); ?>" method="POST" >
                 					<?php echo method_field('DELETE'); ?>
                 					<?php echo csrf_field(); ?>
+                					<a href="<?php echo e(url('image/download', $image->id)); ?>" class="btn btn-success"> Download</a>
                 					<input type="submit" name="" class="btn btn-danger" value="Delete">
+
                 				</form>
                 				
                 			</div>
@@ -51,6 +54,10 @@
 
 
 
+
+                </div>
+                <div class="col-lg-12">
+                    <?php echo e($images->onEachSide(1)->links()); ?>
 
                 </div>
                

@@ -17,6 +17,8 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('execution_name', 100);
             $table->integer('parent_id');
+            $table->text('description')->nullable();
+            $table->string('execution_image')->nullable();
             $table->boolean('view')->default(false);
             $table->boolean('upload')->default(false);
             $table->boolean('download')->default(false);

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import  url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap') ;
 /*font-family: 'Poppins', sans-serif;*/
 
 body {
@@ -976,7 +976,7 @@ ul.nav #auth a {
 .progressDiv-inbox:hover p { color:#fff; }
 .progressDiv-inbox:hover .viewbtn { color: #fff !important; border: 1px solid #fff; }
 
-.col-checkbox a { width:100%; float:left; color:#43425d; font-weight:400; font-size:12px;     margin-top: 4px; }
+.col-checkbox a { width:100%; /*float:left;*/ color:#43425d; font-weight:400; font-size:12px;     margin-top: 4px; }
 
 .hide {
   display: none;
@@ -1097,7 +1097,7 @@ ul.nav #auth a {
 .hide9 {
     z-index: 999;
     width: 79%;
-    border: 1px solid #ccc;
+    /*border: 1px solid #ccc;*/
     left: 0;
     top: 0;
     margin-left: 48px;

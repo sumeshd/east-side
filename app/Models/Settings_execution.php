@@ -9,6 +9,6 @@ class Settings_execution extends Model
 {
     use HasFactory;
     protected $fillable=[
-        'execution_name','view','upload','download','comments','parent_id'
+        'execution_name','executiontext','execution_image','view','upload','download','comments','parent_id'
     ];
 }

@@ -9,6 +9,6 @@ class Settings_presales extends Model
 {
     use HasFactory;
     protected $fillable=[
-        'presales_name','view','upload','download','comments','parent_id'
+        'presales_name','presalestext','presales_image','view','upload','download','comments','parent_id'
     ];
 }

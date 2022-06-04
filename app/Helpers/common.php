@@ -14,29 +14,28 @@ function getpresales(){
 
 $html = "";
 
-function treeview($array,$parent,$level = 0, $prelevel = -1){
+function treeview($array, $parent, $level = 0, $prelevel = -1){
 	global $html;
 	foreach( $array as $id => $data){
 		if( $parent == $data['parent_id']){
-        		if ($level>$prelevel) {
-        			$html.='<div class="progressDiv-inbox"><span> <img src="{{ url(assets/images/settings/psale-icon1.png) }}"> </span>';	
-        		}
-        		if($level==$prelevel){
-        			$html.= '</a>';
-        		}
+        	if ($level>$prelevel) {
+        		$html.='<div class="progressDiv-inbox"><span> <img src="http://localhost:8000/assets/images/settings/psale-icon1.png"> </span>';	
+        	}
+        	if($level==$prelevel){
+        			$html.= '</h4>';
+        	}
         		$html.='<h4>'. $data['presales_name'];
-        		if ($level>$prelevel) {
+        	if ($level>$prelevel) {
         			$prelevel=$level;
-        		}
+        	}
         		$level++;
         		treeview($array,$id,$level,$prelevel);
         		$level--;
 		}
 	}if($level==$prelevel){
-		$html.= '</h4></div>';
+		$html.= '<a href="#" class="viewbtn" > View check list</a></div>';
 	}
 	return $html;
-
 }
 
 

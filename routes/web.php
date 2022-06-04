@@ -156,8 +156,10 @@ Route::get('parent', [SettingsController::class,'fetch']);
 
 
 Route::get('gallery', [SettingsController::class,'gallery']);
+Route::get('gallery/{id}/{settings}', [SettingsController::class,'test']);
 Route::get('settings/imageadd', [SettingsController::class,'imageadd']);
 Route::post('image/upload', [SettingsController::class,'imageupload']);
+Route::get('image/download/{id}', [SettingsController::class,'imagedownload']);
 Route::delete('image/delete/{id}', [SettingsController::class,'imagedelete']);
 Route::get('settingsview', [SettingsController::class,'settingsview']);
 

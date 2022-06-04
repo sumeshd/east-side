@@ -2,7 +2,7 @@
 
 <?php $__env->startSection('content'); ?>
 
-<h2>  <a href="<?php echo e(url('settingsview')); ?>" class="combtnDiv"> View Settings </a> </h2>
+            <h2>  <a href="<?php echo e(url('settingsview')); ?>" class="combtnDiv"> View Settings </a> </h2>
             <div class="boxthree">
               <ul>
                 <li> <a href="<?php echo e(url('presales')); ?>"> Presales </a> </li>
@@ -12,22 +12,24 @@
             </div>
             <div class="progressDiv">
               <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-8 ">
       
-                    <form id="add-item">
-                        <input type="text" name="name" placeholder="Name">
-                        <a href="#" class="btn btn-white view"> <img src="<?php echo e(url('assets/images/icon/view-svgrepo-com.svg')); ?>" alt="icon" style="width:17px;"></a>
-                        <a href="#" class="btn btn-white upload"><img src="<?php echo e(url('assets/images/icon/upload-svgrepo-com.svg')); ?>" alt="icon" style="width:17px;"></a>
-                        <a href="#" class="btn btn-white download"><img src="<?php echo e(url('assets/images/icon/download-svgrepo-com.svg')); ?>" alt="icon" style="width:17px;"></a>
-                        <a href="#" class="btn btn-white comments"><img src="<?php echo e(url('assets/images/icon/comment-svgrepo-com.svg')); ?>" alt="icon" style="width:17px;"></a>
-                        
+                    <form id="add-item" enctype="multipart/form-data">
+                        <input type="text" class="settingsDiv1" name="name" placeholder="Execution Name"></br>
+                        <textarea name="description" class="settingsDiv1" rows="4" > </textarea></br>
+                        <input type="file" name="icon" class="settingsDiv1" id="icon" accept="image/*">
                         <input type="hidden" name="view" value=0 id="view">
                         <input type="hidden" name="upload" value=0 id="upload">
                         <input type="hidden" name="download" value=0 id="download">
                         <input type="hidden" name="comments" value=0 id="comments">
+                        <div class="settingsDiv2">
+                            <a href="#" class="btn btn-white view"> <img src="<?php echo e(url('assets/images/icon/view-svgrepo-com.svg')); ?>" alt="icon" style="width:17px;"></a>
+                            <a href="#" class="btn btn-white upload"><img src="<?php echo e(url('assets/images/icon/upload-svgrepo-com.svg')); ?>" alt="icon" style="width:17px;"></a>
+                            <a href="#" class="btn btn-white download"><img src="<?php echo e(url('assets/images/icon/download-svgrepo-com.svg')); ?>" alt="icon" style="width:17px;"></a>
+                            <a href="#" class="btn btn-white comments"><img src="<?php echo e(url('assets/images/icon/comment-svgrepo-com.svg')); ?>" alt="icon" style="width:17px;"></a>
 
-                        
                         <button class="btn btn-primary btn-lg" type="submit">Add Menu</button>
+                        </div>
                     </form>
 
                     <hr />
@@ -40,7 +42,7 @@
 
 
                     <hr />
-                    <form action="<?php echo e(url('executionstore')); ?>" >
+                    <form action="<?php echo e(url('executionstore')); ?>" enctype="multipart/form-data">
                         <?php echo csrf_field(); ?>
                         <input type="hidden" id="nestable-output" name="menu">
                         <button class="btn btn-success btn-lg" type="submit">Save Settings</button>
@@ -80,46 +82,63 @@
         e.preventDefault();
         id = Date.now();
         var label = $("#add-item > [name='name']").val();
+        var description = $("#add-item > [name='description']").val();
+        const icon = document.getElementById('icon');
+        const formdata= new FormData();
+        console.log(icon.files);
+        formdata.append("icon",icon.files[0])
+
+        //var icon = $("#add-item > [name='icon']").val();
+        //alert(icon);
         var view = $("#add-item > [name='view']").val();
         var upload = $("#add-item > [name='upload']").val();
         var download = $("#add-item > [name='download']").val();
         var comments = $("#add-item > [name='comments']").val();
-        
-        if(view == 0 ){
-            var view_tf = "";
+        if(view == 0){
+            var view_tf = "<a href='#' class='btn btn-white view_tf' data-viewtf='0'> <img src=<?php echo e(url('assets/images/icon/view-svgrepo-com.svg')); ?> alt='icon' style='width:17px;'></a>";
         }else{
-            var view_tf = "<a href='#' class='btn btn-success'> <img src=<?php echo e(url('assets/images/icon/view-svgrepo-com.svg')); ?> alt='icon' style='width:17px;'></a>";
+            var view_tf = "<a href='#' class='btn btn-success view_tf' data-viewtf='1'> <img src=<?php echo e(url('assets/images/icon/view-svgrepo-com.svg')); ?> alt='icon' style='width:17px;'></a>";
         }
 
         if(upload == 0 ){
-            var upload_tf = "";
+            var upload_tf = "<a href='#' class='btn btn-white upload_tf'> <img src=<?php echo e(url('assets/images/icon/upload-svgrepo-com.svg')); ?> alt='icon' style='width:17px;'></a>";
         }else{
-            var upload_tf = "<a href='#' class='btn btn-success'> <img src=<?php echo e(url('assets/images/icon/upload-svgrepo-com.svg')); ?> alt='icon' style='width:17px;'></a>";
+            var upload_tf = "<a href='#' class='btn btn-success upload_tf'> <img src=<?php echo e(url('assets/images/icon/upload-svgrepo-com.svg')); ?> alt='icon' style='width:17px;'></a>";
         }
 
         if(download == 0 ){
-            var download_tf = "";
+            var download_tf = "<a href='#' class='btn btn-white download_tf'> <img src=<?php echo e(url('assets/images/icon/download-svgrepo-com.svg')); ?> alt='icon' style='width:17px;'></a>";
         }else{
-            var download_tf = "<a href='#' class='btn btn-success'> <img src=<?php echo e(url('assets/images/icon/download-svgrepo-com.svg')); ?> alt='icon' style='width:17px;'></a>";
+            var download_tf = "<a href='#' class='btn btn-success download_tf'> <img src=<?php echo e(url('assets/images/icon/download-svgrepo-com.svg')); ?> alt='icon' style='width:17px;'></a>";
         }
 
         if(comments == 0 ){
-            var comments_tf = "";
+            var comments_tf = "<a href='#' class='btn btn-white comments_tf'> <img src=<?php echo e(url('assets/images/icon/comment-svgrepo-com.svg')); ?> alt='icon' style='width:17px;'></a>";
         }else{
-            var comments_tf = "<a href='#' class='btn btn-success'> <img src=<?php echo e(url('assets/images/icon/comment-svgrepo-com.svg')); ?> alt='icon' style='width:17px;'></a>";
+            var comments_tf = "<a href='#' class='btn btn-success comments_tf'> <img src=<?php echo e(url('assets/images/icon/comment-svgrepo-com.svg')); ?> alt='icon' style='width:17px;'></a>";
         }
 
 
 
         if (label == "") return;
         var item =
-            '<li class="dd-item dd3-item" data-id="' + id + '" data-label="' + label + '" data-view="' + view + '" data-upload="' + upload + '" data-download="' + download + '" data-comments="' + comments + '">' +
+            '<li class="dd-item dd3-item" data-id="' + id + '" data-label="' + label + '" data-description="' + description +'" data-icon="' + icon + '" data-view="' + view + '" data-upload="' + upload + '" data-download="' + download + '" data-comments="' + comments + '">' +
             '<div class="dd-handle dd3-handle" > Drag</div>' +
-            '<div class="dd3-content"><span>' + label +' '+ view_tf+' '+ upload_tf +' ' + download_tf +' ' + comments_tf +'</span>' +
+            '<div class="dd3-content"><span>' + label + '</span>' +
             '<div class="item-edit">Edit</div>' +
             '</div>' +
             '<div class="item-settings d-none">' +
-            '<p><label for="">Navigation Label<br><input type="text" name="navigation_label" value="' + label + '"></label></p>' +            
+            '<p><label for="">Navigation Label<br><input type="text" name="navigation_label" value="' + label + '"></label></p>' +
+            '<p><label for="">Navigation Description<br><textarea name="navigation_description" rows="4" >' + description + '</textarea></label></p>' +
+
+            '<p>'+ view_tf+' <input type="text" class="navigation_view" name="navigation_view" value="' + view + '"></label></p>' +
+            '<p><label for="">Navigation view<br><input type="text" name="navigation_upload" value="' + upload + '"></label></p>' +
+            '<p><label for="">Navigation view<br><input type="text" name="navigation_download" value="' + download + '"></label></p>' +
+            '<p><label for="">Navigation view<br><input type="text" name="navigation_comments" value="' + comments + '"></label></p>' + 
+            
+            '<span>'+ upload_tf +' </span>'+
+            '<span>'+ download_tf+' </span>'+
+            '<span>'+ comments_tf+' </span>'+
             '<p><a class="item-delete" href="javascript:;">Remove</a> |' +
             '<a class="item-close" href="javascript:;">Close</a></p>' +
             '</div>' +
@@ -128,6 +147,8 @@
         $("#nestable > .dd-list").append(item);
         $("#nestable").find('.dd-empty').remove();
         $("#add-item > [name='name']").val('');
+        $("#add-item > [name='description']").val('');
+        $("#add-item > [name='icon']").val('');
             $('#view').val(0);
             $('.view').removeClass("btn btn-white");
             $('.view').removeClass("btn btn-success");
@@ -168,6 +189,15 @@
     $("body").delegate("input[name='navigation_label']", "change paste keyup", function (e) {
         $(this).closest(".dd-item").data("label", $(this).val());
         $(this).closest(".dd-item").find(".dd3-content span").text($(this).val());
+    });
+
+    $("body").delegate("textarea[name='navigation_description']", "change paste keyup", function (e) {
+        $(this).closest(".dd-item").data("description", $(this).val());
+    });
+
+    $("body").delegate("input[name='navigation_view']", "change paste keyup", function (e) {
+        $(this).closest(".dd-item").data("view", $(this).val());
+        
     });
 
     $("body").delegate(".view", "click", function () {
@@ -216,6 +246,31 @@
             $('#comments').val(0);
             $('.comments').removeClass("btn btn-success");
             $('.comments').addClass("btn btn-white");
+        }
+    });
+
+
+
+
+
+
+
+
+    $("body").delegate(".view_tf", "click", function () {
+
+
+        var viewnavigation=$(this).attr('data-viewtf');
+        //var view =$(this).closest(".navigation_view").val();
+        alert(viewnavigation);
+        if(viewnavigation == 0){
+            $(this).closest(".dd-item").data("view", "1");
+            //$(this).data("viewtf", 1);
+            $('.view_tf').removeClass("btn btn-white");
+            $('.view_tf').addClass("btn btn-success");
+        }else if(viewnavigation == 1){
+            $('.navigation_view').val(0);
+            $('.view_tf').removeClass("btn btn-success");
+            $('.view_tf').addClass("btn btn-white");
         }
     });
   

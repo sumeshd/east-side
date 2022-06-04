@@ -9,6 +9,6 @@ class Settings_postsales extends Model
 {
     use HasFactory;
     protected $fillable=[
-        'postsales_name','view','upload','download','comments','parent_id'
+        'postsales_name','postsalestext','postsales_image','view','upload','download','comments','parent_id'
     ];
 }

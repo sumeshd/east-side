@@ -36,10 +36,13 @@
                 		<div class="card mb-3">
                 			<img src="{{ url($image->image) }}" class="card-img-top" alt="Broken" height="280" >
                 			<div class="card-body">
+                				<p class="card-text" style="color:black;">{{ $image->created_at->diffForHumans()}} </p>
                 				<form action="image/delete/{{ $image->id }}" method="POST" >
                 					@method('DELETE')
                 					@csrf
+                					<a href="{{url('image/download', $image->id) }}" class="btn btn-success"> Download</a>
                 					<input type="submit" name="" class="btn btn-danger" value="Delete">
+
                 				</form>
                 				
                 			</div>
@@ -52,6 +55,9 @@
 
 
 
+                </div>
+                <div class="col-lg-12">
+                    {{$images->onEachSide(1)->links()}}
                 </div>
                
             </div>

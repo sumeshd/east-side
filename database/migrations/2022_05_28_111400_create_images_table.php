@@ -17,6 +17,8 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->integer('user_id')->unsigned();
             $table->string('image');
+            $table->text('settings_name')->nullable();
+            $table->text('task_name')->nullable();
             $table->timestamps();
         });
     }

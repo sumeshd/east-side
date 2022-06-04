@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 01, 2022 at 02:18 PM
+-- Generation Time: Jun 04, 2022 at 03:10 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -36,17 +36,6 @@ CREATE TABLE `comments` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `comments`
---
-
-INSERT INTO `comments` (`id`, `project_id`, `user_id`, `comment_body`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 'Just Test', NULL, NULL),
-(2, 1, 1, 'ytr', '2022-05-30 12:00:19', '2022-05-30 12:00:19'),
-(3, 1, 1, 'Just Test 3', '2022-05-30 12:20:45', '2022-05-30 12:20:45'),
-(4, 1, 1, 'test no. 4', '2022-05-30 12:26:53', '2022-05-30 12:26:53'),
-(5, 1, 1, 'dsfsdf', '2022-05-30 12:28:36', '2022-05-30 12:28:36');
-
 -- --------------------------------------------------------
 
 --
@@ -68,13 +57,6 @@ CREATE TABLE `contactpersons` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `contactpersons`
---
-
-INSERT INTO `contactpersons` (`id`, `contact_persons_salutation`, `contact_persons_first_name`, `contact_persons_last_name`, `contact_persons_email_address`, `contact_persons_work_phone`, `contact_persons_mobile`, `contact_persons_skype_name`, `contact_persons_designation`, `contact_persons_department`, `customer_id`, `created_at`, `updated_at`) VALUES
-(1, 'Test', 'Test', 'Test', 'Test', 'Test', 'Test', 'Test', 'Test', 'Test', '1', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -128,13 +110,6 @@ CREATE TABLE `customers` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `customers`
---
-
-INSERT INTO `customers` (`id`, `customer_type`, `customer_primary_contact`, `customer_first_name`, `customer_last_name`, `customer_company_name`, `customer_display_name`, `customer_email`, `customer_phone`, `customer_mobile`, `customer_skype_name`, `customer_designation`, `customer_department`, `customer_website`, `customer_pan_number`, `customer_currency`, `customer_opening_balance`, `customer_payment_terms`, `customer_enable_portal`, `customer_portal_language`, `customer_facebook_url`, `customer_twitter_url`, `billing_attention`, `billing_country`, `billing_address_street_1`, `billing_address_street_2`, `billing_city`, `billing_state`, `billing_zipcode`, `billing_phone`, `billing_fax`, `shipping_attention`, `shipping_country`, `shipping_address_street_1`, `shipping_address_street_2`, `shipping_city`, `shipping_state`, `shipping_zipcode`, `shipping_phone`, `shipping_fax`, `remarks`, `created_at`, `updated_at`) VALUES
-(1, 'Individual', 'Mr.', 'Test', 'Test', 'Test', 'Test1', 'Test@gmail.com', '34234234', '234234', '234324', 'Test', 'Test', 'Test', 'Test', 'CAD-Canadian Dollar', 'Test', 'Net 15', 'Enable', 'English', 'Test', 'Test', 'Test', 'India', 'Test', 'Test', 'Test', 'AndraPradesh', 'Test', 'Test', 'Test', 'Test', 'India', 'Test', 'Test', 'Test', 'AndraPradesh', 'Test', 'Test', 'Test', 'Test', '2022-05-30 09:33:37', '2022-05-30 09:33:37');
-
 -- --------------------------------------------------------
 
 --
@@ -148,13 +123,6 @@ CREATE TABLE `customer_project` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `customer_project`
---
-
-INSERT INTO `customer_project` (`id`, `customer_id`, `project_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 2, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -182,18 +150,11 @@ CREATE TABLE `images` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
   `image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `settings_name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `task_name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `images`
---
-
-INSERT INTO `images` (`id`, `user_id`, `image`, `created_at`, `updated_at`) VALUES
-(1, 1, 'images/232796_original_1080x1920.jpg', '2022-05-30 09:00:31', '2022-05-30 09:00:31'),
-(2, 1, 'images/239944_original_1080x1920.jpg', '2022-05-30 09:00:47', '2022-05-30 09:00:47'),
-(3, 1, 'images/test241504_original_1080x1920.jpg', '2022-06-01 06:40:25', '2022-06-01 06:40:25');
 
 -- --------------------------------------------------------
 
@@ -221,22 +182,22 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (89, '2022_04_08_062659_create_settings_tablists_table', 7),
 (90, '2022_04_08_062846_create_settings_tasklists_table', 7),
 (91, '2022_04_08_062911_create_settings_subtasklists_table', 7),
-(103, '2014_10_12_000000_create_users_table', 8),
-(104, '2014_10_12_100000_create_password_resets_table', 8),
-(105, '2019_08_19_000000_create_failed_jobs_table', 8),
-(106, '2019_12_14_000001_create_personal_access_tokens_table', 8),
-(107, '2022_02_24_221601_create_contactpersons_table', 8),
-(108, '2022_04_27_111648_create_permission_tables', 8),
-(109, '2022_05_11_124107_teamwork_setup_tables', 8),
-(110, '2022_05_18_183744_create_settings_table', 8),
-(111, '2022_05_23_190444_create_projects_table', 8),
-(112, '2022_05_23_190900_create_customers_table', 8),
-(113, '2022_05_23_191436_create_customer_project_table', 8),
-(114, '2022_05_24_123831_create_settings_presales_table', 8),
-(115, '2022_05_24_123950_create_settings_postsales_table', 8),
-(116, '2022_05_24_124004_create_settings_executions_table', 8),
-(117, '2022_05_28_111400_create_images_table', 8),
-(118, '2022_05_30_081634_create_comments_table', 8);
+(151, '2014_10_12_000000_create_users_table', 8),
+(152, '2014_10_12_100000_create_password_resets_table', 8),
+(153, '2019_08_19_000000_create_failed_jobs_table', 8),
+(154, '2019_12_14_000001_create_personal_access_tokens_table', 8),
+(155, '2022_02_24_221601_create_contactpersons_table', 8),
+(156, '2022_04_27_111648_create_permission_tables', 8),
+(157, '2022_05_11_124107_teamwork_setup_tables', 8),
+(158, '2022_05_18_183744_create_settings_table', 8),
+(159, '2022_05_23_190444_create_projects_table', 8),
+(160, '2022_05_23_190900_create_customers_table', 8),
+(161, '2022_05_23_191436_create_customer_project_table', 8),
+(162, '2022_05_24_123831_create_settings_presales_table', 8),
+(163, '2022_05_24_123950_create_settings_postsales_table', 8),
+(164, '2022_05_24_124004_create_settings_executions_table', 8),
+(165, '2022_05_28_111400_create_images_table', 8),
+(166, '2022_05_30_081634_create_comments_table', 8);
 
 -- --------------------------------------------------------
 
@@ -300,22 +261,22 @@ CREATE TABLE `permissions` (
 --
 
 INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
-(1, 'role-list', 'web', '2022-05-30 08:58:54', '2022-05-30 08:58:54'),
-(2, 'role-create', 'web', '2022-05-30 08:58:54', '2022-05-30 08:58:54'),
-(3, 'role-edit', 'web', '2022-05-30 08:58:54', '2022-05-30 08:58:54'),
-(4, 'role-delete', 'web', '2022-05-30 08:58:54', '2022-05-30 08:58:54'),
-(5, 'user-list', 'web', '2022-05-30 08:58:54', '2022-05-30 08:58:54'),
-(6, 'user-create', 'web', '2022-05-30 08:58:54', '2022-05-30 08:58:54'),
-(7, 'user-edit', 'web', '2022-05-30 08:58:54', '2022-05-30 08:58:54'),
-(8, 'user-delete', 'web', '2022-05-30 08:58:54', '2022-05-30 08:58:54'),
-(9, 'project-list', 'web', '2022-05-30 08:58:54', '2022-05-30 08:58:54'),
-(10, 'project-create', 'web', '2022-05-30 08:58:54', '2022-05-30 08:58:54'),
-(11, 'project-edit', 'web', '2022-05-30 08:58:54', '2022-05-30 08:58:54'),
-(12, 'project-delete', 'web', '2022-05-30 08:58:54', '2022-05-30 08:58:54'),
-(13, 'customer-list', 'web', '2022-05-30 08:58:54', '2022-05-30 08:58:54'),
-(14, 'customer-create', 'web', '2022-05-30 08:58:55', '2022-05-30 08:58:55'),
-(15, 'customer-edit', 'web', '2022-05-30 08:58:55', '2022-05-30 08:58:55'),
-(16, 'customer-delete', 'web', '2022-05-30 08:58:55', '2022-05-30 08:58:55');
+(1, 'role-list', 'web', '2022-06-03 09:35:25', '2022-06-03 09:35:25'),
+(2, 'role-create', 'web', '2022-06-03 09:35:25', '2022-06-03 09:35:25'),
+(3, 'role-edit', 'web', '2022-06-03 09:35:25', '2022-06-03 09:35:25'),
+(4, 'role-delete', 'web', '2022-06-03 09:35:25', '2022-06-03 09:35:25'),
+(5, 'user-list', 'web', '2022-06-03 09:35:25', '2022-06-03 09:35:25'),
+(6, 'user-create', 'web', '2022-06-03 09:35:25', '2022-06-03 09:35:25'),
+(7, 'user-edit', 'web', '2022-06-03 09:35:25', '2022-06-03 09:35:25'),
+(8, 'user-delete', 'web', '2022-06-03 09:35:25', '2022-06-03 09:35:25'),
+(9, 'project-list', 'web', '2022-06-03 09:35:25', '2022-06-03 09:35:25'),
+(10, 'project-create', 'web', '2022-06-03 09:35:25', '2022-06-03 09:35:25'),
+(11, 'project-edit', 'web', '2022-06-03 09:35:26', '2022-06-03 09:35:26'),
+(12, 'project-delete', 'web', '2022-06-03 09:35:26', '2022-06-03 09:35:26'),
+(13, 'customer-list', 'web', '2022-06-03 09:35:26', '2022-06-03 09:35:26'),
+(14, 'customer-create', 'web', '2022-06-03 09:35:26', '2022-06-03 09:35:26'),
+(15, 'customer-edit', 'web', '2022-06-03 09:35:26', '2022-06-03 09:35:26'),
+(16, 'customer-delete', 'web', '2022-06-03 09:35:26', '2022-06-03 09:35:26');
 
 -- --------------------------------------------------------
 
@@ -355,14 +316,6 @@ CREATE TABLE `projects` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `projects`
---
-
-INSERT INTO `projects` (`id`, `project_type`, `name`, `projectnumber`, `projectname`, `address_1`, `address_2`, `address_3`, `pin`, `created_at`, `updated_at`) VALUES
-(1, 'Residential,Commercial,Furniture', 'Test', '234444444', 'Test 1', 'Test', NULL, NULL, '324234', '2022-05-30 09:30:51', '2022-05-30 09:30:51'),
-(2, 'Residential,Commercial,Furniture', 'Test', '35432', 'Test 1', 'Test', NULL, NULL, '324234', '2022-05-30 09:34:14', '2022-05-30 09:34:14');
-
 -- --------------------------------------------------------
 
 --
@@ -382,7 +335,7 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
-(1, 'Admin', 'web', '2022-05-30 08:59:05', '2022-05-30 08:59:05');
+(1, 'Admin', 'web', '2022-06-03 09:35:38', '2022-06-03 09:35:38');
 
 -- --------------------------------------------------------
 
@@ -445,6 +398,8 @@ CREATE TABLE `settings_executions` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `execution_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `parent_id` int(11) NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `execution_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `view` tinyint(1) NOT NULL DEFAULT 0,
   `upload` tinyint(1) NOT NULL DEFAULT 0,
   `download` tinyint(1) NOT NULL DEFAULT 0,
@@ -463,6 +418,8 @@ CREATE TABLE `settings_postsales` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `postsales_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `parent_id` int(11) NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `postsales_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `view` tinyint(1) NOT NULL DEFAULT 0,
   `upload` tinyint(1) NOT NULL DEFAULT 0,
   `download` tinyint(1) NOT NULL DEFAULT 0,
@@ -470,18 +427,6 @@ CREATE TABLE `settings_postsales` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `settings_postsales`
---
-
-INSERT INTO `settings_postsales` (`id`, `postsales_name`, `parent_id`, `view`, `upload`, `download`, `comments`, `created_at`, `updated_at`) VALUES
-(1, 'Test ', 0, 0, 0, 0, 0, '2022-06-01 06:27:56', '2022-06-01 06:27:56'),
-(2, 'Sub Test 1', 1, 0, 0, 0, 0, '2022-06-01 06:27:56', '2022-06-01 06:27:56'),
-(3, 'Sub Test 2', 2, 0, 0, 0, 0, '2022-06-01 06:27:56', '2022-06-01 06:27:56'),
-(4, 'Test 2', 0, 0, 0, 0, 0, '2022-06-01 06:27:56', '2022-06-01 06:27:56'),
-(5, 'Sub Test 1', 4, 0, 0, 0, 0, '2022-06-01 06:27:56', '2022-06-01 06:27:56'),
-(6, 'Sub Test 2', 5, 0, 0, 0, 0, '2022-06-01 06:27:56', '2022-06-01 06:27:56');
 
 -- --------------------------------------------------------
 
@@ -493,6 +438,8 @@ CREATE TABLE `settings_presales` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `presales_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `parent_id` int(11) NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `presales_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `view` tinyint(1) NOT NULL DEFAULT 0,
   `upload` tinyint(1) NOT NULL DEFAULT 0,
   `download` tinyint(1) NOT NULL DEFAULT 0,
@@ -505,13 +452,11 @@ CREATE TABLE `settings_presales` (
 -- Dumping data for table `settings_presales`
 --
 
-INSERT INTO `settings_presales` (`id`, `presales_name`, `parent_id`, `view`, `upload`, `download`, `comments`, `created_at`, `updated_at`) VALUES
-(1, 'Test 1', 0, 0, 0, 0, 0, '2022-05-31 12:10:51', '2022-05-31 12:10:51'),
-(2, 'Sub Test 1', 1, 0, 0, 0, 0, '2022-05-31 12:10:51', '2022-05-31 12:10:51'),
-(3, 'Sub Test 2', 2, 0, 0, 0, 0, '2022-05-31 12:10:51', '2022-05-31 12:10:51'),
-(4, 'Test 2', 0, 0, 0, 0, 0, '2022-05-31 12:10:52', '2022-05-31 12:10:52'),
-(5, 'Sub Test 1', 4, 0, 0, 0, 0, '2022-05-31 12:10:52', '2022-05-31 12:10:52'),
-(6, 'Sub Test 2', 4, 0, 0, 0, 0, '2022-05-31 12:10:52', '2022-05-31 12:10:52');
+INSERT INTO `settings_presales` (`id`, `presales_name`, `parent_id`, `description`, `presales_image`, `view`, `upload`, `download`, `comments`, `created_at`, `updated_at`) VALUES
+(1, 'Requirement analysis checklistfd', 0, NULL, NULL, 0, 0, 0, 0, '2022-06-03 14:21:10', '2022-06-03 14:21:10'),
+(2, 'Requirement analysis checklist', 0, NULL, NULL, 0, 0, 0, 0, '2022-06-03 14:21:10', '2022-06-03 14:21:10'),
+(3, 'Requirement analysis checklist', 2, NULL, NULL, 1, 1, 1, 1, '2022-06-03 14:21:10', '2022-06-03 14:21:10'),
+(4, 'Requirement analysis checklist', 0, NULL, NULL, 0, 0, 0, 0, '2022-06-03 14:21:10', '2022-06-03 14:21:10');
 
 -- --------------------------------------------------------
 
@@ -581,7 +526,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `current_team_id`) VALUES
-(1, 'Arya Stark', 'arya@gmail.com', NULL, '$2y$10$igr1Ytf0NKxQd4o.creLMuLJCFX6kN8h9eH5.uJ8XxA96J1/TOtmq', NULL, '2022-05-30 08:59:05', '2022-05-30 08:59:05', NULL);
+(1, 'Arya Stark', 'arya@gmail.com', NULL, '$2y$10$sLK3.SO729yiAyQSlMyFSekuWmNkbmLhdB2sEZFe0mEEu7POwUdjq', NULL, '2022-06-03 09:35:38', '2022-06-03 09:35:38', NULL);
 
 --
 -- Indexes for dumped tables
@@ -746,25 +691,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `contactpersons`
 --
 ALTER TABLE `contactpersons`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `customer_project`
 --
 ALTER TABLE `customer_project`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -776,13 +721,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=167;
 
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -800,7 +745,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -824,13 +769,13 @@ ALTER TABLE `settings_executions`
 -- AUTO_INCREMENT for table `settings_postsales`
 --
 ALTER TABLE `settings_postsales`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `settings_presales`
 --
 ALTER TABLE `settings_presales`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `teams`

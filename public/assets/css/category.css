@@ -1,18 +1,19 @@
 .dd3-content {
     display: block;
     height: 45px;
-    padding: 5px 10px 5px 54px;
+    padding: 5px 10px 5px 55px;
     color: #333;
     text-decoration: none;
     font-weight: bold;
     line-height: 32px;
-    border: 1px solid #ccc;
+    border: 1px solid #fff;
+    box-shadow: 2px 2px 2px #e5e5e5;
     background: #fafafa;
-    background: -webkit-linear-gradient(top, #fafafa 0%, #eee 100%);
-    background: -moz-linear-gradient(top, #fafafa 0%, #eee 100%);
-    background: linear-gradient(top, #fafafa 0%, #eee 100%);
+    background: -webkit-linear-gradient(top, #fff 0%, #fff 100%);
+    background: -moz-linear-gradient(top, #fff 0%, #fff 100%);
+    background: linear-gradient(top, #fff 0%, #fff 100%);
     -webkit-border-radius: 3px;
-    border-radius: 0;
+    border-radius: 4px;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
 }
@@ -45,12 +46,12 @@
     text-indent: 70px;
     white-space: nowrap;
     overflow: hidden;
-    border: 1px solid #aaa;
-    background: #ddd;
-    background: -webkit-linear-gradient(top, #ddd 0%, #bbb 100%);
-    background: -moz-linear-gradient(top, #ddd 0%, #bbb 100%);
-    background: linear-gradient(top, #ddd 0%, #bbb 100%);
-    border-radius: 0;
+    /*border: 1px solid #aaa;*/
+    background: #076272;
+    background: -webkit-linear-gradient(top, #076272 0%, #076272 100%);
+    background: -moz-linear-gradient(top, #076272 0%, #076272 100%);
+    background: linear-gradient(top, #076272 0%, #076272 100%);
+    border-radius: 4px;
 }
 
 .dd3-handle:before {
@@ -68,13 +69,13 @@
 }
 
 .dd3-handle:hover {
-    background: #ddd;
+    background: #81c1c1;
 }
 
 .item-edit {
     font-size: 13px;
     float: right;
-    color: rgb(49, 35, 248);
+    color: #076272;
     cursor: pointer;
 }
 .item-edit:hover {
@@ -89,10 +90,14 @@
     padding: 10px;
     position: relative;
     z-index: 10;
-    border: 1px solid #e5e5e5;
+
+    border: 1px solid #fff;
+  border-radius : 0px 0px 5px 5px;
+  box-shadow: 2px 2px 2px #e5e5e5;
+
     background: #fff;
-    border-top: none;
-    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+    /*border-top: none;*/
+   /* box-shadow: 0 1px 1px rgba(0,0,0,.04);*/
 }
 .item-settings p {
     margin-top: 0;
@@ -100,8 +105,9 @@
 
 .item-settings p label {
     font-size: 13px;
+    width: 70%;
     color: #666;
-    line-height: 1.5;
+    line-height: 2;
 }
 
 .item-settings p label input {
@@ -116,7 +122,22 @@
     margin: 0;
     font-size: 14px;
     padding: 5px;
-    border-radius: 0;
+    border-radius: 4;
+}
+
+.item-settings p label textarea {
+    border: 1px solid #ddd;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.07);
+    background-color: #fff;
+    color: #32373c;
+    outline: 0;
+    border-spacing: 0;
+    width: -webkit-fill-available;
+    clear: both;
+    margin: 0;
+    font-size: 14px;
+    padding: 5px;
+    border-radius: 4;
 }
 
 .item-settings .item-delete {
