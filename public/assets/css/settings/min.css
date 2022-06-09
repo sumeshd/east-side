@@ -649,7 +649,7 @@ ul.nav #auth a {
 .commentsDiv-lft img { max-width:100%; }
 .boxthree {
     display: inline-block;
-    width: 50%;
+    width: 100%;
 }
 
 .progressDiv-inbox {

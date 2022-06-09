@@ -15,7 +15,9 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('project_id');
+            $table->integer('presalesid')->nullable();
+            $table->integer('postsalesid')->nullable();
+            $table->integer('executionid')->nullable();
             $table->integer('user_id');
             $table->text('comment_body');
           

@@ -34,39 +34,8 @@
                   </div>
                 </div>
                 <div class="col-md-5">
-                  <div class="progressDiv-in-rht" id="presales_child" >
+                  <div class="progressDiv-in-rht" id="presales_child" style="display:none" >
 
-                    <h3 id="preh3">  <small> Filled by Mrs Y </small> </h3>
-
-
-                    
-                      <div class="col-checkbox">
-                        <label class="chekk">
-                        <input type="checkbox" >
-                        <span class="checkmark"></span> yest</label>
-                        
-                        <div id="div8" class="hide8">
-                          <ul>
-                            <li>
-                              <label for="checkbox44">
-                                <input type="checkbox" id="checkbox44">
-                               Mirrors </label>
-                            </li>
-                           </ul>
-                        </div>
-
-                      </div>
-                   
-
-                    
-                    <!-- <div class="col-checkbox">
-                      <label class="chekk">
-                        <input type="checkbox" >
-                        <span class="checkmark"></span> Room/ floor wise </label>
-                      <label class="chekk">
-                        <input type="checkbox" >
-                        <span class="checkmark"></span> Approval <a href=""> View Details</a> </label>
-                    </div> -->
                   </div>
                 </div>
               </div>
@@ -91,54 +60,7 @@
                 </div>
                 <div class="col-md-5">
                   <div class="progressDiv-in-rht" id="postsales_child" style="display:none">
-                    <h3 id="posth3">  <small> Filled by Mrs Y </small> </h3>
-                   
-                    <div class="col-checkbox">
-                      <label class="chekk">
-                        <input type="checkbox" >
-                        <span class="checkmark"></span> Designer's checklist physics <a href=""> View Details</a> </label>
-                      <div id="div8" class="hide8">
-                        <ul>
-                          <li>
-                            <label for="checkbox19">
-                              <input type="checkbox" id="checkbox19">
-                              In Sync with the mood board (2D layout) </label>
-                          </li>
-
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="col-checkbox">
-                      <label class="chekk">
-                        <input type="checkbox" >
-                        <span class="checkmark"></span> Accessories <a href=""> View Details</a> </label>
-                      <div id="div8" class="hide8">
-                        <ul>
-                          
-                          <div id="div9" class="hide9" style="display:none;"> 
-                        <ul>
-                          <li>  
-                            <label for="radio44">  
-                              <input type="radio" id="radio44" name="optradio14" >  
-                              Tv </label>  
-                          </li>  
-                          <li>
-                            <label for="radio45">
-                              <input type="radio" id="radio45" name="optradio14"> 
-                             Home theatre </label>
-                          </li>
-                          
-                        </ul>
-                      </div>
-
-                           <li>
-                            <label for="checkbox44">
-                              <input type="checkbox" id="checkbox44">
-                             Mirrors </label>
-                          </li>
-                         </ul>
-                      </div>
-                    </div>
+                    
                   </div>
                 </div>
               </div>
@@ -230,29 +152,210 @@
             $("#presales_child").show();
 
             $("#presales_child").find('.col-checkbox').remove();
+            var view = "", upload="", download="",comments="" ;
             for( i=0 ; i <data.length ; i++ ){
+              if ( data[i].view != 0) {
+                view = '<a href="/gallery/'+ data[i].presales_name +'/'+data[i].settings_name+'" class="viewbtn3"> <img src=<?php echo e(url("assets/images/icon/view-svgrepo-com.svg")); ?> alt="icon" style="width:17px;"></a>';         
+              }
+              if ( data[i].upload != 0) {
+                upload = '<a href="/addimage/'+ data[i].presales_name +'/'+data[i].settings_name+'" class="viewbtn3"> <img src=<?php echo e(url("assets/images/icon/upload-svgrepo-com.svg")); ?> alt="icon" style="width:17px;"></a>';         
+              }
+              if ( data[i].download != 0) {
+                download = '<a href="#" class="viewbtn3"> <img src=<?php echo e(url("assets/images/icon/download-svgrepo-com.svg")); ?> alt="icon" style="width:17px;"></a>';         
+              }
+              if ( data[i].comments != 0) {
+                comments = '<a href="comment/'+ data[i].id +'/'+data[i].settings_name+'" class="viewbtn3"> <img src=<?php echo e(url("assets/images/icon/comment-svgrepo-com.svg")); ?> alt="icon" style="width:17px;"></a>';         
+              }
               var child  ='<div class="col-checkbox">'+
                             '<label class="chekk">'+
                             '<input type="checkbox" >'+
-                            '<span class="checkmark"></span>'+ data[i].presales_name +'</label>'+
-                            
+                            '<span class="checkmark"></span>'+ data[i].presales_name + ' '+view +' '+upload + ' ' +download +' ' + comments +'</label>'+
+                            '<ul class="prechild_lavel2'+data[i].id+'">'+
+                            '</ul>'+
                           '</div>';
               $("#presales_child").append(child);
-              table = "";
+              view = ""; upload=""; download=""; comments="";
+              table = "settings_presales";
+               id = data[i].id ;
+                $.ajax({
+                  url: "<?php echo e(url('/parent')); ?>",
+                  type: "GET",
+                  data:{ id:id, table:table },
+                  success:function(data)
+                  {
+                    for( i=0 ; i <data.length ; i++ ){
+                      if ( data[i].view != 0) {
+                        view = '<a href="gallery/'+ data[i].presales_name +'/'+data[i].settings_name+'" class="viewbtn3"> <img src=<?php echo e(url("assets/images/icon/view-svgrepo-com.svg")); ?> alt="icon" style="width:17px;"></a>';         
+                      }
+                      if ( data[i].upload != 0) {
+                        upload = '<a href="/addimage/'+ data[i].presales_name +'/'+data[i].settings_name+'" class="viewbtn3"> <img src=<?php echo e(url("assets/images/icon/upload-svgrepo-com.svg")); ?> alt="icon" style="width:17px;"></a>';         
+                      }
+                      if ( data[i].download != 0) {
+                        download = '<a href="#" class="viewbtn3"> <img src=<?php echo e(url("assets/images/icon/download-svgrepo-com.svg")); ?> alt="icon" style="width:17px;"></a>';         
+                      }
+                      if ( data[i].comments != 0) {
+                        comments = '<a href="#" class="viewbtn3"> <img src=<?php echo e(url("assets/images/icon/comment-svgrepo-com.svg")); ?> alt="icon" style="width:17px;"></a>';         
+                      }
+                      var child_lavel2 ='<li>'+
+                                          '<label><input type="checkbox">'+data[i].presales_name + ' '+view +' '+upload + ' ' +download +' ' + comments +' </label>'+   
+                                        '</li>'+
+                                        '<div id="div9" class="hide9">' +
+                                          '<ul class="prechild_lavel3'+data[i].id+'">'+
+                                          '</ul>'+
+                                        '</div>';
+                      $(".prechild_lavel2"+data[i].parent_id).append(child_lavel2);
+                      view = ""; upload=""; download=""; comments="";
+                      table = "settings_presales";
+                      id = data[i].id ; 
+                      $.ajax({
+                        url: "<?php echo e(url('/parent')); ?>",
+                        type: "GET",
+                        data:{ id:id, table:table },
+                        success:function(data)
+                        {
+                          for( i=0 ; i <data.length ; i++ ){
+                            var child_lavel3 ='<li>'+  
+                                                '<label for="radio44"> ' +
+                                                '<input type="checkbox" id="radio44" name="optradio14" > '+ data[i].execution_name +' </label>' + 
+                                              '</li>'+
+                                              '<div id="div9" class="hide9">' +
+                                                '<ul class="prechild_lavel4'+data[i].id+'">'+
+                                                '</ul>'+
+                                              '</div>';
+                            $(".prechild_lavel3"+data[i].parent_id).append(child_lavel3);
+                            table = "settings_presales";
+                            id = data[i].id ;
+                            $.ajax({
+                              url: "<?php echo e(url('/parent')); ?>",
+                              type: "GET",
+                              data:{ id:id, table:table },
+                              success:function(data)
+                              {
+                                for( i=0 ; i <data.length ; i++ ){
+                                  var child_lavel4 ='<li>'+  
+                                                '<label for="radio44"> ' +
+                                                '<input type="checkbox" id="radio44" name="optradio14" > '+ data[i].execution_name +' </label>' + 
+                                              '</li>';
+                                $(".prechild_lavel4"+data[i].parent_id).append(child_lavel4);
+                                 table ="";id="";
+
+                                }
+                              }
+                            }) 
+                          }
+                        }
+                      })   
+                    }
+                  }
+                })
             }
           }else if( table == "settings_postsales" ){
             $("#posth3").text("");
             $("#posth3").text(name);
             $("#postsales_child").show();
             $("#postsales_child").find('.col-checkbox').remove();
+            var view = "", upload="", download="",comments="" ;
             for( i=0 ; i <data.length ; i++ ){
+              if ( data[i].view != 0) {
+                view = '<a href="/gallery/'+ data[i].postsales_name +'/'+data[i].settings_name+'" class="viewbtn3"> <img src=<?php echo e(url("assets/images/icon/view-svgrepo-com.svg")); ?> alt="icon" style="width:17px;"></a>';         
+              }
+              if ( data[i].upload != 0) {
+                upload = '<a href="/addimage/'+ data[i].postsales_name +'/'+data[i].settings_name+'" class="viewbtn3"> <img src=<?php echo e(url("assets/images/icon/upload-svgrepo-com.svg")); ?> alt="icon" style="width:17px;"></a>';         
+              }
+              if ( data[i].download != 0) {
+                download = '<a href="#" class="viewbtn3"> <img src=<?php echo e(url("assets/images/icon/download-svgrepo-com.svg")); ?> alt="icon" style="width:17px;"></a>';         
+              }
+              if ( data[i].comments != 0) {
+                comments = '<a href="#" class="viewbtn3"> <img src=<?php echo e(url("assets/images/icon/comment-svgrepo-com.svg")); ?> alt="icon" style="width:17px;"></a>';         
+              }
               var child  ='<div class="col-checkbox">'+
                             '<label class="chekk">'+
                             '<input type="checkbox" >'+
-                            '<span class="checkmark"></span>'+ data[i].postsales_name +'</label>'+
+                            '<span class="checkmark"></span>'+ data[i].postsales_name + ' '+view +' '+upload + ' ' +download +' ' + comments +'</label>'+
+                            '<ul class="postchild_lavel2'+data[i].id+'">'+
+                            '</ul>'+
                           '</div>';
                 $("#postsales_child").append(child);
-                table = "";
+                view = ""; upload=""; download=""; comments="";
+                table = "settings_postsales";
+                id = data[i].id ;
+                $.ajax({
+                  url: "<?php echo e(url('/parent')); ?>",
+                  type: "GET",
+                  data:{ id:id, table:table },
+                  success:function(data)
+                  {
+                    console.log(data);
+                    for( i=0 ; i <data.length ; i++ ){
+                      if ( data[i].view != 0) {
+                        view = '<a href="/gallery/'+ data[i].postsales_name +'/'+data[i].settings_name+'" class="viewbtn3"> <img src=<?php echo e(url("assets/images/icon/view-svgrepo-com.svg")); ?> alt="icon" style="width:17px;"></a>';         
+                      }
+                      if ( data[i].upload != 0) {
+                        upload = '<a href="/addimage/'+ data[i].postsales_name +'/'+data[i].settings_name+'" class="viewbtn3"> <img src=<?php echo e(url("assets/images/icon/upload-svgrepo-com.svg")); ?> alt="icon" style="width:17px;"></a>';         
+                      }
+                      if ( data[i].download != 0) {
+                        download = '<a href="#" class="viewbtn3"> <img src=<?php echo e(url("assets/images/icon/download-svgrepo-com.svg")); ?> alt="icon" style="width:17px;"></a>';         
+                      }
+                      if ( data[i].comments != 0) {
+                        comments = '<a href="#" class="viewbtn3"> <img src=<?php echo e(url("assets/images/icon/comment-svgrepo-com.svg")); ?> alt="icon" style="width:17px;"></a>';         
+                      }
+                      var child_lavel2 ='<li>'+
+                                          '<label><input type="checkbox">'+data[i].postsales_name + ' '+view +' '+upload + ' ' +download +' ' + comments +' </label>'+   
+                                        '</li>'+
+                                        '<div id="div9" class="hide9">' +
+                                          '<ul class="postchild_lavel3'+data[i].id+'">'+
+
+                                          '</ul>'+
+                                        '</div>';
+                      $(".postchild_lavel2"+data[i].parent_id).append(child_lavel2);
+                      view = ""; upload=""; download=""; comments="";
+                      table = "settings_execution";
+                      id = data[i].id ;
+                      $.ajax({ 
+                        url: "<?php echo e(url('/parent')); ?>",
+                        type: "GET",
+                        data:{ id:id, table:table },
+                        success:function(data){
+                          for( i=0 ; i <data.length ; i++ ){
+                             var child_lavel3 ='<li>'+  
+                                                '<label for="radio44"> ' +
+                                                '<input type="checkbox" id="radio44" name="optradio14" > '+ data[i].postsales_name +' </label>' + 
+                                              '</li>'+
+                                              '<div id="div9" class="hide9">' +
+                                                '<ul class="postchild_lavel4'+data[i].id+'">'+
+                                          
+                                                '</ul>'+
+                                              '</div>';
+                            $(".postchild_lavel3"+data[i].parent_id).append(child_lavel3);
+                            table = "settings_execution";
+                            id = data[i].id ; 
+                            $.ajax({
+                              url: "<?php echo e(url('/parent')); ?>",
+                              type: "GET",
+                              data:{ id:id, table:table },
+                              success:function(data)
+                              {
+                                for( i=0 ; i <data.length ; i++ ){
+                                  var child_lavel4 ='<li>'+  
+                                                '<label for="radio44"> ' +
+                                                '<input type="checkbox" id="radio44" name="optradio14" > '+ data[i].postsales_name +' </label>' + 
+                                              '</li>';
+                                $(".postchild_lavel4"+data[i].parent_id).append(child_lavel4);
+                                table = "";
+                                id = "";
+
+
+                                }
+                              }
+                            })
+                          }
+                        }
+                      }) 
+                    }
+
+                  }
+
+                })
             }
           }else if( table == "settings_execution" ){
             $("#exeh3").text("");
@@ -263,10 +366,10 @@
             var view = "", upload="", download="",comments="" ;
             for( i=0 ; i <data.length ; i++ ){
               if ( data[i].view != 0) {
-                view = '<a href="gallery/'+ data[i].id +'/execution" class="viewbtn3"> <img src=<?php echo e(url("assets/images/icon/view-svgrepo-com.svg")); ?> alt="icon" style="width:17px;"></a>';         
+                view = '<a href="/gallery/'+ data[i].execution_name +'/'+data[i].settings_name+'" class="viewbtn3"> <img src=<?php echo e(url("assets/images/icon/view-svgrepo-com.svg")); ?> alt="icon" style="width:17px;"></a>';         
               }
               if ( data[i].upload != 0) {
-                upload = '<a href="#" class="viewbtn3"> <img src=<?php echo e(url("assets/images/icon/upload-svgrepo-com.svg")); ?> alt="icon" style="width:17px;"></a>';         
+                upload = '<a href="/addimage/'+ data[i].execution_name +'/'+data[i].settings_name+'" class="viewbtn3"> <img src=<?php echo e(url("assets/images/icon/upload-svgrepo-com.svg")); ?> alt="icon" style="width:17px;"></a>';         
               }
               if ( data[i].download != 0) {
                 download = '<a href="#" class="viewbtn3"> <img src=<?php echo e(url("assets/images/icon/download-svgrepo-com.svg")); ?> alt="icon" style="width:17px;"></a>';         
@@ -295,16 +398,16 @@
                     //console.log(data);
                     for( i=0 ; i <data.length ; i++ ){
                       if ( data[i].view != 0) {
-                        view = '<a href="gallery/'+ data[i].id +'/execution" class="viewbtn3"> <img src=<?php echo e(url("assets/images/icon/view-svgrepo-com.svg")); ?> alt="icon" style="width:17px;"></a>';         
+                        view = '<a href="/gallery/'+ data[i].execution_name +'/'+data[i].settings_name+'.index" class="viewbtn3"> <img src=<?php echo e(url("assets/images/icon/view-svgrepo-com.svg")); ?> alt="icon" style="width:17px;"></a>';         
                       }
                       if ( data[i].upload != 0) {
-                        upload = '<a href="#" class="viewbtn3"> <img src=<?php echo e(url("assets/images/icon/upload-svgrepo-com.svg")); ?> alt="icon" style="width:17px;"></a>';         
+                        upload = '<a href="/addimage/'+ data[i].execution_name +'/'+data[i].settings_name+'.create" class="viewbtn3"> <img src=<?php echo e(url("assets/images/icon/upload-svgrepo-com.svg")); ?> alt="icon" style="width:17px;"></a>';         
                       }
                       if ( data[i].download != 0) {
                         download = '<a href="#" class="viewbtn3"> <img src=<?php echo e(url("assets/images/icon/download-svgrepo-com.svg")); ?> alt="icon" style="width:17px;"></a>';         
                       }
                       if ( data[i].comments != 0) {
-                        comments = '<a href="#" class="viewbtn3"> <img src=<?php echo e(url("assets/images/icon/comment-svgrepo-com.svg")); ?> alt="icon" style="width:17px;"></a>';         
+                        comments = '<a href="/comment/" class="viewbtn3"> <img src=<?php echo e(url("assets/images/icon/comment-svgrepo-com.svg")); ?> alt="icon" style="width:17px;"></a>';         
                       }
                       var child_lavel2 ='<li>'+
                                           '<label><input type="checkbox">'+data[i].execution_name + ' '+view +' '+upload + ' ' +download +' ' + comments +' </label>'+   
@@ -316,7 +419,7 @@
                                         '</div>';
                       $(".exchild_lavel2"+data[i].parent_id).append(child_lavel2);
                       view = ""; upload=""; download=""; comments="";
-                       table = "settings_execution";
+                      table = "settings_execution";
                       id = data[i].id ; 
                       $.ajax({ 
                         url: "<?php echo e(url('/parent')); ?>",
@@ -353,27 +456,13 @@
                                 $(".exchild_lavel4"+data[i].parent_id).append(child_lavel4);
 
                                 }
-
                               }
 
-
                             })
-
-
-
-
-
-
-
                           }
-
                         }
-
                       })
-
                     }
-                     
-
                   }
                 })
             }

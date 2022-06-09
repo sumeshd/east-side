@@ -2,9 +2,9 @@
 
 <?php $__env->startSection('content'); ?>
 
-<h2>
+<!-- <h2>
   <a href="<?php echo e(url('gallery')); ?>" class="combtnDiv">Gallery </a>
-</h2>
+</h2> -->
 
 			<div class="boxthree">
                 <ul>
@@ -15,7 +15,7 @@
             </div>
 
             <div class="uplode-imgSec">
-            	<form method="post" action="/image/upload" enctype="multipart/form-data">
+            	<form method="POST" action="/image/upload" enctype="multipart/form-data">
             		<?php echo csrf_field(); ?>
                 <h3> Add New Image </h3>
                 <div class="row">
@@ -28,6 +28,20 @@
 	                    <div class="uplode-imgSec-in">
 	                      <div class="form-group">
 	                        <input type="text" class="form-control" name="image_name" placeholder="Add image Name" id="usr">
+	                        <?php $__currentLoopData = $settings; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $setting): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+		                        <?php if($setting['settings_name'] == 'presales'): ?>
+		                        <input type="hidden" name="task_name" value="<?php echo e($setting['presales_name']); ?>">
+		                        <input type="hidden" name="settings_name" value="<?php echo e($setting['settings_name']); ?>">
+		                        <?php endif; ?>
+		                        <?php if($setting['settings_name'] == 'postsales'): ?>
+		                        <input type="hidden" name="task_name" value="<?php echo e($setting['postsales_name']); ?>">
+		                        <input type="hidden" name="settings_name" value="<?php echo e($setting['settings_name']); ?>">
+		                        <?php endif; ?>
+		                        <?php if($setting['settings_name'] == 'execution'): ?>
+		                        <input type="hidden" name="task_name" value="<?php echo e($setting['postsales_name']); ?>">
+		                        <input type="hidden" name="settings_name" value="<?php echo e($setting['settings_name']); ?>">
+		                        <?php endif; ?>
+	                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 	                      </div>
 	                      <!-- <a href="#" class="savbtn"> Save </a> -->
 	                      <button type="submit" class="savbtn"> Save </button> 

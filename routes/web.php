@@ -15,6 +15,7 @@ use App\Http\Controllers\Teamwork\TeamController;
 use App\Http\Controllers\Teamwork\TeamMemberController;
 
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\GalleryController;
 
 use App\Http\Controllers\CommentController;
 /*
@@ -155,21 +156,30 @@ Route::get('executionstore', [SettingsController::class,'executionstore'] );
 Route::get('parent', [SettingsController::class,'fetch']);
 
 
-Route::get('gallery', [SettingsController::class,'gallery']);
-Route::get('gallery/{id}/{settings}', [SettingsController::class,'test']);
-Route::get('settings/imageadd', [SettingsController::class,'imageadd']);
-Route::post('image/upload', [SettingsController::class,'imageupload']);
-Route::get('image/download/{id}', [SettingsController::class,'imagedownload']);
-Route::delete('image/delete/{id}', [SettingsController::class,'imagedelete']);
-Route::get('settingsview', [SettingsController::class,'settingsview']);
+//Route::get('gallery', [SettingsController::class,'gallery']);
+//Route::get('settings/imageadd', [SettingsController::class,'imageadd']);
+ 
+// Route::get('image/download/{id}', [SettingsController::class,'imagedownload']);
+// 
+ Route::get('settingsview', [SettingsController::class,'settingsview']);
 
 
 
+Route::get('gallery/{taskname}/{settings}', [GalleryController::class,'index']);
+Route::get('/addimage/{taskname}/{settings}', [GalleryController::class,'create']);
+Route::post('/image/upload', [GalleryController::class,'store']);
+Route::get('/image/delete/{id}/{taskname}/{settings}', [GalleryController::class,'destroy']);
+Route::get('/image/download/{id}/{taskname}/{settings}', [GalleryController::class,'download']);
 
+
+//Route::get('gy/{taskname}/{settings}', 'GalleryController@index')->name('gallery');
+//Route::resource('/gallery/{taskname}/{settings}', GalleryController::class );
+//Route::resource('/addimage/{taskname}/{settings}', GalleryController::class );
+Route::get('comment/{id}/{settings}', [SettingsController::class,'commentssettings']);
 
 
 Route::post('comment', [CommentController::class, 'store']);
-Route::post('/reply/store', 'CommentController@replyStore')->name('reply.add');
+//Route::post('/reply/store', 'CommentController@replyStore')->name('reply.add');
 
 
 Route::group(['middleware' => ['auth']], function() {

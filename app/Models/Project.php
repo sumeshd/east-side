@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Customer;
-use App\Models\Project;
+//use App\Models\Project;
 use App\Models\User;
 
 class Project extends Model
@@ -25,8 +25,5 @@ class Project extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function comments()
-    {
-        return $this->hasMany(Comment::class, 'project_id','id');
-    }
+   
 }

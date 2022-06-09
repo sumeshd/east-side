@@ -121,7 +121,7 @@
             '</div>' +
             '<div class="item-settings d-none">' +
             '<p><label for="">Navigation Label<br><input type="text" name="navigation_label" value="' + label + '"></label></p>' +
-            '<p><label for="">Navigation Description<br><input type="text" name="navigation_description" value="' + description + '"></label></p>' +            
+            '<p><label for="">Navigation Description<br><textarea name="navigation_description" rows="4" >' + description + '</textarea></label></p>' +            
             '<p><a class="item-delete" href="javascript:;">Remove</a> |' +
             '<a class="item-close" href="javascript:;">Close</a></p>' +
             '</div>' +

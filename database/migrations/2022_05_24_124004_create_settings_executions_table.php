@@ -23,6 +23,7 @@ return new class extends Migration
             $table->boolean('upload')->default(false);
             $table->boolean('download')->default(false);
             $table->boolean('comments')->default(false);
+            $table->text('settings_name');
             $table->timestamps();
         });
     }

@@ -2,9 +2,9 @@
 
 @section('content')
 
-<h2>
+<!-- <h2>
   <a href="{{ url('gallery') }}" class="combtnDiv">Gallery </a>
-</h2>
+</h2> -->
 
 			<div class="boxthree">
                 <ul>
@@ -15,7 +15,7 @@
             </div>
 
             <div class="uplode-imgSec">
-            	<form method="post" action="/image/upload" enctype="multipart/form-data">
+            	<form method="POST" action="/image/upload" enctype="multipart/form-data">
             		@csrf
                 <h3> Add New Image </h3>
                 <div class="row">
@@ -28,6 +28,20 @@
 	                    <div class="uplode-imgSec-in">
 	                      <div class="form-group">
 	                        <input type="text" class="form-control" name="image_name" placeholder="Add image Name" id="usr">
+	                        @foreach($settings as $setting)
+		                        @if($setting['settings_name'] == 'presales')
+		                        <input type="hidden" name="task_name" value="{{ $setting['presales_name'] }}">
+		                        <input type="hidden" name="settings_name" value="{{ $setting['settings_name'] }}">
+		                        @endif
+		                        @if($setting['settings_name'] == 'postsales')
+		                        <input type="hidden" name="task_name" value="{{ $setting['postsales_name'] }}">
+		                        <input type="hidden" name="settings_name" value="{{ $setting['settings_name'] }}">
+		                        @endif
+		                        @if($setting['settings_name'] == 'execution')
+		                        <input type="hidden" name="task_name" value="{{ $setting['postsales_name'] }}">
+		                        <input type="hidden" name="settings_name" value="{{ $setting['settings_name'] }}">
+		                        @endif
+	                        @endforeach
 	                      </div>
 	                      <!-- <a href="#" class="savbtn"> Save </a> -->
 	                      <button type="submit" class="savbtn"> Save </button> 

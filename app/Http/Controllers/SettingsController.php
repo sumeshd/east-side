@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Settings;
-
 use App\Models\Settings_presales;
 use App\Models\Settings_postsales;
 use App\Models\Settings_execution;
-use App\Models\Image;
-
+//use App\Models\Image;
+use Session;
 use Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -265,20 +263,15 @@ class SettingsController extends Controller
         {
             if (!empty($menu)) {
                 foreach ($menu as $value) {
-                    $presales_name = $value['label'];
-                    //$url = (empty($value['url'])) ? '#' : $value['url'];
-                    $view = $value['view'];
-                    $upload = $value['upload'];
-                    $download = $value['download'];
-                    $comments = $value['comments'];
                     $settings_presales = Settings_presales::Create([
-                        'presales_name' => $presales_name,
-                        'description'=> $description,
-                        'view'=> $view,
-                        'upload'=> $upload,
-                        'download'=> $download,
-                        'comments'=> $comments,
+                        'presales_name' => $value['label'],
+                        'description'=> $value['description'],
+                        'view'=> $value['view'],
+                        'upload'=> $value['upload'],
+                        'download'=> $value['download'],
+                        'comments'=> $value['comments'],
                         'parent_id' => $parent,
+                        'settings_name' => 'presales'
                     ]);
                     //$settings->save();
                     $settings_presales_id=$settings_presales->id;
@@ -289,10 +282,7 @@ class SettingsController extends Controller
         }
         updateMenu($array_menu);
         Settings_presales::where('parent_id',0)->update([ 
-            'view' => 0,
-            'upload' => 0,
-            'download' => 0,
-            'comments' => 0
+            'view' => 0,'upload' => 0,'download' => 0,'comments' => 0
         ]);
         return redirect('presales');
     }
@@ -304,33 +294,22 @@ class SettingsController extends Controller
     public function postsalesstore(Request $request)
     {
        $truncate = Settings_postsales::truncate();
-
-        // foreach($truncate as $row){
-        //     $delete=Settings::find($row->id);
-        //     $delete->truncate();
-        // }
         $menu=$request->menu;
         $array_menu = json_decode($menu, true);
         function updateMenu($menu,$parent = 0)
         {
             if (!empty($menu)) {
                 foreach ($menu as $value) {
-                    $postsales_name = $value['label'];
-                    //$url = (empty($value['url'])) ? '#' : $value['url'];
-                    $view = $value['view'];
-                    $upload = $value['upload'];
-                    $download = $value['download'];
-                    $comments = $value['comments'];
                     $settings_presales = Settings_postsales::Create([
-                        'postsales_name' => $postsales_name,
-                        'description'=> $description,
-                        'view'=> $view,
-                        'upload'=> $upload,
-                        'download'=> $download,
-                        'comments'=> $comments,
+                        'postsales_name' => $value['label'],
+                        'description'=>  $value['description'],
+                        'view'=> $value['view'],
+                        'upload'=> $value['upload'],
+                        'download'=> $value['download'],
+                        'comments'=> $value['comments'],
                         'parent_id' => $parent,
+                        'settings_name' => 'postsales'
                     ]);
-                    //$settings->save();
                     $settings_presales_id=$settings_presales->id;
                     if (array_key_exists('children', $value))
                     updateMenu($value['children'],$settings_presales_id);
@@ -339,10 +318,7 @@ class SettingsController extends Controller
         }
         updateMenu($array_menu);
         Settings_postsales::where('parent_id',0)->update([ 
-            'view' => 0,
-            'upload' => 0,
-            'download' => 0,
-            'comments' => 0
+            'view' => 0,'upload' => 0,'download' => 0,'comments' => 0
         ]);
         return redirect('postsales');
     }
@@ -354,12 +330,6 @@ class SettingsController extends Controller
     public function executionstore(Request $request)
     {
        $truncate = Settings_execution::truncate();
-
-        // foreach($truncate as $row){
-        //     $delete=Settings::find($row->id);
-        //     $delete->truncate();
-        // }
-       
         $menu=$request->menu;
         $array_menu = json_decode($menu, true);
         dd($array_menu);
@@ -367,27 +337,21 @@ class SettingsController extends Controller
         {
             if (!empty($menu)) {
                 foreach ($menu as $value) {
-                    $execution_name = $value['label'];
-                    $description = $value['description'];
-                    //$url = (empty($value['url'])) ? '#' : $value['url'];
-                    $view = $value['view'];
-                    $upload = $value['upload'];
-                    $download = $value['download'];
-                    $comments = $value['comments'];
-                    $newiconname  = time(). '.'.$value['icon']->getClientOriginalName();
-                    $value['icon']->move(public_path('settingsicon'),$newiconname);
+
+                    //$newiconname  = time(). '.'.$value['icon']->getClientOriginalName();
+                    //$value['icon']->move(public_path('settingsicon'),$newiconname);
 
                     $settings_presales = Settings_execution::Create([
-                        'execution_name' => $execution_name,
-                        'description'=> $description,
-                        'execution_image' =>$newiconname, 
-                        'view'=> $view,
-                        'upload'=> $upload,
-                        'download'=> $download,
-                        'comments'=> $comments,
+                        'execution_name' => $value['label'],
+                        'description'=> $value['description'],
+                        //'execution_image' => $value['icon'], 
+                        'view'=> $value['view'],
+                        'upload'=> $value['upload'],
+                        'download'=> $value['download'],
+                        'comments'=> $value['comments'],
                         'parent_id' => $parent,
+                        'settings_name' => 'execution'
                     ]);
-                    //$settings->save();
                     $settings_presales_id=$settings_presales->id;
                     if (array_key_exists('children', $value))
                     updateMenu($value['children'],$settings_presales_id);
@@ -396,10 +360,7 @@ class SettingsController extends Controller
         }
         updateMenu($array_menu);
         Settings_execution::where('parent_id',0)->update([ 
-            'view' => 0,
-            'upload' => 0,
-            'download' => 0,
-            'comments' => 0
+            'view' => 0,'upload' => 0, 'download' => 0,'comments' => 0
         ]);
         return redirect('execution');
     }
@@ -457,34 +418,7 @@ class SettingsController extends Controller
         //dd($settings);
         $settings_postsales = Settings_postsales::where('parent_id',0)->get()->toArray();
         $settings_execution = Settings_execution::where('parent_id',0)->get()->toArray();
-
-
-                $settings_presales = Settings_presales::get();
-
-                $menu = array();
-                    foreach ($settings_presales as $m) {
-                        if (empty($m->parent_id)) {
-                            $menu[$m->id] = array();
-                            $menu[$m->id]['id']      =   $m->id;
-                            $menu[$m->id]['presales_name']       =   $m->presales_name;
-                            $menu[$m->id]['children']    =   array();
-                        }
-                    }
-                    $submenu = array();
-                    foreach ($settings_presales as $m) {
-                        if ($m->parent_id) {
-                            $submenu[$m->id] = array();
-                            $submenu[$m->id]['id'] = $m->id;
-                            $submenu[$m->id]['presales_name'] = $m->presales_name;
-                           $menu[$m->parent_id]['children'][$m->id] = $submenu[$m->id];
-                        }
-                        
-                    }
-                    // $menu;
-                    //dd($menu);
-
-
-         return view('settings_master.view_settings',compact('settings_presaless','settings_postsales','settings_execution','menu'));
+        return view('settings_master.view_settings',compact('settings_presaless','settings_postsales','settings_execution'));
         
     }
 
@@ -513,31 +447,8 @@ class SettingsController extends Controller
     }
 
 
-    public function imageadd()
-    {
-        return view('settings_master.image_settings');
-    }
-
-    public function imageupload(Request $request)
-    {
-        $this->validate($request , [
-            'image' => 'required',
-            
-        ]);
-
-        $images = $request->image;
-        foreach($images as $image){
-            $image_new_name = $request->image_name . $image->getClientOriginalName();
-            $image->move('images',$image_new_name);
-            $galary = new Image();
-            $galary->user_id = Auth::user()->id;
-            $galary->image = 'images/'.$image_new_name;
-            $galary->save();
-        }
-        //dd($images);
-        return redirect('gallery')
-        ->with('success','New Image Added successfully.');
-    }
+   
+    
 
     public function imagedownload($id){
         $image = Image::find($id);
@@ -546,24 +457,30 @@ class SettingsController extends Controller
         //->with('success','Image Download successfully...');
     }
 
-    public function imagedelete($id)
+    public function commentssettings($id,$settings)
     {
-        $image = Image::find($id);
-        $image->delete();
-        return redirect('gallery')
-        ->with('success','Image Deleted successfully...');
+        if($settings == 'presales'){
+            $presales = Settings_presales::where('id',$id)->first();
+            //dd($settings_presales->comments);
+            // foreach($settings_presales->comments as $comment){
+            //     dd($comment);
+            // }
+            
+            return view('comment_master.comment',compact('presales'));
+
+        }else if($settings == 'postsales'){
+            $settings = Settings_postsales::where('id',$id)->first();
+            return view('comment_master.comment',compact('settings'));
+
+        }else if($settings == 'execution'){
+            $settings = Settings_execution::where('id',$id)->first();
+            return view('comment_master.comment',compact('settings'));
+        }
         
     }
 
 
-    public function comment()
-    {
-        return view('project.comment');
-    }
+   
 
-public function test( $id, $settings){
-    dd($settings);
-
-}
 
 }

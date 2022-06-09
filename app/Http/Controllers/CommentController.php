@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\Project;
+use App\Models\Settings_presales;
+use App\Models\Settings_postsales;
+use App\Models\Settings_execution;
 use App\Models\Comment;
 
 use Illuminate\Http\Request;
@@ -16,10 +18,26 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-    }
+    // public function index($id,$settings)
+    // {
+    //     if($settings == 'presales'){
+    //         $settings_presales = Settings_presales::where('id',$id)->first();
+    //         //dd($settings_presales->comments);
+    //         // foreach($settings_presales->comments as $comment){
+    //         //     dd($comment);
+    //         // }
+    //         return view('comment_master.comment',compact('settings_presales'));
+
+    //     }else if($settings == 'postsales'){
+    //         $settings = Settings_postsales::where('id',$id)->first();
+    //         return view('comment_master.comment',compact('settings'));
+
+    //     }else if($settings == 'execution'){
+    //         $settings = Settings_execution::where('id',$id)->first();
+    //         return view('comment_master.comment',compact('settings'));
+    //     }
+        
+    // }
 
     /**
      * Show the form for creating a new resource.
@@ -44,20 +62,37 @@ class CommentController extends Controller
                 'comment_body' => 'required|string'
             ]);
             //$project = Project::where('slug',$request->project_slug)->where('status',0)->first();
-            $project = Project::where('id',$request->project_id)->first();
-            if($project){
-                Comment::create([ 
-                        'project_id' => $project->id,
-                        'user_id' => Auth::user()->id,
-                        'comment_body' => $request->comment_body ]);
-                return redirect()->back();
-            }else{
-                return redirect()->back()->with('message','No Such Post Found');
+            if( $request->settings_name == 'presales'){
+                $settings = Settings_presales::where('id',$request->settings_id)->first();
+                if($settings){
+                    Comment::create([ 
+                            'presalesid' => $settings->id,
+                            'user_id' => Auth::user()->id,
+                            'comment_body' => $request->comment_body ]);
+                    return redirect()->back()->with('success','New Comment Created Successfully');
+                }else{
+                    return redirect()->back()->with('success','No Such Post Found');
 
+                }
+
+            }else if ($request->settings_name == 'postsales') {
+                $settings = Settings_postsales::where('id',$request->settings_id)->first();
+                if($settings){
+                    Comment::create([ 
+                            'postsalesid' => $settings->id,
+                            'user_id' => Auth::user()->id,
+                            'comment_body' => $request->comment_body ]);
+                    return redirect()->back()->with('success','No Such Post Found');
+                }else{
+                    return redirect()->back()->with('success','No Such Post Found');
+
+                }
             }
+            
+            
 
         }else{
-            return redirect()->back()->with('message','login first to comment');
+            return redirect()->back()->with('success','login first to comment');
         }
         // $comment = new Comment;
 
