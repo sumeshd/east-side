@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Settings_presales;
-use App\Models\Settings_postsales;
-use App\Models\Settings_execution;
+use App\Models\Presales;
+use App\Models\Postsales;
+use App\Models\Execution;
 use App\Models\Image;
-use Session;
+// use Session;
 use Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class GalleryController extends Controller
 {
@@ -22,16 +23,16 @@ class GalleryController extends Controller
     {
         if( $settings == 'presales' ){
             $images = Image::where('settings_name',$settings)->where('task_name',$taskname)->orderBy('created_at','DESC')->paginate(12);
-            $settings = Settings_presales::where('presales_name',$taskname)->get()->toArray();
+            $settings = Presales::where('presales_name',$taskname)->get()->toArray();
             //dd($data['settings']);
             return view('settings_master.gallery',compact('images','settings'));
         }else if ($settings == 'postsales') {
             $data['images'] = Image::where('settings_name',$settings)->where('task_name',$taskname)->orderBy('created_at','DESC')->paginate(12);
-            $data['settings'] = Settings_postsales::where('presales_name',$taskname)->get()->toArray();
+            $data['settings'] = Postsales::where('postsales_name',$taskname)->get()->toArray();
             return view('settings_master.gallery',$data);       
         }else if ($settings == 'execution') {
             $data['images'] = Image::where('settings_name',$settings)->where('task_name',$taskname)->orderBy('created_at','DESC')->paginate(12);
-            $data['settings'] = Settings_execution::where('presales_name',$taskname)->get()->toArray();
+            $data['settings'] = Postsales::where('execution_name',$taskname)->get()->toArray();
             return view('settings_master.gallery',$data);       
         }
     }
@@ -44,13 +45,13 @@ class GalleryController extends Controller
     public function create($taskname,$settings)
     {
         if( $settings == 'presales' ){
-            $settings = Settings_presales::where('presales_name',$taskname)->get()->toArray();
+            $settings = Presales::where('presales_name',$taskname)->get()->toArray();
             return view('settings_master.image_settings',compact('settings'));
         }else if($settings == 'postsales'){
-            $settings = Settings_postsales::where('postsales_name',$taskname)->get()->toArray();
+            $settings = Postsales::where('postsales_name',$taskname)->get()->toArray();
             return view('settings_master.image_settings',compact('settings'));
         }else if($settings == 'postsales'){
-            $settings = Settings_execution::where('execution_name',$taskname)->get()->toArray();
+            $settings = Postsales::where('execution_name',$taskname)->get()->toArray();
             return view('settings_master.image_settings',compact('settings'));
         }
     }
@@ -61,19 +62,65 @@ class GalleryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // public function store(Request $request)
+    // {
+    //     // $this->validate($request , [
+    //     //     'image' => 'required|mimes:pdf,jpeg,jpg,doc,docx|max:9000',
+            
+    //     // ]);
+
+    //     $request->validate([
+    //         'image' => 'required|mimes:doc,docx,pdf,txt',
+    //     ]);
+
+    //     $images = $request->image;
+    //     foreach($images as $image){
+    //         $newImageName = "";
+    //         $newImageName = time() . '-' . $request->image_name . $image->getClientOriginalName();
+    //         $image->move(public_path('images'),$newImageName);
+    //         $galary = Image::create([
+    //             'user_id' => Auth::user()->id,
+    //             'image' => $newImageName,
+    //             'settings_name' => $request->settings_name,
+    //             'task_name'=> $request->task_name,
+
+    //         ]);
+
+    //     }    
+    //     return redirect()->action(
+    //                             [GalleryController::class, 'index'], [ $request->task_name ,$request->settings_name ]
+    //                         );
+    
+    // }
+
+
+
+
+
     public function store(Request $request)
     {
-        $this->validate($request , [
-            'image' => 'required',
-            
+        // guessExtension();
+        // getMimeType();
+        // store();
+        // asStore();
+        // storePublicly();
+        // move();
+        // getClientOriginalName();
+        // getClientMimeType();
+        // guessClientExtension();
+        // getSize();
+        //getError();
+        //isValid();
+        // $test = $request->file('image')->guessClientExtension();
+
+        $request->validate([
+            'image' => 'required|mimes:doc,docx,pdf,jpg,png,ppt|max:9000',
         ]);
 
-        $images = $request->image;
-        foreach($images as $image){
-            $newImageName = "";
-            $newImageName = time() . '-' . $request->image_name . '.' . $image->getClientOriginalName();
-            $image->move(public_path('images'),$newImageName);
-            $galary = Image::create([
+            $images = $request->image;
+            $newImageName = time() . '-' . $request->image_name . '.' . $images->extension();
+            $images->move(public_path('images'),$newImageName);
+            $gallery = Image::create([
                 'user_id' => Auth::user()->id,
                 'image' => $newImageName,
                 'settings_name' => $request->settings_name,
@@ -81,26 +128,7 @@ class GalleryController extends Controller
 
             ]);
 
-        }
-        if( $request->settings_name == 'presales' ){
-            $images = Image::where('settings_name',$request->settings_name)->where('task_name',$request->task_name)->orderBy('created_at','DESC')->paginate(12);
-            $settings = Settings_presales::where('presales_name',$request->task_name)->get()->toArray();
-            //dd($data['settings']);
-            return view('settings_master.gallery',compact('images','settings'))->with('success','New Image Added successfully.');  
-        }else if ($request->settings_name == 'postsales') {
-            $data['images'] = Image::where('settings_name',$request->settings_name)->where('task_name',$request->task_name)->orderBy('created_at','DESC')->paginate(12);
-            $data['settings'] = Settings_postsales::where('presales_name',$request->task_name)->get()->toArray();
-            return view('settings_master.gallery',$data)
-            ->with('success','New Image Added successfully.');       
-        }else if ($request->settings_name == 'execution') {
-            $data['images'] = Image::where('settings_name',$request->settings_name)->where('task_name',$taskname)->orderBy('created_at','DESC')->paginate(12);
-            $data['settings'] = Settings_execution::where('presales_name',$request->task_name)->get()->toArray();
-            return view('settings_master.gallery',$data)
-            ->with('success','New Image Added successfully.');       
-        }
-        //;
-        //return redirect()->route('gallery/$request->task_name/$request->settings_name')
-    
+        return redirect()->action([GalleryController::class, 'index'], [ $request->task_name ,$request->settings_name ]);
     }
 
     /**
@@ -150,28 +178,17 @@ class GalleryController extends Controller
             $image->delete();
             
         }
-        if( $settings == 'presales' ){
-            $images = Image::where('settings_name',$settings)->where('task_name',$taskname)->orderBy('created_at','DESC')->paginate(12);
-            $settings = Settings_presales::where('presales_name',$taskname)->get()->toArray();
-            //dd($taskname);
-            //return redirect()->route('gallery',[$taskname,$settings]);
-            return view('settings_master.gallery',compact('images','settings'))
-                    ->with('success','Image Deleted successfully...');
-        }else if ($settings == 'postsales') {
-            $data['images'] = Image::where('settings_name',$settings)->where('task_name',$taskname)->orderBy('created_at','DESC')->paginate(12);
-            $data['settings'] = Settings_postsales::where('presales_name',$taskname)->get()->toArray();
-            return view('settings_master.gallery',$data);       
-        }else if ($settings == 'execution') {
-            $data['images'] = Image::where('settings_name',$settings)->where('task_name',$taskname)->orderBy('created_at','DESC')->paginate(12);
-            $data['settings'] = Settings_execution::where('presales_name',$taskname)->get()->toArray();
-            return view('settings_master.gallery',$data);       
-        }
+        return redirect()->action(
+                                [GalleryController::class, 'index'], [ $taskname ,$settings ]
+                            );
     }
 
-    public function download($id)
-    {
-        $path = 'public/images';
-        $image = Image::find($id);
-        return Storage::download($path,$image->image);
-    }
+    // public function download($id)
+    // {
+    //     if( !empty($id)){
+    //         $image = Image::find($id);
+    //         //return Storage::download(public_path('images/'.$image->image)); For Image Download
+    //         return response()->download(public_path('/images/'.$image->image));
+    //     }
+    // }
 }

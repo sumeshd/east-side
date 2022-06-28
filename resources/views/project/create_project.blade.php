@@ -110,7 +110,7 @@
                             <li> Post Sales G </li>
                             <li> Post Sales H </li>
                             <li> Post Sales J </li>
-                    </ul>
+                        </ul>
                     </div>
                 </div> -->
                 <div class="col-md-12"> 
@@ -134,18 +134,36 @@
                             </div>
                         </div>
 
+                        <div class="new-form-check3">
+                            <label> Project Settings Name</label>
+                            <div class="">
+                                <input type="checkbox" id="html" name="settings_name[]" value="Presales">
+                                <label for="html">Presales</label>
+                            </div>
+            
+                            <div class="">
+                                <input type="checkbox" id="" name="settings_name[]" value="Postsales">
+                                <label for="css">Postsales</label>
+                            </div>
+            
+                            <div class="">
+                                <input type="checkbox" id="" name="settings_name[]" value="Execution">
+                                <label for="javascript">Execution</label>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <input type="text" class="form-control userDiv1" placeholder="Name" id="usr" name="name" value="{{old('name')}}">
                             <div id="color_red"> @error('name')<li>{{ $message }}</li>@enderror</div>
                         </div>
 
                         <div class="form-group">
-                            <input type="text" class="form-control userDiv1" placeholder="Project Name" id="usr" name="projectname">
+                            <input type="text" class="form-control userDiv1" placeholder="Project Name" id="usr" name="projectname" value="{{old('projectname')}}">
                             <div id="color_red"> @error('projectname')<li>{{ $message }}</li>@enderror</div>
                         </div>
 
                         <div class="form-group">
-                            <input type="number" class="form-control userDiv2" placeholder="Project Number" id="usr" name="projectnumber">
+                            <input type="number" class="form-control userDiv2" placeholder="Project Number" id="usr" name="projectnumber" value="{{old('projectnumber')}}">
                             <div id="color_red"> @error('projectnumber')<li>{{ $message }}</li>@enderror</div>
                         </div>
 

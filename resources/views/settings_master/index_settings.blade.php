@@ -57,7 +57,7 @@
       @can('user-list')
       <li class="nav-item menu-items"> <a class="nav-link" href="{{ route('User.index') }}"> <span class="menu-icon"> <i class="fa fa-user"></i> </span> <span class="menu-title">User</span> </a> </li>
       @endcan
-      <li class="nav-item menu-items"> <a class="nav-link" href="#"> <span class="menu-icon"> <i class="fa fa-cog"></i> </span> <span class="menu-title">Settings</span> </a>
+      <li class="nav-item menu-items"> <a class="nav-link" href="#"> <span class="menu-icon"> <i class="fa fa-cog"></i> </span> <span class="menu-title">Universal Settings</span> </a>
         <div class="collapse show" id="auth">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="{{ url('presales') }}"> Presales </a></li>
@@ -184,23 +184,23 @@
     </div>
   </nav>
   <!-- partial -->
-  <div class="main-panel">
+  <!-- <div class="main-panel">
     <div class="dashboard-bodypart">
       <div class="dashboard-bodypart-in">
-        <h1> Home <span> <i class="fa fa-home"></i> </span> <small> Home - Dashboard </small> </h1>
+        <h1> Universal Settings <span> <i class="fa fa-cog"></i> </span> <small>Universal Settings </small> </h1>
         <div class="card">
-          <div class="card-body"> <!-- <a href="#" class="combtnDiv"> Export Data </a>
+          <div class="card-body"> --> <!-- <a href="#" class="combtnDiv"> Export Data </a>
              -->
-            <div>
+            
               @yield('content')
-            </div>
+           
 
             
-          </div>
+          <!-- </div>
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
   
   <!-- main-panel ends --> 
 </div>

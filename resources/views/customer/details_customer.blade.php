@@ -2,6 +2,12 @@
 
 @section('content')
 
+<div class="main-panel">
+      <div class="dashboard-bodypart">
+        <div class="dashboard-bodypart-in">
+          <h1> Customer <span> <i class="fa fa-address-card-o"></i> </span> <small> Customer - Details </small> </h1>
+          <div class="card">
+            <div class="card-body">
 
 <h2> <span> View Customer Details </span> <a href="{{ route('Customer.index') }}" class="combtnDiv"> Back Customer List </a> </h2>
 
@@ -51,7 +57,11 @@
 
 
 
-
+</div>
+          </div>
+        </div>
+      </div>
+    </div>
 
 @endsection
 

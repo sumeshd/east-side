@@ -62,22 +62,6 @@
               </ul>
         </div>
       </li>
-      
-      
-      
-
-
-      <li class="nav-item menu-items">
-            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="true" aria-controls="auth">
-              <span class="menu-icon"> <i class="fa fa-cog"></i> </span> <span class="menu-title">Settings</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse show" id="auth">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href=""> Execution </a></li>
-              </ul>
-            </div>
-      </li>
     </ul>
   </nav>
   
@@ -199,7 +183,7 @@
     <div class="main-panel">
       <div class="dashboard-bodypart">
         <div class="dashboard-bodypart-in">
-          <h1> Home <span> <i class="fa fa-home"></i> </span> <small> Home - Dashboard </small> </h1>
+          <h1> Project <span> <i class="fa fa-file-text"></i> </span> <small> Project  </small> </h1>
           <div class="card">
             <div class="card-body">
               

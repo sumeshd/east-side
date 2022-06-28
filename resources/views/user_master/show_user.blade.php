@@ -1,4 +1,4 @@
-@extends('customer.index_customer')
+@extends('user_master.index_user')
 
 @section('content')
 

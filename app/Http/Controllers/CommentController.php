@@ -2,14 +2,10 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Models\Settings_presales;
-use App\Models\Settings_postsales;
-use App\Models\Settings_execution;
-use App\Models\Comment;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Presales;
+use App\Models\Comment;
 
 class CommentController extends Controller
 {
@@ -18,26 +14,10 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // public function index($id,$settings)
-    // {
-    //     if($settings == 'presales'){
-    //         $settings_presales = Settings_presales::where('id',$id)->first();
-    //         //dd($settings_presales->comments);
-    //         // foreach($settings_presales->comments as $comment){
-    //         //     dd($comment);
-    //         // }
-    //         return view('comment_master.comment',compact('settings_presales'));
-
-    //     }else if($settings == 'postsales'){
-    //         $settings = Settings_postsales::where('id',$id)->first();
-    //         return view('comment_master.comment',compact('settings'));
-
-    //     }else if($settings == 'execution'){
-    //         $settings = Settings_execution::where('id',$id)->first();
-    //         return view('comment_master.comment',compact('settings'));
-    //     }
-        
-    // }
+    public function index()
+    {
+        //
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -57,51 +37,55 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             $request->validate([
                 'comment_body' => 'required|string'
             ]);
-            //$project = Project::where('slug',$request->project_slug)->where('status',0)->first();
             if( $request->settings_name == 'presales'){
-                $settings = Settings_presales::where('id',$request->settings_id)->first();
+                $settings = Presales::where('id',$request->settings_id)->first();
                 if($settings){
-                    Comment::create([ 
-                            'presalesid' => $settings->id,
-                            'user_id' => Auth::user()->id,
-                            'comment_body' => $request->comment_body ]);
+                    Comment::create([
+                        'presales_id' => $settings->id,
+                        'user_id' => Auth::user()->id,
+                        'comment_body' => $request->comment_body
+
+                    ]);
                     return redirect()->back()->with('success','New Comment Created Successfully');
-                }else{
-                    return redirect()->back()->with('success','No Such Post Found');
 
                 }
 
             }else if ($request->settings_name == 'postsales') {
-                $settings = Settings_postsales::where('id',$request->settings_id)->first();
+                $settings = Presales::where('id',$request->settings_id)->first();
                 if($settings){
-                    Comment::create([ 
-                            'postsalesid' => $settings->id,
-                            'user_id' => Auth::user()->id,
-                            'comment_body' => $request->comment_body ]);
-                    return redirect()->back()->with('success','No Such Post Found');
-                }else{
-                    return redirect()->back()->with('success','No Such Post Found');
+                    Comment::create([
+                        'postsales_id' => $settings->id,
+                        'user_id' => Auth::user()->id,
+                        'comment_body' => $request->comment_body
+
+                    ]);
+                    return redirect()->back()->with('success','New Comment Created Successfully');
+
+                }
+            }else if ($request->settings_name == 'postsales') {
+                $settings = Presales::where('id',$request->settings_id)->first();
+                if($settings){
+                    Comment::create([
+                        'execution_id' => $settings->id,
+                        'user_id' => Auth::user()->id,
+                        'comment_body' => $request->comment_body
+
+                    ]);
+                    return redirect()->back()->with('success','New Comment Created Successfully');
 
                 }
             }
-            
-            
+
 
         }else{
-            return redirect()->back()->with('success','login first to comment');
+             return redirect()->back()->with('success','login first to comment');
         }
-        // $comment = new Comment;
-
-        // $comment->comment = $request->comment;
-        // $comment->user()->associate($request->user());
-        // $project = Project::find($request->project_id);
-        // $project->comments()->save($comment);
-        // return back();
-    }
+        
+    }    
 
     /**
      * Display the specified resource.
@@ -132,22 +116,9 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function replyStore(Request $request)
+    public function update(Request $request, $id)
     {
-        $reply = new Comment();
-
-        $reply->comment = $request->get('comment');
-
-        $reply->user()->associate($request->user());
-
-        $reply->parent_id = $request->get('comment_id');
-
-        $project = Project::find($request->get('project_id'));
-
-        $project->comments()->save($reply);
-
-        return back();
-
+        //
     }
 
     /**
@@ -158,6 +129,14 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if( !empty($id) ){
+            $procomment = Comment::find($id);
+            if($procomment){
+                $procomment->delete();
+                return redirect()->back()->with('success','Comment Deleted Successfully...');
+            }
+        }else{
+             return redirect()->back()->with('success','Oops..! Try Again Later ');
+        }
     }
 }

@@ -190,25 +190,25 @@
       </div>
     </nav>
     <!-- partial -->
-    <div class="main-panel">
+    <!-- <div class="main-panel">
       <div class="dashboard-bodypart">
         <div class="dashboard-bodypart-in">
           <h1> Home <span> <i class="fa fa-home"></i> </span> <small> Home - Dashboard </small> </h1>
           <div class="card">
-            <div class="card-body">
+            <div class="card-body"> -->
               
 
-              <div class="container">
+              
                 @yield('content')
-              </div>
+          
 
 
 
-            </div>
+            <!-- </div>
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     
     <!-- main-panel ends --> 
   </div>

@@ -3,9 +3,9 @@
 @section('content')
 
 @foreach( $settings as $setting)
-  @if( $setting['settings_name'] == 'presales')
+  @if( $setting['type'] == 'presales')
   <h2><span> Gallery </span>
-  <a href="{{ url('/addimage/'.$setting['presales_name'].'/'.$setting['settings_name']) }}" class="combtnDiv"> Create New Image </a>
+  <a href="{{ url('/addimage/'.$setting['name'].'/'.$setting['settings_name']) }}" class="combtnDiv"> Create New Image </a>
   </h2>
   <div class="boxthree">
                 <ul>
@@ -14,8 +14,7 @@
                   <li> <a href="#"> Execution </a> </li>
                 </ul>
             </div>
-  @endif
-  @if( $setting['settings_name'] == 'postsales')
+  @elseif( $setting['settings_name'] == 'postsales')
   <!-- <form action="" >
     @csrf
     <input type="hidden" name="postsales_name" value="{{ $setting['postsales_name'] }}">
@@ -32,8 +31,7 @@
           <li> <a href="#"> Execution </a> </li>
         </ul>
       </div>
-  @endif
-  @if( $setting['settings_name'] == 'execution')
+  @elseif( $setting['settings_name'] == 'execution')
   <h2><span> Gallery </span>
   <a href="{{ url('/addimage/'.$setting['execution_name'].'/'.$setting['settings_name']) }}" class="combtnDiv"> Create New Image </a>
   </h2>
@@ -79,12 +77,13 @@
                 	@foreach($images as $image)
                 	<div class="col-xl-2 col-lg-3 col-md-6 col-md-6 col-xs-12">
                 		<div class="card mb-3">
-                			<img src="{{ asset('images/'.$image->image) }}" class="card-img-top" alt="Broken" height="280" >
-                			<div class="card-body">
+                			<!-- <img src="{{ asset('images/'.$image->image) }}" class="card-img-top" alt="Broken" height="280" > -->
+                			<iframe src="{{ url('/images/'.$image->image ) }}" class="card-img-top" alt="Broken" height="280"></iframe>
+                      <div class="card-body">
                 				<p class="card-text" style="color:black;">{{ $image->created_at->diffForHumans()}} </p>
                 				
-                					
-                					<a href="{{url('image/download/'.$image->id.'/'.$image->task_name.'/'.$image->settings_name) }}" class="btn btn-success"> Download</a>
+                					<a href="/images/{{ $image->image }}" download="{{$image->image}}"> <button class="btn btn-success"> Download </button> </a>
+                					<!-- <a href="{{url('/image/download/'.$image->id) }}" class="btn btn-success"> Download</a> -->
                           <a href="{{url('/image/delete/'.$image->id.'/'.$image->task_name.'/'.$image->settings_name) }}" class="btn btn-danger"> Delete</a>
                 					<!-- <input type="submit" name="" class="btn btn-danger" value="Delete"> -->
 

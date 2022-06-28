@@ -21,8 +21,10 @@
                 <div class="row">
 	                <div class="col-md-5">
 	                    <div class="uplode-imgSec-in">
-	                    	<div class="upDiv"> <input type="file" class="fa fa-upload" name="image[]" multiple accept="image/*"> <!-- <button type="file"><i class="fa fa-upload"></i> Uplode image</button> --> </div>
+	                    	<!--<div class="upDiv">  <input type="file" class="fa fa-upload" name="image[]" multiple > --> <!-- <button type="file"><i class="fa fa-upload"></i> Uplode image</button>  accept="image/*"  </div>-->
+												<div class="upDiv"> <input type="file" class="fa fa-upload" name="image" > </div>	                    
 	                    </div>
+	                    <div id="color_red"> @error('image')<li>{{ $message }}</li>@enderror</div>
 	                </div>
 	                <div class="col-md-7">
 	                    <div class="uplode-imgSec-in">
@@ -32,13 +34,13 @@
 		                        @if($setting['settings_name'] == 'presales')
 		                        <input type="hidden" name="task_name" value="{{ $setting['presales_name'] }}">
 		                        <input type="hidden" name="settings_name" value="{{ $setting['settings_name'] }}">
-		                        @endif
-		                        @if($setting['settings_name'] == 'postsales')
+		                        
+		                        @elseif($setting['settings_name'] == 'postsales')
 		                        <input type="hidden" name="task_name" value="{{ $setting['postsales_name'] }}">
 		                        <input type="hidden" name="settings_name" value="{{ $setting['settings_name'] }}">
-		                        @endif
-		                        @if($setting['settings_name'] == 'execution')
-		                        <input type="hidden" name="task_name" value="{{ $setting['postsales_name'] }}">
+
+		                        @elseif($setting['settings_name'] == 'execution')
+		                        <input type="hidden" name="task_name" value="{{ $setting['execution_name'] }}">
 		                        <input type="hidden" name="settings_name" value="{{ $setting['settings_name'] }}">
 		                        @endif
 	                        @endforeach

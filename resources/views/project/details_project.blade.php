@@ -1,11 +1,18 @@
-@extends('project.index_project')
+@extends('project.index_projectsettings')
 
 @section('content')
 
+<div class="main-panel">
+    <div class="dashboard-bodypart">
+      <div class="dashboard-bodypart-in">
+        <h1> Project  <span> <i class="fa fa-file-text"></i> </span> <small>Projact - Details </small> </h1>
+        <div class="card">
+          <div class="card-body">
 
 
 
-<h2> <span> View Project Details </span> <a href="{{ route('Project.index') }}" class="combtnDiv"> Back Project List </a> </h2>
+
+          <h2> <span> View Project Details </span> <a href="{{ route('Project.index') }}" class="combtnDiv"> Back Project List </a> </h2>
 
             <div class="table-responsive" id="color_black" >
               <table class="table table-striped">
@@ -48,49 +55,19 @@
                 </tbody>
                  
               </table>
-              <div class="mt-4">
-                <div class="card card-body">
-                  <h6>Leav A Comment</h6>
 
-                  <form action="{{ url('comment') }}" method="post">
-                    @csrf
-                    <input type="hidden" name="project_slug" value="{{ $project->slug }}">
-                    <input type="hidden" name="project_id" value="{{ $project->id }}">
-                    <div class="form-group">
-                      <textarea name="comment_body" class="form-control userDiv1" rows="6" required></textarea>
-                    </div>
-                      <button type="submit" class="btn btn-primary"> Submit</button>
-                  </form>
 
-                </div>
-              </div>
-              @forelse($project->comments as $comment)
-              <div class="card card-body mt-3" >
-                <h6>@if($comment->user)
-                  {{ $comment->user->name }}
-                  @endif
-                  
-                <small>comment on : 3-8-2022</small></h6>
-
-                <p class="mb-1">{{ $comment->comment_body }}</p>
-                @if(Auth::check() && Auth::id() == $comment->user_id )
-                <div>
-                  <a href="" class="btn btn-primary btn-sm">Edit</a>
-                  <a href="" class="btn btn-danger btn-sm">Delete</a>
-                </div>
-                @endif
-                
-              </div>
-              @empty
-              <h6>no comment yet</h6>
-              @endforelse
             </div>
 
 
 
 
 
-
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 @endsection
 

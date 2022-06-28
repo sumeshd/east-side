@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('project_type')->nullable();
+            $table->text('settings_name')->nullable();
             $table->text('name');
             $table->text('projectnumber');
             $table->text('projectname');
@@ -25,7 +26,7 @@ return new class extends Migration
             $table->text('address_3')->nullable();
             //$table->binary('image');
             $table->text('pin');
-            //$table->text('customer_id');
+            $table->integer('customer_id');
             $table->timestamps();
         });
     }

@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\RoleController;
 
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ProjectdocController;
+
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ExecutionController;
 use App\Http\Controllers\UserController;
@@ -144,42 +146,57 @@ Route::group(['prefix' => 'teams', 'namespace' => 'Teamwork'], function()
 
 
 
-
-
+// ======================settings================
 Route::resource('Settings', SettingsController::class );
 Route::get('presales', [SettingsController::class,'presales'] );
 Route::get('postsales', [SettingsController::class,'postsales'] );
 Route::get('execution', [SettingsController::class,'execution'] );
-Route::get('presalesstore', [SettingsController::class,'presalesstore'] );
-Route::get('postsalesstore', [SettingsController::class,'postsalesstore'] );
-Route::get('executionstore', [SettingsController::class,'executionstore'] );
+Route::get('presalesstore', [SettingsController::class,'presalesStore'] );
+Route::get('postsalesstore', [SettingsController::class,'postsalesStore'] );
+Route::get('executionstore', [SettingsController::class,'executionStore'] );
 Route::get('parent', [SettingsController::class,'fetch']);
-
-
-//Route::get('gallery', [SettingsController::class,'gallery']);
-//Route::get('settings/imageadd', [SettingsController::class,'imageadd']);
+Route::get('settingsview', [SettingsController::class,'settingsview']);
  
-// Route::get('image/download/{id}', [SettingsController::class,'imagedownload']);
-// 
- Route::get('settingsview', [SettingsController::class,'settingsview']);
 
 
 
-Route::get('gallery/{taskname}/{settings}', [GalleryController::class,'index']);
-Route::get('/addimage/{taskname}/{settings}', [GalleryController::class,'create']);
-Route::post('/image/upload', [GalleryController::class,'store']);
+Route::get('document/{settingsID}/{projectID}/{type}', [ProjectdocController::class,'index']);
+Route::get('/adddocument/{settingsID}/{projectID}/{type}', [ProjectdocController::class,'create']);
+Route::post('/document/upload', [ProjectdocController::class,'store']);
+
 Route::get('/image/delete/{id}/{taskname}/{settings}', [GalleryController::class,'destroy']);
-Route::get('/image/download/{id}/{taskname}/{settings}', [GalleryController::class,'download']);
+Route::get('/image/download/{id}', [GalleryController::class,'download']);
 
 
 //Route::get('gy/{taskname}/{settings}', 'GalleryController@index')->name('gallery');
 //Route::resource('/gallery/{taskname}/{settings}', GalleryController::class );
 //Route::resource('/addimage/{taskname}/{settings}', GalleryController::class );
+//=======================Comment===========================
 Route::get('comment/{id}/{settings}', [SettingsController::class,'commentssettings']);
+Route::post('/comment', [CommentController::class, 'store']);
+Route::get('/comment/{id}', [CommentController::class, 'destroy']);
 
 
-Route::post('comment', [CommentController::class, 'store']);
+
+
 //Route::post('/reply/store', 'CommentController@replyStore')->name('reply.add');
+
+
+
+
+// =====================Project Setings========================
+Route::get('projectsettings/{settings}/{id}', [ProjectController::class,'projectsettings']);
+
+// Route::get('project_presales/{presales}/{id}',[ProjectController::class,'projectsettings']);
+// Route::get('project_postsales/{id}',[ProjectController::class,'postsales']);
+// Route::get('project_execution/{id}',[ProjectController::class,'execution']);
+
+Route::get('/project/presalesstore', [ProjectController::class,'presalesstore'] );
+Route::get('/project/postsalesstore', [ProjectController::class,'postsalesstore'] );
+Route::get('/project/executionstore', [ProjectController::class,'executionstore'] );
+Route::get('projectVS/{id}', [ProjectController::class,'projectVS'] );
+Route::get('/project/parent', [ProjectController::class,'fetch']);
+
 
 
 Route::group(['middleware' => ['auth']], function() {

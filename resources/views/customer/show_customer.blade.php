@@ -2,6 +2,13 @@
 
 @section('content')
 
+<div class="main-panel">
+      <div class="dashboard-bodypart">
+        <div class="dashboard-bodypart-in">
+          <h1> Customer <span> <i class="fa fa-address-card-o"></i> </span> <small> Customer - View </small> </h1>
+          <div class="card">
+            <div class="card-body">
+
 
             <h2> <span> Customer List </span>
             @can('customer-create')
@@ -62,5 +69,9 @@
                 </div>
           </div>
 
-
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 @endsection

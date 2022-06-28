@@ -511,6 +511,74 @@ ul.nav #auth a {
     font-weight: 500;
     color: #001339;
 }
+
+
+
+
+/*=========*/
+
+/*.form-group3 {
+  display: block;
+  margin-bottom: 15px;
+}
+
+.form-group3 input {
+  padding: 0;
+  height: initial;
+  width: initial;
+  margin-bottom: 0;
+  display: none;
+  cursor: pointer;
+}
+
+.form-group3 label {
+  position: relative;
+  cursor: pointer;
+}
+
+.form-group3 label:before {
+    content: '';
+    -webkit-appearance: none;
+    background-color: transparent;
+    border: 2px solid #0079bf;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 5%), inset 0px -15px 10px -12px rgb(0 0 0 / 5%);
+    padding: 9px 9px;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.form-group3 input:checked + label:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 4px;
+    left: 8px;
+    width: 6px;
+    height: 14px;
+    border: solid #0079bf;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.new-form-check3 .form-group3 {
+    display: inline-flex;
+    margin-right: 15px;
+}
+
+.new-form-check3 label { width:100%;     color: #001339; }
+.form-group3 label {
+    font-weight: 500;
+    color: #001339;
+}
+*/
+
+
+/*==========*/
+
+
 .boxthree ul {
     padding: 8px 0;
     border: 1px solid #075f6e;

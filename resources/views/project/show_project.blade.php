@@ -22,6 +22,17 @@
   </div>
 </div>
 
+<div class="row" style="margin-top: 20px;">
+  <div class="col-lg-12">
+    @if($message = Session::get('error'))
+        <div class="alert alert-danger" role="alert">
+            <p>{{ $message }}</p>
+
+        </div>
+        @endif
+  </div>
+</div>
+
 
             <div class="table-responsive">
                 <div id="no-more-tables">
@@ -56,10 +67,23 @@
                         <td><div class="percent"> 20%
                             <div class="progressDiv"></div>
                           </div></td>
-                        <td><span> <i class="fa fa-gear"></i> <a href="#"> Settings </a> </span>
-                        @can('project-list')
-                         <span> <i class="fa fa-eye"></i> <a href="{{ url('show/'.$pro->id) }}"> View </a> </span>
-                        @endcan
+                        <td>
+                          @php $settings_name = explode(",", $pro->settings_name ); @endphp
+                          @php in_array('Presales',$settings_name)? $presales ='presales' :  $presales =''  @endphp
+                          @php in_array('Postsales',$settings_name)? $postsales='postsales':$postsales='' @endphp
+                          @php in_array('Execution',$settings_name)? $execution='execution':$execution='' @endphp
+                          @if( !empty($presales))
+                            <span> <i class="fa fa-gear"></i> <a href="{{ url('projectsettings/'.$presales.'/'.$pro->id) }}"> Settings </a> </span>
+                          @elseif( !empty($postsales))
+                            <span> <i class="fa fa-gear"></i> <a href="{{ url('projectsettings/'.$postsales.'/'.$pro->id) }}"> Settings </a> </span>
+                          @elseif( !empty($execution))
+                            <span> <i class="fa fa-gear"></i> <a href="{{ url('projectsettings/'.$execution.'/'.$pro->id) }}"> Settings </a> </span>
+                          @endif
+
+                          <span> <i class="fa fa-gear"></i> <a href="{{ url('projectVS/'.$pro->id) }}"> Settings View </a> </span>
+                          @can('project-list')
+                          <span> <i class="fa fa-eye"></i> <a href="{{ url('show/'.$pro->id) }}"> View </a> </span>
+                          @endcan
                         </td>
                       </tr>
                       @endforeach

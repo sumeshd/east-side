@@ -25,101 +25,12 @@
     
 
 @foreach($projects as $data)
-<form class="row g-5 " action="{{ url('updete_project/'.$data->id) }}" >
+@php $type = explode(",", $data['project_type'] ); @endphp
+@php $settings_name = explode(",", $data['settings_name'] ); @endphp
+<form class="row g-5 " action="{{ url('updete_project/'.$data['id']) }}" >
     @method('PATCH') 
     @csrf
-        <!-- <div class="table-responsive">
-            <div class="customDiv">
-                <div class="row">
-
-                    <div class="col-md-6">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label for="usr">Enter Project Name</label>
-                                <div class="form-group">                          
-                                    <input type="text" class="form-control color_black" placeholder="Project Name" id="usr" name="projectname" value="{{ $data->projectname}}">
-                                    <div id="color_red"> @error('projectname')<li>{{ $message }}</li>@enderror</div>                                            
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label for="usr">Enter Status</label>
-                                <div class="form-group">                          
-                                    <input type="text" class="form-control color_black" placeholder="Enter Status" id="usr" name="status" value="{{ $data->status}}">
-                                    <div id="color_red"> @error('status')<li>{{ $message }}</li>@enderror</div>                                            
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label for="usr">Enter Budject</label>
-                                <div class="form-group">                          
-                                    <input type="text" class="form-control color_black" placeholder="Enter Budject" id="usr" name="budject" value="{{ $data->budject}}">
-                                    <div id="color_red"> @error('budject')<li>{{ $message }}</li>@enderror</div>                                            
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label for="usr">Enter Team Name</label>
-                                <div class="form-group">                          
-                                    <input type="text" class="form-control color_black" placeholder="Team Name" id="usr" name="team" value="{{ $data->team}}">
-                                    <div id="color_red"> @error('team')<li>{{ $message }}</li>@enderror</div>                                            
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                
-                    <div class="col-md-6">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label for="usr">Complecation</label>
-                                <div class="form-group">                          
-                                    <input type="text" class="form-control color_black" placeholder="Complecation" id="usr" name="complecation" value="{{ $data->complecation}}">
-                                    <div id="color_red"> @error('complecation')<li>{{ $message }}</li>@enderror</div>                                            
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label for="usr">Image</label>
-                                <div class="form-group">                          
-                                    <input type="text" class="form-control color_black" placeholder="Project Name" id="usr" name="image" value="{{ $data->image}}">
-                                    <div id="color_red"> @error('image')<li>{{ $message }}</li>@enderror</div>                                            
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label for="usr">Enter Project Name</label>
-                                <div class="form-group">                          
-                                    <input type="text" class="form-control color_black" placeholder="Project Name" id="usr" name="">
-                                                                                
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label for="usr">Enter Project Name</label>
-                                <div class="form-group">                          
-                                    <input type="text" class="form-control color_black" placeholder="Project Name" id="usr" name="">
-                                                                                
-                                </div>
-                            </div>
-                        </div>               
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
-
-
-
-
-
-
+        
         <div class="main_project">          
             <div class="row">
                 <!-- <div class="col-md-4"> 
@@ -139,53 +50,74 @@
                     <div class="projectDiv_lft">
                         <!-- <h3> Add Project </h3>  -->
                         <div class="new-form-check">
-                            <label> Type of Project</label>
+                            <label> Type of Project </label>
                             <div class="form-group2">
-                                <input type="checkbox" id="html" name="project_type[]">
+                                <input type="checkbox" id="html" name="project_type[]" value="Residential" {{ in_array('Residential',$type )? 'checked' : '' }}>
                                 <label for="html">Residential</label>
                             </div>
             
                             <div class="form-group2">
-                                <input type="checkbox" id="css" name="project_type[]">
+                                <input type="checkbox" id="css" name="project_type[]" value="Commercial" {{ in_array('Commercial',$type )? 'checked' : '' }}>
                                 <label for="css">Commercial</label>
                             </div>
             
                             <div class="form-group2">
-                                <input type="checkbox" id="javascript" name="project_type[]">
+                                <input type="checkbox" id="javascript" name="project_type[]" value="Furniture" {{ in_array('Furniture',$type )? 'checked' : '' }}>
                                 <label for="javascript">Furniture</label>
                             </div>
                         </div>
 
+
+                        <div class="new-form-check">
+                            <label> Project Settings Name</label>
+                            <div class="">
+                                <input type="checkbox" id="html" name="settings_name[]" value="Presales" {{ in_array('Presales',$settings_name )? 'checked' : '' }}>
+                                <label for="html">Presales</label>
+                            </div>
+            
+                            <div class="">
+                                <input type="checkbox" id="css" name="settings_name[]" value="Postsales" {{ in_array('Postsales',$settings_name )? 'checked' : '' }}>
+                                <label for="css">Postsales</label>
+                            </div>
+            
+                            <div class="">
+                                <input type="checkbox" id="javascript" name="settings_name[]" value="Execution" {{ in_array('Execution',$settings_name )? 'checked' : '' }}>
+                                <label for="javascript">Execution</label>
+                            </div>
+                        </div>
+
+
+
                         <div class="form-group">
-                            <input type="text" class="form-control userDiv1" placeholder="Name" id="usr" name="name" value="{{old('name',$data->name )}}">
+                            <input type="text" class="form-control userDiv1" placeholder="Name" id="usr" name="name" value="{{old('name',$data['name'] )}}">
                             <div id="color_red"> @error('name')<li>{{ $message }}</li>@enderror</div>
                         </div>
 
                         <div class="form-group">
-                            <input type="text" class="form-control userDiv1" placeholder="Project Name" id="usr" name="projectname" value="{{ $data->projectname}}">
+                            <input type="text" class="form-control userDiv1" placeholder="Project Name" id="usr" name="projectname" value="{{ $data['projectname']}}">
                             <div id="color_red"> @error('projectname')<li>{{ $message }}</li>@enderror</div>
                         </div>
 
                         <div class="form-group">
-                            <input type="number" class="form-control userDiv2" placeholder="Project Number" id="usr" name="projectnumber" value="{{ $data->projectnumber}}">
+                            <input type="number" class="form-control userDiv2" placeholder="Project Number" id="usr" name="projectnumber" value="{{ $data['projectnumber']}}">
                             <div id="color_red"> @error('projectnumber')<li>{{ $message }}</li>@enderror</div>
                         </div>
 
                         <div class="form-group">
-                            <input type="text" class="form-control userDiv3" placeholder="Address 01" id="usr" name="address_1" value="{{ $data->address_1}}">
+                            <input type="text" class="form-control userDiv3" placeholder="Address 01" id="usr" name="address_1" value="{{ $data['address_1']}}">
                             <div id="color_red"> @error('address_1')<li>{{ $message }}</li>@enderror</div>
                         </div>
 
                         <div class="form-group">
-                            <input type="text" class="form-control userDiv3" placeholder="Address 02" id="usr" name="address_2" value="{{ $data->address_2}}">
+                            <input type="text" class="form-control userDiv3" placeholder="Address 02" id="usr" name="address_2" value="{{ $data['address_2']}}">
                         </div>
 
                         <div class="form-group">
-                            <input type="text" class="form-control userDiv3" placeholder="Address 03" id="usr" name="address_3" value="{{ $data->address_3}}">
+                            <input type="text" class="form-control userDiv3" placeholder="Address 03" id="usr" name="address_3" value="{{ $data['address_3']}}">
                         </div>
 
                         <div class="form-group">
-                            <input type="text" class="form-control userDiv4" placeholder="Pin" id="usr" name="pin" value="{{ $data->pin}}">
+                            <input type="text" class="form-control userDiv4" placeholder="Pin" id="usr" name="pin" value="{{ $data['pin']}}">
                             <div id="color_red"> @error('pin')<li>{{ $message }}</li>@enderror</div>
                         </div>
                         <div class="form-group">

@@ -2,7 +2,14 @@
 
 @section('content')
 
-<h2>  <a href="{{ url('settingsview') }}" class="combtnDiv"> View Settings </a> </h2>
+<div class="main-panel">
+    <div class="dashboard-bodypart">
+      <div class="dashboard-bodypart-in">
+        <h1> Universal Settings <span> <i class="fa fa-cogs"></i> </span> <small>Universal Settings - Postsales </small> </h1>
+        <div class="card">
+          <div class="card-body">
+
+            <h2>  <a href="{{ url('settingsview') }}" class="combtnDiv"> View Settings </a> </h2>
             <div class="boxthree">
               <ul>
                 <li> <a href="{{ url('presales') }}"> Presales </a> </li>
@@ -17,6 +24,7 @@
                     <form id="add-item">
                         <input type="text" class="settingsDiv1" name="name" placeholder="Postsales Name"></br>
                         <textarea name="description" class="settingsDiv1" rows="4" placeholder="Designation"> </textarea></br>
+                        <input type="hidden" name="check_id" value=0 >
                         <input type="hidden" name="view" value=0 id="view">
                         <input type="hidden" name="upload" value=0 id="upload">
                         <input type="hidden" name="download" value=0 id="download">
@@ -48,6 +56,13 @@
                 </div>
             </div>
         </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @endsection
 
@@ -81,6 +96,7 @@
         id = Date.now();
         var label = $("#add-item > [name='name']").val();
         var description = $("#add-item > [name='description']").val();
+        var check_id= $("#add-item > [name='check_id']").val();
         var view = $("#add-item > [name='view']").val();
         var upload = $("#add-item > [name='upload']").val();
         var download = $("#add-item > [name='download']").val();
@@ -114,7 +130,7 @@
 
         if (label == "") return;
         var item =
-            '<li class="dd-item dd3-item" data-id="' + id + '" data-label="' + label + '" data-description="' + description + '" data-view="' + view + '" data-upload="' + upload + '" data-download="' + download + '" data-comments="' + comments + '">' +
+            '<li class="dd-item dd3-item" data-id="' + id + '" data-label="' + label + '" data-description="' + description + '" data-checkid="'+ check_id + '" data-view="' + view + '" data-upload="' + upload + '" data-download="' + download + '" data-comments="' + comments + '">' +
             '<div class="dd-handle dd3-handle" > Drag</div>' +
             '<div class="dd3-content"><span>' + label +' '+ view_tf+' '+ upload_tf +' ' + download_tf +' ' + comments_tf +'</span>' +
             '<div class="item-edit">Edit</div>' +
@@ -173,7 +189,7 @@
         $(this).closest(".dd-item").find(".dd3-content span").text($(this).val());
     });
 
-    $("body").delegate("input[name='navigation_description']", "change paste keyup", function (e) {
+    $("body").delegate("textarea[name='navigation_description']", "change paste keyup", function (e) {
         $(this).closest(".dd-item").data("description", $(this).val());
     });
 

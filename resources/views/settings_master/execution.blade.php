@@ -2,6 +2,13 @@
 
 @section('content')
 
+<div class="main-panel">
+    <div class="dashboard-bodypart">
+      <div class="dashboard-bodypart-in">
+        <h1> Universal Settings <span> <i class="fa fa-cogs"></i> </span> <small>Universal Settings - Execution </small> </h1>
+        <div class="card">
+          <div class="card-body">
+
             <h2>  <a href="{{ url('settingsview') }}" class="combtnDiv"> View Settings </a> </h2>
             <div class="boxthree">
               <ul>
@@ -17,6 +24,7 @@
                     <form id="add-item" enctype="multipart/form-data">
                         <input type="text" class="settingsDiv1" name="name" placeholder="Execution Name"></br>
                         <textarea name="description" class="settingsDiv1" rows="4" > </textarea></br>
+                        <input type="hidden" name="check_id" value=0 >
                         <input type="file" name="icon" class="settingsDiv1" id="icon" accept="image/*">
                         <input type="hidden" name="view" value=0 id="view">
                         <input type="hidden" name="upload" value=0 id="upload">
@@ -35,7 +43,6 @@
                     <hr />
 
                     <div class="dd" id="nestable">
-
                          @php echo (empty($html)) ? ' <ol class="dd-list"></ol>' : $html; @endphp
 
                     </div>
@@ -50,6 +57,14 @@
                 </div>
             </div>
         </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @endsection
 
@@ -83,6 +98,7 @@
         id = Date.now();
         var label = $("#add-item > [name='name']").val();
         var description = $("#add-item > [name='description']").val();
+        var check_id= $("#add-item > [name='check_id']").val();
         const icon = document.getElementById('icon');
         const formdata= new FormData();
         console.log(icon.files);
@@ -122,7 +138,7 @@
 
         if (label == "") return;
         var item =
-            '<li class="dd-item dd3-item" data-id="' + id + '" data-label="' + label + '" data-description="' + description +'" data-icon="' + icon + '" data-view="' + view + '" data-upload="' + upload + '" data-download="' + download + '" data-comments="' + comments + '">' +
+            '<li class="dd-item dd3-item" data-id="' + id + '" data-label="' + label + '" data-description="' + description + '" data-checkid="'+ check_id + '" data-icon="' + icon + '" data-view="' + view + '" data-upload="' + upload + '" data-download="' + download + '" data-comments="' + comments + '">' +
             '<div class="dd-handle dd3-handle" > Drag</div>' +
             '<div class="dd3-content"><span>' + label + '</span>' +
             '<div class="item-edit">Edit</div>' +

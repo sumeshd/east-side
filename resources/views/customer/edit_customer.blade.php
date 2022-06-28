@@ -1,7 +1,12 @@
 @extends('customer.index_customer')
 
 @section('content')
-
+<div class="main-panel">
+      <div class="dashboard-bodypart">
+        <div class="dashboard-bodypart-in">
+          <h1> Customer <span> <i class="fa fa-address-card-o"></i> </span> <small> Customer - Edit </small> </h1>
+          <div class="card">
+            <div class="card-body">
 
 
 

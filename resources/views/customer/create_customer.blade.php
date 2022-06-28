@@ -2,6 +2,15 @@
 
 @section('content')
 
+<div class="main-panel">
+      <div class="dashboard-bodypart">
+        <div class="dashboard-bodypart-in">
+          <h1> Customer <span> <i class="fa fa-address-card-o"></i> </span> <small> Customer - Create </small> </h1>
+          <div class="card">
+            <div class="card-body">
+
+
+
 
 
 <h2> <span>Add Customer  </span>
@@ -30,9 +39,9 @@
 -------->
 
 
-<form class="row g-5 " action="{{ route('Customer.store') }}" method="POST">
-    @csrf
-        <div class="table-responsive">
+            <form class="row g-5 " action="{{ route('Customer.store') }}" method="POST">
+              @csrf
+              <div class="table-responsive">
                 <div class="customDiv">
                   <div class="row">
                     <div class="col-md-12">
@@ -373,52 +382,45 @@
                     <div id="menu2" class="tab-pane fade"><br>
                     <div class="borderDiv">
                     <table class="table-editable table-bordered">
-                    
-                    
-                    <thead>
-      <tr>
-        <th>Salutation</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Email Address</th>
-        <th>Work Phone</th>
-        <th>Mobile</th>
-        <th>Skype Name/Number</th>
-        <th>Designation</th>
-        <th>Department</th>
-      </tr>
-    </thead>
-   
-            <tbody>
-              <tr>
-                <td class="input"><input type="text" name="contact_persons_salutation"    ></td>
-                <td class="input"><input type="text" name="contact_persons_first_name"    ></td>
-                <td class="input"><input type="text" name="contact_persons_last_name"     ></td>
-                <td class="input"><input type="text" name="contact_persons_email_address" ></td>
-                <td class="input"><input type="text" name="contact_persons_work_phone"     ></td>
-                <td class="input"><input type="text" name="contact_persons_mobile"         ></td>
-                <td class="input"><input type="text" name="contact_persons_skype_name"    ></td>
-                <td class="input"><input type="text" name="contact_persons_designation"   ></td>
-                <td class="input"><input type="text" name="contact_persons_department"   ></td>
-              
+                      <thead>
+                        <tr>
+                          <th>Salutation</th>
+                          <th>First Name</th>
+                          <th>Last Name</th>
+                          <th>Email Address</th>
+                          <th>Work Phone</th>
+                          <th>Mobile</th>
+                          <th>Skype Name/Number</th>
+                          <th>Designation</th>
+                          <th>Department</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="input"><input type="text" name="contact_persons_salutation"    ></td>
+                          <td class="input"><input type="text" name="contact_persons_first_name"    ></td>
+                          <td class="input"><input type="text" name="contact_persons_last_name"     ></td>
+                          <td class="input"><input type="text" name="contact_persons_email_address" ></td>
+                          <td class="input"><input type="text" name="contact_persons_work_phone"     ></td>
+                          <td class="input"><input type="text" name="contact_persons_mobile"         ></td>
+                          <td class="input"><input type="text" name="contact_persons_skype_name"    ></td>
+                          <td class="input"><input type="text" name="contact_persons_designation"   ></td>
+                          <td class="input"><input type="text" name="contact_persons_department"   ></td>
+                        
 
-                <td rowspan="2" class="table-controls table-zapper"><button class="jDeleteRow btn-delete-row" type="button" disabled="">×</button></td>
-              </tr> 
-            </tbody>
-                    <tfoot>
-                      <tr>
-                        <td colspan="4" class="table-submit">
-                          <button type="button" class="jAddRow btn">Add Row</button>
-                        </td>
-                      </tr>
-                    </tfoot>
-  </table>
-    </div>
-                    
-                    
-                    
-                    
-                    
+                          <td rowspan="2" class="table-controls table-zapper"><button class="jDeleteRow btn-delete-row" type="button" disabled="">×</button></td>
+                        </tr> 
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <td colspan="4" class="table-submit">
+                            <button type="button" class="jAddRow btn">Add Row</button>
+                          </td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+
                     </div>
                     <div id="menu3" class="tab-pane fade"><br>
                       <p> Start adding custom fields for your contacts by going to Settings  Preferences  Customers and Vendors. You can also refine the address format of your customers from there. </p>
@@ -445,10 +447,7 @@
                 
                 </div> 
               </div>
-
-
-
-</form>
+            </form>
 
 
 
@@ -464,6 +463,11 @@
 
 
 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
 @endsection
 

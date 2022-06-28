@@ -2,39 +2,37 @@
 
 namespace App\Models;
 
-use App\Models\Settings_presales;
-use App\Models\Settings_postsales;
-use App\Models\Settings_execution;
-use App\Models\User;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Presales;
+use App\Models\Postsales;
+use App\Models\Execution;
+use App\Models\User;
 
 class Comment extends Model
 {
-    //use HasFactory;
+    use HasFactory;
+
     protected $table = 'comments';
-    protected $fillable = ['presalesid','postsalesid','executionid','user_id','comment_body'];
+    protected $fillable = [
+        'presales_id','postsales_id','execution_id','user_id','comment_body'
+    ];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class , 'user_id','id');
-    }
-    
-    public function presales()
-    {
-        return $this->belongsTo(Settings_presales::class, 'presalesid','id');
+
+    public function presales(){
+        return $this->belongsTo(Presales::class,'presales_id','id');
     }
 
+    public function postsales(){
+        return $this->belongsTo(Postsales::class,'postsales_id','id');
+    }
 
-    // public function settings_postsales()
-    // {
-    //     return $this->belongsTo(Settings_postsales::class, 'postsalesid','id');
-    // }
+    public function execution(){
+        return $this->belongsTo(Execution::class,'execution_id','id');
+    }
 
+    public function user(){
+        return $this->belongsTo(User::class,'user_id','id');
+    }
 
-    // public function settings_execution()
-    // {
-    //     return $this->belongsTo(Settings_execution::class, 'execution','id');
-    // }
 }
