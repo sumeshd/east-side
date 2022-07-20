@@ -1,11 +1,16 @@
 @extends('customer.index_customer')
-
 @section('content')
 
-    <h2> <span> Member Of Team  </span><span class="tracking-wide">{{ $team->name }}</span> 
+<div class="main-panel">
+    <div class="dashboard-bodypart">
+        <div class="dashboard-bodypart-in">
+            <h1> Team <span> <i class="fa fa-users"></i> </span> <small> Team - Member </small> </h1>
+            <div class="card">
+                <div class="card-body">
 
-        <span><a href="{{ route('teams.index') }}" class="combtnDiv"> Team </a></span>
-    </h2>
+        <h2> <span> Member Of Team  </span><span class="tracking-wide">{{ $team->name }}</span> 
+            <span><a href="{{ route('teams.index') }}" class="combtnDiv"> Team </a></span>
+        </h2>
 
         <div class="container" style="margin-top: 20px;">
             <div class="row">
@@ -145,7 +150,11 @@
             @endif
 
 
-
+                </div>
+            </div>
+        </div>
+    </div>
+</div>                
             
 
 

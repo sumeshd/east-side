@@ -5,6 +5,7 @@ namespace Mpociot\Teamwork;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Foundation\Application;
 use Mpociot\Teamwork\Events\UserInvitedToTeam;
+// use App\Models\Project;
 
 class Teamwork
 {
@@ -32,6 +33,8 @@ class Teamwork
     {
         return $this->app->auth->user();
     }
+
+    
 
     /**
      * Invite an email adress to a team.

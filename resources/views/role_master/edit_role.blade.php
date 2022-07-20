@@ -1,6 +1,12 @@
 @extends('customer.index_customer')
-
 @section('content')
+
+<div class="main-panel">
+    <div class="dashboard-bodypart">
+        <div class="dashboard-bodypart-in">
+            <h1> Role <span> <i class="fa fa-registered"></i> </span> <small>Role - Edit </small> </h1>
+            <div class="card">
+                <div class="card-body">
 
 <h2> <span>Edit Role  </span>
  <a href="{{ route('roles.index') }}" class="combtnDiv"> Back Role List </a>
@@ -182,7 +188,11 @@
 
 
 
-
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 @endsection

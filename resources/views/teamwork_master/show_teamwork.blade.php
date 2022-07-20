@@ -1,20 +1,27 @@
 @extends('customer.index_customer')
 @section('content')
 
-<h2> <span> Team List  </span>
-    <a href="{{ route('teams.create') }}" class="combtnDiv"> New Team </a>
-    <a href="#" class="combtnDiv"> Export Data </a>
-</h2>
+<div class="main-panel">
+    <div class="dashboard-bodypart">
+        <div class="dashboard-bodypart-in">
+            <h1> Team <span> <i class="fa fa-users"></i> </span> <small> Team - View </small> </h1>
+            <div class="card">
+                <div class="card-body">
 
-        <div class="row" style="margin-top: 20px;">
-            <div class="col-lg-12">
-                @if($message = Session::get('success'))
-                    <div class="alert alert-success" role="alert">
-                        <p>{{ $message }}</p>
+                <h2> <span> Team List  </span>
+                    <a href="{{ route('teams.create') }}" class="combtnDiv"> New Team </a>
+                    <a href="#" class="combtnDiv"> Export Data </a>
+                </h2>
+
+                <div class="row" style="margin-top: 20px;">
+                    <div class="col-lg-12">
+                        @if($message = Session::get('success'))
+                            <div class="alert alert-success" role="alert">
+                                <p>{{ $message }}</p>
+                            </div>
+                        @endif
                     </div>
-                @endif
-            </div>
-        </div>
+                </div>
 
             <div class="table-responsive">
                 <div id="no-more-tables">
@@ -23,6 +30,7 @@
                       <tr>
                         <th> Name </th>
                         <th> Status </th>
+                        <th> Project </th>
                         <th> </th>
                         <th width="200px"> Action </th>
                       </tr>
@@ -38,6 +46,11 @@
                                     @else
                                         <span class="text-indigo-700 bg-indigo-200 rounded-xl">Member</span>
                                     @endif
+                                </td>
+                                <td>
+                                        @foreach( $team->getTeamProject as $project)
+                                            {{ $project->name }}
+                                        @endforeach
                                 </td>
                                 <td>
                                     @if(is_null(auth()->user()->currentTeam) || auth()->user()->currentTeam->getKey() !== $team->getKey())
@@ -82,7 +95,11 @@
 
 
 
-
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @endsection
 

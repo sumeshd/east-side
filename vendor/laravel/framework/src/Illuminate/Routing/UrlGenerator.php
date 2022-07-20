@@ -167,6 +167,19 @@ class UrlGenerator implements UrlGeneratorContract
     }
 
     /**
+     * Get the previous path info for the request.
+     *
+     * @param  mixed  $fallback
+     * @return string
+     */
+    public function previousPath($fallback = false)
+    {
+        $previousPath = str_replace($this->to('/'), '', rtrim(preg_replace('/\?.*/', '', $this->previous($fallback)), '/'));
+
+        return $previousPath === '' ? '/' : $previousPath;
+    }
+
+    /**
      * Get the previous URL from the session if possible.
      *
      * @return string|null
@@ -410,7 +423,7 @@ class UrlGenerator implements UrlGeneratorContract
 
         $url = $absolute ? $request->url() : '/'.$request->path();
 
-        $queryString = collect(explode('&', $request->server->get('QUERY_STRING')))
+        $queryString = collect(explode('&', (string) $request->server->get('QUERY_STRING')))
             ->reject(fn ($parameter) => in_array(Str::before($parameter, '='), $ignoreQuery))
             ->join('&');
 
@@ -465,6 +478,8 @@ class UrlGenerator implements UrlGeneratorContract
      */
     public function toRoute($route, $parameters, $absolute)
     {
+        $route->excludedParameters = $this->getDefaultParameters();
+
         $parameters = collect(Arr::wrap($parameters))->map(function ($value, $key) use ($route) {
             return $value instanceof UrlRoutable && $route->bindingFieldFor($key)
                     ? $value->{$route->bindingFieldFor($key)}

@@ -1,18 +1,23 @@
 @extends('customer.index_customer')
-
 @section('content')
 
+<div class="main-panel">
+    <div class="dashboard-bodypart">
+        <div class="dashboard-bodypart-in">
+            <h1> Role <span> <i class="fa fa-registered"></i> </span> <small>Role - List </small> </h1>
+            <div class="card">
+                <div class="card-body">
 
-<h2> <span>All Roles </span>
- <a href="{{ route('roles.create') }}" class="combtnDiv"> Create Role </a>
-</h2>
+                    <h2> <span>All Roles </span>
+                     <a href="{{ route('roles.create') }}" class="combtnDiv"> Create Role </a>
+                    </h2>
 
 
-@if ($message = Session::get('success'))
-    <div class="alert alert-success">
-        <p>{{ $message }}</p>
-    </div>
-@endif
+            @if ($message = Session::get('success'))
+                <div class="alert alert-success">
+                    <p>{{ $message }}</p>
+                </div>
+            @endif
 
 
 
@@ -52,7 +57,11 @@
           {!! $roles->render() !!}
 
 
-
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

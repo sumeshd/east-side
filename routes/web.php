@@ -19,7 +19,11 @@ use App\Http\Controllers\Teamwork\TeamMemberController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\GalleryController;
 
+
+use App\Http\Controllers\TaskController;
+
 use App\Http\Controllers\CommentController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -83,9 +87,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('User', UserController::class);
     Route::get('user',[UserController::class,'index']);
     Route::get('user/{id}/edit',[UserController::class,'edit']);
+    Route::get('logout', [UserController::class, 'logout'])->name('logout');
     //Route::get('user/{id}',[UserController::class,'update']);
-
-
 });
 
 
@@ -168,18 +171,20 @@ Route::get('/image/delete/{id}/{taskname}/{settings}', [GalleryController::class
 Route::get('/image/download/{id}', [GalleryController::class,'download']);
 
 
+Route::get('comment/{settingsID}/{projectID}/{type}', [CommentController::class,'index']);
+Route::post('/comment', [CommentController::class, 'store']);
 //Route::get('gy/{taskname}/{settings}', 'GalleryController@index')->name('gallery');
 //Route::resource('/gallery/{taskname}/{settings}', GalleryController::class );
 //Route::resource('/addimage/{taskname}/{settings}', GalleryController::class );
 //=======================Comment===========================
 Route::get('comment/{id}/{settings}', [SettingsController::class,'commentssettings']);
-Route::post('/comment', [CommentController::class, 'store']);
+
 Route::get('/comment/{id}', [CommentController::class, 'destroy']);
 
 
 
 
-//Route::post('/reply/store', 'CommentController@replyStore')->name('reply.add');
+// Route::post('/reply/store', 'CommentController@replyStore')->name('reply.add');
 
 
 
@@ -196,6 +201,23 @@ Route::get('/project/postsalesstore', [ProjectController::class,'postsalesstore'
 Route::get('/project/executionstore', [ProjectController::class,'executionstore'] );
 Route::get('projectVS/{id}', [ProjectController::class,'projectVS'] );
 Route::get('/project/parent', [ProjectController::class,'fetch']);
+
+
+
+//=========================Task===========================
+Route::get('/project/task',[TaskController::class,'show']);
+
+Route::resource('Task', TaskController::class );
+Route::get('/task/assignbyme',[TaskController::class, 'taskassignbyme']);
+Route::get('/project/addmember',[TaskController::class,'addmember']);
+Route::get('/project/addmember/{id}',[TaskController::class,'addmember']);
+Route::get('/project/description',[TaskController::class,'description']);
+Route::get('/project/comment',[TaskController::class,'comment']);
+Route::get('/project/date',[TaskController::class,'date']);
+Route::get('/tasklog',[TaskController::class,'tasklog']);
+Route::get('/task/status',[TaskController::class,'status']);
+Route::get('/task/statusdate',[TaskController::class,'statusdate']);
+
 
 
 

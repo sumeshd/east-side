@@ -16,10 +16,12 @@ return new class extends Migration
         Schema::create('projectdocs', function (Blueprint $table) {
             $table->bigIncrements('id',20);
             $table->integer('project_id');
-            $table->integer('project_settings_id');
-            $table->integer('user_id')->unsigned();
+            $table->unsignedBigInteger('project_settings_id')->unsigned();
+            $table->unsignedBigInteger('user_id')->unsigned();
             $table->string('document_name',255)->nullable();
             $table->string('document_path',255)->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('project_settings_id')->references('id')->on('project_settings')->onDelete('cascade');
             $table->timestamps();
         });
     }

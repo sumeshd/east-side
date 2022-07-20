@@ -1,6 +1,12 @@
 @extends('customer.index_customer')
-
 @section('content')
+
+<div class="main-panel">
+    <div class="dashboard-bodypart">
+        <div class="dashboard-bodypart-in">
+            <h1> Team <span> <i class="fa fa-users"></i> </span> <small> Team - Create </small> </h1>
+            <div class="card">
+                <div class="card-body">
 
 
 <h2> <span>Create A New Team  </span>
@@ -27,6 +33,18 @@
                                         <div id="color_red"> @error('name')<li>{{ $message }}</li>@enderror</div>                                            
                                     </div>
                                 </div>
+                                <!-- <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input list="magicHouses" class="form-control" id="myHouse" name="project_id" placeholder="-- Choose Project --" />
+                                        <datalist id="magicHouses">
+                                            @foreach($projects as $project)
+                                            <option value="{{ $project->id }}">{{$project->name}} </option>
+                                            @endforeach
+                                        </datalist>
+                                        <div id="color_red"> @error('project')<li>{{ $message }}</li>@enderror</div>
+                                    </div>
+                                </div> -->
+
                             </div>
                         </div>
                     </div>
@@ -48,7 +66,11 @@
 
 
 
-
+</div>
+          </div>
+        </div>
+      </div>
+    </div>
 
 @endsection
 

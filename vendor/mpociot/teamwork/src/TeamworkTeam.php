@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Config;
 use Mpociot\Teamwork\Traits\TeamworkTeamTrait;
 
+
 class TeamworkTeam extends Model
 {
     use TeamworkTeamTrait;
@@ -32,4 +33,7 @@ class TeamworkTeam extends Model
         parent::__construct($attributes);
         $this->table = Config::get('teamwork.teams_table');
     }
+
+
+    
 }

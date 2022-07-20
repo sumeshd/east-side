@@ -36,7 +36,7 @@
 
             <div class="table-responsive">
                 <div id="no-more-tables">
-                  <table class="table table-striped">
+                  <table class="table table-striped" id="table_id">
                     <thead>
                       <tr>
                         <th> Project </th>
@@ -44,7 +44,9 @@
                         <th> Project Type </th>
                         <th> Address</th>
                         <th> Customer </th>
+                        <th> Team </th>
                         <th> Completion </th>
+
                         <th> </th>
                       </tr>
                     </thead>
@@ -54,25 +56,26 @@
                     <?php $__currentLoopData = $project; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pro): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                       <tr>
                         <td class="py-1"> <span> <?php echo e($pro->projectname); ?> </span></td>
-                        <td>  <?php echo e($pro->created_at); ?> </td>
-                        <td>  
-                                <?php echo e($pro->project_type); ?> 
-                             
-                        </td>
+                        <td>  <?php echo e(\Carbon\Carbon::parse($pro->created_at)->format('d/m/Y')); ?> </td>
+                        <td> <?php echo e($pro->project_type); ?> </td>
                         <td>  <?php echo e($pro->address_1); ?><?php echo e($pro->address_2); ?><?php echo e($pro->address_3); ?> </td>
-                        <td>  <?php $__currentLoopData = $pro->customers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $customer): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <li><?php echo e($customer->customer_first_name); ?></li>
-                              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <td>  <?php echo e($pro->getCustomer); ?> </td>
+                        <td>
+                          <?php $__currentLoopData = $pro->getTeam; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $team): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php echo e($team->name); ?>
+
+                          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </td>
                         <td><div class="percent"> 20%
                             <div class="progressDiv"></div>
-                          </div></td>
+                          </div>
+                        </td>
                         <td>
                           <?php $settings_name = explode(",", $pro->settings_name ); ?>
                           <?php in_array('Presales',$settings_name)? $presales ='presales' :  $presales =''  ?>
                           <?php in_array('Postsales',$settings_name)? $postsales='postsales':$postsales='' ?>
                           <?php in_array('Execution',$settings_name)? $execution='execution':$execution='' ?>
-                          <?php if( !empty($presales)): ?>
+                          <?php if(!empty($presales)): ?>
                             <span> <i class="fa fa-gear"></i> <a href="<?php echo e(url('projectsettings/'.$presales.'/'.$pro->id)); ?>"> Settings </a> </span>
                           <?php elseif( !empty($postsales)): ?>
                             <span> <i class="fa fa-gear"></i> <a href="<?php echo e(url('projectsettings/'.$postsales.'/'.$pro->id)); ?>"> Settings </a> </span>
@@ -80,9 +83,9 @@
                             <span> <i class="fa fa-gear"></i> <a href="<?php echo e(url('projectsettings/'.$execution.'/'.$pro->id)); ?>"> Settings </a> </span>
                           <?php endif; ?>
 
-                          <span> <i class="fa fa-gear"></i> <a href="<?php echo e(url('projectVS/'.$pro->id)); ?>"> Settings View </a> </span>
+                            <span> <i class="fa fa-gear"></i> <a href="<?php echo e(url('projectVS/'.$pro->id)); ?>"> Settings View </a> </span>
                           <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('project-list')): ?>
-                          <span> <i class="fa fa-eye"></i> <a href="<?php echo e(url('show/'.$pro->id)); ?>"> View </a> </span>
+                            <span> <i class="fa fa-eye"></i> <a href="<?php echo e(url('show/'.$pro->id)); ?>"> View </a> </span>
                           <?php endif; ?>
                         </td>
                       </tr>
@@ -106,8 +109,13 @@
 
 
 <?php $__env->startSection('footer'); ?>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 
 <script type="text/javascript">
+  $(document).ready( function () {
+    $('#table_id').DataTable();
+});
    
 </script>
 

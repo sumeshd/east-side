@@ -11,4 +11,11 @@ class Settings extends Model
     protected $fillable=[
         'type','parent_id','check_id','name','description','image_path','can_view','can_upload','can_download','can_comment'
     ];
+
+
+
+    //  public function precomments()
+    // {
+    //     return $this->hasMany(Comment::class, 'presales_id','id');
+    // }
 }

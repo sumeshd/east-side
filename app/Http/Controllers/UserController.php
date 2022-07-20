@@ -9,6 +9,7 @@ use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -153,5 +154,10 @@ class UserController extends Controller
         User::find($id)->delete();
         return redirect()->route('User.index')
                         ->with('success','User deleted successfully');
+    }
+
+    public function logout() {
+        Auth::logout();
+        return redirect()->route('login');
     }
 }

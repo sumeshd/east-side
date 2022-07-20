@@ -97,6 +97,7 @@
     $("#add-item").submit(function (e) {
         e.preventDefault();
         id = Date.now();
+        var deleteitem = '';
         var label = $("#add-item > [name='name']").val();
         var description = $("#add-item > [name='description']").val();
         var check_id= $("#add-item > [name='check_id']").val();

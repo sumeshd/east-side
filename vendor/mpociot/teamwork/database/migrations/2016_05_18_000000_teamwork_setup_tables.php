@@ -40,6 +40,23 @@ class TeamworkSetupTables extends Migration
                 ->onDelete('cascade');
         });
 
+
+        Schema::create(\Config::get('teamwork.team_project_table'), function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->bigInteger('project_id')->unsigned();
+            $table->integer('team_id')->unsigned();
+            $table->timestamps();
+            $table->foreign('project_id')
+                ->references(\Config::get('teamwork.project_foreign_key'))
+                ->on(\Config::get('teamwork.projects_table'))
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('team_id')
+                ->references('id')
+                ->on(\Config::get('teamwork.teams_table'))
+                ->onDelete('cascade');
+        });
+
         Schema::create(\Config::get('teamwork.team_invites_table'), function (Blueprint $table) {
             $table->increments('id');
             $table->bigInteger('user_id')->unsigned();
@@ -77,6 +94,22 @@ class TeamworkSetupTables extends Migration
         });
 
         Schema::drop(\Config::get('teamwork.team_user_table'));
+
+
+
+        Schema::table(\Config::get('teamwork.team_project_table'), function (Blueprint $table) {
+            if (DB::getDriverName() !== 'sqlite') {
+                $table->dropForeign(\Config::get('teamwork.team_project_table').'_project_id_foreign');
+            }
+            if (DB::getDriverName() !== 'sqlite') {
+                $table->dropForeign(\Config::get('teamwork.team_project_table').'_team_id_foreign');
+            }
+        });
+
+        Schema::drop(\Config::get('teamwork.team_project_table'));
+
+
+
         Schema::drop(\Config::get('teamwork.team_invites_table'));
         Schema::drop(\Config::get('teamwork.teams_table'));
     }

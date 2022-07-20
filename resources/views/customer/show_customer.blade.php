@@ -48,7 +48,7 @@
                       <td> {{ $cus->billing_address_street_1 }} <br> Town School  </td>
                       <td> {{ $cus->customer_phone }} </td>
                       <td> {{ $cus->customer_email }} </td>
-                      <td> Client@gmail.com </td>
+                      <td> {{ !empty($cus->projects)? $cus->projects->name : "" }} </td>
                       <td><div class="percent"> 20%
                           <div class="progressDiv"></div>
                         </div></td>

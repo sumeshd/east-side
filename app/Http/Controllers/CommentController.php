@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Presales;
+use App\Models\Project_settings;
 use App\Models\Comment;
 
 class CommentController extends Controller
@@ -14,9 +14,19 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($settingsID,$projectID,$type)
     {
-        //
+        if( $type == 'presales'){
+            $settings = Project_settings::where('id',$settingsID)->where('project_id',$projectID)->first();
+
+            return view('comment_master.comment',compact('settings'));
+        }elseif ($type == 'postsales') {
+            $settings = Project_settings::where('id',$settingsID)->where('project_id',$projectID)->first();
+            return view('comment_master.comment',compact('settings'));
+        }elseif ($type == 'execution') {
+            $settings = Project_settings::where('id',$settingsID)->where('project_id',$projectID)->first();
+            return view('comment_master.comment',compact('settings'));
+        }
     }
 
     /**
@@ -37,16 +47,18 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request);
         if (Auth::check()) {
             $request->validate([
                 'comment_body' => 'required|string'
             ]);
-            if( $request->settings_name == 'presales'){
-                $settings = Presales::where('id',$request->settings_id)->first();
+            // if( $request->settings_name == 'presales'){
+                $settings = Project_settings::where('id',$request->project_settings_id)->where('project_id',$request->project_id)->first();
                 if($settings){
                     Comment::create([
-                        'presales_id' => $settings->id,
-                        'user_id' => Auth::user()->id,
+                        'project_id' => $settings->project_id,
+                        'project_settings_id' =>$settings->id, 
+                        'user_id' => Auth::id(),
                         'comment_body' => $request->comment_body
 
                     ]);
@@ -54,31 +66,31 @@ class CommentController extends Controller
 
                 }
 
-            }else if ($request->settings_name == 'postsales') {
-                $settings = Presales::where('id',$request->settings_id)->first();
-                if($settings){
-                    Comment::create([
-                        'postsales_id' => $settings->id,
-                        'user_id' => Auth::user()->id,
-                        'comment_body' => $request->comment_body
+            // }else if ($request->settings_name == 'postsales') {
+            //     $settings = Project_settings::where('id',$request->settings_id)->first();
+            //     if($settings){
+            //         Comment::create([
+            //             'postsales_id' => $settings->id,
+            //             'user_id' => Auth::user()->id,
+            //             'comment_body' => $request->comment_body
 
-                    ]);
-                    return redirect()->back()->with('success','New Comment Created Successfully');
+            //         ]);
+            //         return redirect()->back()->with('success','New Comment Created Successfully');
 
-                }
-            }else if ($request->settings_name == 'postsales') {
-                $settings = Presales::where('id',$request->settings_id)->first();
-                if($settings){
-                    Comment::create([
-                        'execution_id' => $settings->id,
-                        'user_id' => Auth::user()->id,
-                        'comment_body' => $request->comment_body
+            //     }
+            // }else if ($request->settings_name == 'postsales') {
+            //     $settings = Presales::where('id',$request->settings_id)->first();
+            //     if($settings){
+            //         Comment::create([
+            //             'execution_id' => $settings->id,
+            //             'user_id' => Auth::user()->id,
+            //             'comment_body' => $request->comment_body
 
-                    ]);
-                    return redirect()->back()->with('success','New Comment Created Successfully');
+            //         ]);
+            //         return redirect()->back()->with('success','New Comment Created Successfully');
 
-                }
-            }
+            //     }
+            // }
 
 
         }else{

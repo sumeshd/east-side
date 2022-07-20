@@ -7,8 +7,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Project_settings;
 use App\Models\Settings;
-
+use App\Models\Team;
 use App\Models\Project;
+use App\Models\Team_project;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -44,9 +45,15 @@ class ProjectController extends Controller
         // $project=Project::with('customers')->get();
         //dd($project->toArray());
 
-        $project = Project::all();
-        //dd($project);
+        $project = Project::orderBy('id','DESC')->get();
         return view('project.show_project',compact('project'));
+
+        // foreach( $project as $pro){
+        //     echo $pro->name;
+        //     echo $pro->getTeam;
+        // }
+         // $project = Project::find(1)->getProjectCustomer;
+         //        return $project;
     }
 
     /**
@@ -62,7 +69,8 @@ class ProjectController extends Controller
     public function create()
     {
         $customers = Customer::orderBy('id','DESC')->get();
-        return view('project.create_project',compact('customers'));
+        $teams = Team::orderBy('id','DESC')->get();
+        return view('project.create_project',compact('customers','teams'));
     }
 
     /**
@@ -74,6 +82,7 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         //dd($request);
+
         $request->validate([
             'project_type' => 'required',
             'settings_name' => 'required', 
@@ -83,20 +92,46 @@ class ProjectController extends Controller
             'address_1' => 'required',
             'pin' => 'required',
             'customer' => 'required',
+            'team' => 'required',
         ]);
-        $project=$request->all();
+
+        
+
+        $customer = Customer::where('id',$request->customer)->first();
+        //dd($customer);
+
+        $project = new project();
         $project_type = implode(',', $request->input('project_type'));
-        $project['project_type']= $project_type;
-
+        $project->project_type = $project_type;
         $settings_name = implode(',', $request->input('settings_name'));
-        $project['settings_name']= $settings_name;
-        $project['customer_id']= $request->customer;
-        // $project['slug'] = Str::slug($request->slug);
-        $projects=Project::create($project);
+        $project->settings_name = $settings_name;
+        $project->name = $request->name;
+        $project->projectnumber = $request->projectnumber;
+        $project->projectname = $request->projectname;
+        $project->address_1 = $request->address_1;
+        $project->address_2 = $request->address_2;
+        $project->address_3 = $request->address_3;
+        $project->pin = $request->pin;
+        $customer->projects()->save($project);
 
-        $projects->customers()->sync($request->customer);
+        $team=$request->team;
+        $project->getTeam()->attach($team);
+
+
+        // $project=$request->all();
+        // $project_type = implode(',', $request->input('project_type'));
+        // $project['project_type']= $project_type;
+
+        // $settings_name = implode(',', $request->input('settings_name'));
+        // $project['settings_name']= $settings_name;
+        // $project['customer_id']= $request->customer;
+
+        // // $project['slug'] = Str::slug($request->slug);
+        // $projects=Project::create($project);
+
+        //$projects->customers()->sync($request->customer);
         // $project_id = $project->id;
-        // Customer::where('id',$request->customer_id)->update(['project_id'=>$project_id,'project_name'=>$request->projectname]);
+       
         return redirect()->route('Project.index')
         ->with('success','Project created successfully.');
     }
@@ -174,7 +209,7 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Project $id)
+    public function destroy($id)
     {
         $project = Project::find($id);
         $project->delete();

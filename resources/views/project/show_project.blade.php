@@ -36,7 +36,7 @@
 
             <div class="table-responsive">
                 <div id="no-more-tables">
-                  <table class="table table-striped">
+                  <table class="table table-striped" id="table_id">
                     <thead>
                       <tr>
                         <th> Project </th>
@@ -44,7 +44,9 @@
                         <th> Project Type </th>
                         <th> Address</th>
                         <th> Customer </th>
+                        <th> Team </th>
                         <th> Completion </th>
+
                         <th> </th>
                       </tr>
                     </thead>
@@ -54,25 +56,25 @@
                     @foreach( $project as $pro)
                       <tr>
                         <td class="py-1"> <span> {{ $pro->projectname }} </span></td>
-                        <td>  {{ $pro->created_at }} </td>
-                        <td>  
-                                {{ $pro->project_type }} 
-                             
-                        </td>
+                        <td>  {{\Carbon\Carbon::parse($pro->created_at)->format('d/m/Y') }} </td>
+                        <td> {{ $pro->project_type }} </td>
                         <td>  {{ $pro->address_1 }}{{ $pro->address_2 }}{{ $pro->address_3 }} </td>
-                        <td>  @foreach($pro->customers as $customer)
-                                <li>{{ $customer->customer_first_name }}</li>
-                              @endforeach
+                        <td>  {{ $pro->getCustomer }} </td>
+                        <td>
+                          @foreach($pro->getTeam as $team)
+                            {{ $team->name }}
+                          @endforeach
                         </td>
                         <td><div class="percent"> 20%
                             <div class="progressDiv"></div>
-                          </div></td>
+                          </div>
+                        </td>
                         <td>
                           @php $settings_name = explode(",", $pro->settings_name ); @endphp
                           @php in_array('Presales',$settings_name)? $presales ='presales' :  $presales =''  @endphp
                           @php in_array('Postsales',$settings_name)? $postsales='postsales':$postsales='' @endphp
                           @php in_array('Execution',$settings_name)? $execution='execution':$execution='' @endphp
-                          @if( !empty($presales))
+                          @if(!empty($presales))
                             <span> <i class="fa fa-gear"></i> <a href="{{ url('projectsettings/'.$presales.'/'.$pro->id) }}"> Settings </a> </span>
                           @elseif( !empty($postsales))
                             <span> <i class="fa fa-gear"></i> <a href="{{ url('projectsettings/'.$postsales.'/'.$pro->id) }}"> Settings </a> </span>
@@ -80,9 +82,9 @@
                             <span> <i class="fa fa-gear"></i> <a href="{{ url('projectsettings/'.$execution.'/'.$pro->id) }}"> Settings </a> </span>
                           @endif
 
-                          <span> <i class="fa fa-gear"></i> <a href="{{ url('projectVS/'.$pro->id) }}"> Settings View </a> </span>
+                            <span> <i class="fa fa-gear"></i> <a href="{{ url('projectVS/'.$pro->id) }}"> Settings View </a> </span>
                           @can('project-list')
-                          <span> <i class="fa fa-eye"></i> <a href="{{ url('show/'.$pro->id) }}"> View </a> </span>
+                            <span> <i class="fa fa-eye"></i> <a href="{{ url('show/'.$pro->id) }}"> View </a> </span>
                           @endcan
                         </td>
                       </tr>
@@ -106,8 +108,13 @@
 
 
 @section('footer')
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 
 <script type="text/javascript">
+  $(document).ready( function () {
+    $('#table_id').DataTable();
+});
    
 </script>
 

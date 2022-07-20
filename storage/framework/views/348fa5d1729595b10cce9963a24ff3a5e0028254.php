@@ -23,7 +23,9 @@
                     <th> Projectnumber </th>
                     <th> project Name </th>
                     <th> Address </th>
-                    <th> </th>                 
+                    <th> Team </th>
+                    <th> Customer</th>
+                
                   </tr>
                 </thead>
                 
@@ -35,7 +37,11 @@
                     <td>  <?php echo e($project->projectnumber); ?></td>
                     <td>  <?php echo e($project->projectname); ?></td>
                     <td> <?php echo e($project->address_1); ?><?php echo e($project->address_2); ?><?php echo e($project->address_3); ?></td>
-                    <td> </td>
+                    <td>  <?php $__currentLoopData = $project->getTeam; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $team): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php echo e($team->name); ?>
+
+                          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?></td>
+                    <td>  <?php echo e($project->getCustomers); ?>      </td>
                   </tr>
 
                   <tr>

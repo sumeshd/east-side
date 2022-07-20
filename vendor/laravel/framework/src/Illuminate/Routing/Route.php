@@ -94,6 +94,13 @@ class Route
     protected $originalParameters;
 
     /**
+     * The parameters to exlude when determining the route's parameter names.
+     *
+     * @var array
+     */
+    public $excludedParameters = [];
+
+    /**
      * Indicates "trashed" models can be retrieved when resolving implicit model bindings for this route.
      *
      * @var bool
@@ -270,12 +277,22 @@ class Route
     public function getController()
     {
         if (! $this->controller) {
-            $class = $this->parseControllerCallback()[0];
+            $class = $this->getControllerClass();
 
             $this->controller = $this->container->make(ltrim($class, '\\'));
         }
 
         return $this->controller;
+    }
+
+    /**
+     * Get the controller class used for the route.
+     *
+     * @return string
+     */
+    public function getControllerClass()
+    {
+        return $this->parseControllerCallback()[0];
     }
 
     /**
@@ -497,9 +514,11 @@ class Route
     {
         preg_match_all('/\{(.*?)\}/', $this->getDomain().$this->uri, $matches);
 
-        return array_map(function ($m) {
+        return array_values(array_filter(array_map(function ($m) {
             return trim($m, '?');
-        }, $matches[1]);
+        }, $matches[1]), function ($parameterName) {
+            return ! array_key_exists($parameterName, $this->excludedParameters);
+        }));
     }
 
     /**
@@ -525,9 +544,17 @@ class Route
      */
     public function bindingFieldFor($parameter)
     {
-        $fields = is_int($parameter) ? array_values($this->bindingFields) : $this->bindingFields;
+        if (is_int($parameter)) {
+            $parameters = $this->parameterNames();
 
-        return $fields[$parameter] ?? null;
+            if (! isset($parameters[$parameter])) {
+                return null;
+            }
+
+            $parameter = $parameters[$parameter];
+        }
+
+        return $this->bindingFields[$parameter] ?? null;
     }
 
     /**
@@ -1100,7 +1127,7 @@ class Route
     /**
      * Indicate that the route should enforce scoping of multiple implicit Eloquent bindings.
      *
-     * @return bool
+     * @return $this
      */
     public function scopeBindings()
     {

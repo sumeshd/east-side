@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Admin</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- <link rel="stylesheet" href="https://harvesthq.github.io/chosen/chosen.css"> -->
 <!-- plugins:css -->
 <link rel="stylesheet" href="<?php echo e(url('assets/vendors/mdi/css/materialdesignicons.min.css')); ?>">
 <link rel="stylesheet" href="<?php echo e(url('assets/vendors/css/vendor.bundle.base.css')); ?>">
@@ -17,6 +18,10 @@
 <link rel="stylesheet" href="<?php echo e(url('assets/vendors/owl-carousel-2/owl.carousel.min.css')); ?>">
 <link rel="stylesheet" href="<?php echo e(url('assets/vendors/owl-carousel-2/owl.theme.default.min.css')); ?>">
 <!-- End plugin css for this page -->
+
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+
 <!-- inject:css -->
 <!-- endinject -->
 <!-- Layout styles -->
@@ -28,6 +33,7 @@
 
 <link rel="stylesheet" href="<?php echo e(url('assets/css/jquery.nestable.css')); ?>">
 <link rel="stylesheet" href="<?php echo e(url('assets/css/category.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(url('assets/css/project.css')); ?>">
 
 <!-- End layout styles -->
 <link rel="shortcut icon" href="<?php echo e(url('assets/images/favicon.png')); ?>" />
@@ -43,10 +49,18 @@
       <li class="nav-item menu-items"> <a class="nav-link" href="index.html"> <span class="menu-icon"> <i class="fa fa-home"></i> </span> <span class="menu-title">Dashboard</span> </a> </li>
       <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('project-list')): ?>
       <li class="nav-item menu-items"> <a class="nav-link" href="<?php echo e(route('Project.index')); ?>"> <span class="menu-icon"> <i class="fa fa-file-text"></i> </span> <span class="menu-title">Project</span> </a> </li>
-      <?php endif; ?>      
+      <?php endif; ?>
+
+      <li class="nav-item menu-items"> <a class="nav-link" href="<?php echo e(route('Task.index')); ?>"> <span class="menu-icon"> <i class="fa fa-tasks"></i> </span> <span class="menu-title">Task Assigned To Me</span> </a> </li>
+
+      <li class="nav-item menu-items"> <a class="nav-link" href="<?php echo e(url('/task/assignbyme')); ?>"> <span class="menu-icon"> <i class="fa fa-tasks"></i> </span> <span class="menu-title">Task Assigned By Me</span> </a> </li>
+
       <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('customer-list')): ?>     
       <li class="nav-item menu-items"> <a class="nav-link" href="<?php echo e(route('Customer.index')); ?>"> <span class="menu-icon"> <i class="fa fa-address-card-o"></i> </span> <span class="menu-title">Customer</span> </a> </li>
       <?php endif; ?>
+
+      <li class="nav-item menu-items"> <a class="nav-link" href="<?php echo e(route('teams.index')); ?>"> <span class="menu-icon"> <i class="fa fa-users"></i> </span> <span class="menu-title">Team</span> </a> </li>
+      
       <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('role-list')): ?>
       <li class="nav-item menu-items"> <a class="nav-link" href="<?php echo e(route('roles.index')); ?>"> <span class="menu-icon"> <i class="fa fa-registered"></i> </span> <span class="menu-title">Role</span> </a> </li>
       <?php endif; ?>
@@ -245,4 +259,4 @@
 <!-- End custom js for this page -->
 <?php echo $__env->yieldContent('footer'); ?>
 </body>
-</html><?php /**PATH C:\Users\Indranil Dhar\Desktop\East Side 16.06.2022\east-side\resources\views/project/index_project.blade.php ENDPATH**/ ?>
+</html> <?php /**PATH C:\Users\Indranil Dhar\Desktop\East Side 16.06.2022\east-side\resources\views/project/index_project.blade.php ENDPATH**/ ?>

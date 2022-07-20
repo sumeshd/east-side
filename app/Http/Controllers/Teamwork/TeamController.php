@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Teamwork;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Mpociot\Teamwork\Exceptions\UserNotInTeamException;
+use App\Models\Project;
+use App\Models\Team;
 
 class TeamController extends Controller
 {
@@ -19,8 +21,10 @@ class TeamController extends Controller
      */
     public function index()
     {
-        return view('teamwork_master.show_teamwork')
-        ->with('teams',auth()->user()->teams);
+        $teams = Team::orderBy('id','DESC')->get();
+        return view('teamwork_master.show_teamwork',compact('teams'));
+        //->with('teams',auth()->user()->teams);
+        
     }
 
     /**
@@ -30,7 +34,8 @@ class TeamController extends Controller
      */
     public function create()
     {
-        return view('teamwork_master.create_teamwork');
+        $projects = Project::orderBy('id','DESC')->get();
+        return view('teamwork_master.create_teamwork',compact('projects'));
     }
 
     /**
@@ -41,18 +46,23 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
+        
         $request->validate([
             'name' => 'required|string',
         ]);
 
         $teamModel = config('teamwork.team_model');
-
+        // $project = Project::find($request->project_id);
+        // $project = $project->getTeam();
+        //dd($project);
         $team = $teamModel::create([
             'name' => $request->name,
             'owner_id' => $request->user()->getKey(),
+            // 'project_id'=> $request->project_id,
         ]);
+        
         $request->user()->attachTeam($team);
-
+        //dd($request->user()->attachTeam($team));
         return redirect()->route('teams.index');
     }
 

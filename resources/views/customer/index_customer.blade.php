@@ -40,6 +40,11 @@
       @can('project-list')
       <li class="nav-item menu-items"> <a class="nav-link" href="{{ route('Project.index') }}"> <span class="menu-icon"> <i class="fa fa-file-text"></i> </span> <span class="menu-title">Project</span> </a> </li>
       @endcan
+
+      <li class="nav-item menu-items"> <a class="nav-link" href="{{ route('Task.index') }}"> <span class="menu-icon"> <i class="fa fa-tasks"></i> </span> <span class="menu-title">Task Assigned To Me</span> </a> </li>
+
+      <li class="nav-item menu-items"> <a class="nav-link" href="{{ url('/task/assignbyme') }}"> <span class="menu-icon"> <i class="fa fa-tasks"></i> </span> <span class="menu-title">Task Assigned By Me</span> </a> </li>
+      
       @can('customer-list')     
       <li class="nav-item menu-items"> <a class="nav-link" href="{{ route('Customer.index') }}"> <span class="menu-icon"> <i class="fa fa-address-card-o"></i> </span> <span class="menu-title">Customer</span> </a> </li>
       @endcan
@@ -61,7 +66,7 @@
               </ul>
         </div>
       </li>
-      <li class="nav-item menu-items">
+      <!-- <li class="nav-item menu-items">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="true" aria-controls="auth">
               <span class="menu-icon"> <i class="fa fa-cog"></i> </span> <span class="menu-title">Settings</span>
               <i class="menu-arrow"></i>
@@ -71,7 +76,7 @@
                 <li class="nav-item"> <a class="nav-link" href=""> Execution </a></li>
               </ul>
             </div>
-      </li>
+      </li> -->
     </ul>
   </nav>
   
@@ -101,7 +106,7 @@
               </a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item preview-item">
-              <div class="preview-thumbnail"> <img src="assets/images/faces/face2.jpg" alt="image" class="rounded-circle profile-pic"> </div>
+              <div class="preview-thumbnail"> <img src="{{ url('assets/images/faces/face2.jpg')}}" alt="image" class="rounded-circle profile-pic"> </div>
               <div class="preview-item-content">
                 <p class="preview-subject ellipsis mb-1">Cregh send you a message</p>
                 <p class="text-muted mb-0"> 15 Minutes ago </p>
@@ -109,7 +114,7 @@
               </a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item preview-item">
-              <div class="preview-thumbnail"> <img src="assets/images/faces/face3.jpg" alt="image" class="rounded-circle profile-pic"> </div>
+              <div class="preview-thumbnail"> <img src="{{ url('assets/images/faces/face3.jpg') }}" alt="image" class="rounded-circle profile-pic"> </div>
               <div class="preview-item-content">
                 <p class="preview-subject ellipsis mb-1">Profile picture updated</p>
                 <p class="text-muted mb-0"> 18 Minutes ago </p>
@@ -158,7 +163,9 @@
           </li>
           <li class="nav-item dropdown"> <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
             <div class="navbar-profile"> <img class="img-xs rounded-circle" src="{{url('assets/images/faces/face15.jpg') }}" alt="">
+              @if( Auth::check())
               <p class="mb-0 d-none d-sm-block navbar-profile-name">{{ Auth::user()->name }}</p>
+              @endif
               <i class="mdi mdi-menu-down d-none d-sm-block"></i> </div>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
@@ -173,7 +180,7 @@
               </div>
               </a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item preview-item">
+              <a class="dropdown-item preview-item" href="{{ route('logout') }}">
               <div class="preview-thumbnail">
                 <div class="preview-icon bg-dark rounded-circle"> <i class="mdi mdi-logout text-danger"></i> </div>
               </div>

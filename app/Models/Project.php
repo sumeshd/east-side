@@ -8,6 +8,7 @@ use App\Models\Customer;
 //use App\Models\Project;
 use App\Models\Pcomment;
 use App\Models\User;
+use App\Models\Team;
 
 class Project extends Model
 {
@@ -17,8 +18,8 @@ class Project extends Model
     ];
 
 
-    public function customers(){
-        return $this->belongsToMany(Customer::class);
+    public function getProjectCustomer(){
+        return $this->belongsTo(Customer::class);
     }
 
      public function user()
@@ -26,6 +27,9 @@ class Project extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function getTeam(){
+        return $this->belongsToMany(Team::class, 'team_projects' );
+    }
 
    
 }

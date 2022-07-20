@@ -1,6 +1,13 @@
-@extends('settings_master.index_settings')
+@extends('project.index_projectsettings')
 
 @section('content')
+
+<div class="main-panel">
+    <div class="dashboard-bodypart">
+      <div class="dashboard-bodypart-in">
+        <h1> Comments <span> <i class="fa fa-commenting"></i> </span> <small>Comments </small> </h1>
+        <div class="card">
+          <div class="card-body">
 
 				  <div class="row" style="margin-top: 20px;">
                   <div class="col-lg-12">
@@ -13,16 +20,16 @@
                   </div>
                 </div>
 
-              @if( $settings->settings_name == 'presales') 
+              @if( $settings->type == 'presales') 
   			       <div class="mt-4 ">
                 <div > <h2 class="center">Presales</h2> </div>
                   <div class="card card-body commentsDiv">
-                    <h2>Leav A Comment {{ $settings->presales_name }}</h2>
+                    <h2>Leav A Comment {{ $settings->type }}</h2>
 
                     <form action="{{ url('comment') }}" method="post">
                       @csrf
-                      <input type="hidden" name="settings_name" value="{{ $settings->settings_name}}">
-                      <input type="hidden" name="settings_id" value="{{ $settings->id }}">
+                      <input type="hidden" name="project_id" value="{{ $settings->project_id}}">
+                      <input type="hidden" name="project_settings_id" value="{{ $settings->id }}">
                       <div class="form-group">
                         <textarea name="comment_body" class="form-control userDiv1" rows="6" required></textarea>
                       </div>
@@ -31,7 +38,7 @@
                   </div>
                 </div>
 
-                @forelse($settings->precomments as $comment)
+                @forelse( $settings->getComments as $comment)
                   <div class="commentsDiv">
                   <div class="row">
                   <div class="col-md-2">
@@ -61,7 +68,7 @@
                 <h6>no comment yet</h6>
                 @endforelse
 
-              @elseif( $settings->settings_name == 'postsales')
+              @elseif( $settings->type == 'postsales')
                 <div class="mt-4 ">
                   <div > <h2 class="center">Postsales</h2> </div>
                   <div class="card card-body commentsDiv">
@@ -69,8 +76,8 @@
 
                     <form action="{{ url('comment') }}" method="post">
                       @csrf
-                      <input type="hidden" name="settings_name" value="{{ $settings->settings_name}}">
-                      <input type="hidden" name="settings_id" value="{{ $settings->id }}">
+                      <input type="hidden" name="project_id" value="{{ $settings->project_id}}">
+                      <input type="hidden" name="project_settings_id" value="{{ $settings->id }}">
                       <div class="form-group">
                         <textarea name="comment_body" class="form-control userDiv1" rows="6" required></textarea>
                       </div>
@@ -79,7 +86,7 @@
                   </div>
                 </div>
 
-                @forelse($settings->postcomments as $comment)
+                @forelse($settings->getComments as $comment)
                   <div class="commentsDiv">
                   <div class="row">
                   <div class="col-md-2">
@@ -159,7 +166,11 @@
 
 
 
-
+</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 @endsection
 

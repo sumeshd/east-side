@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Admin</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- <link rel="stylesheet" href="https://harvesthq.github.io/chosen/chosen.css"> -->
 <!-- plugins:css -->
 <link rel="stylesheet" href="{{ url('assets/vendors/mdi/css/materialdesignicons.min.css') }}">
 <link rel="stylesheet" href="{{ url('assets/vendors/css/vendor.bundle.base.css') }}">
@@ -17,6 +18,10 @@
 <link rel="stylesheet" href="{{ url('assets/vendors/owl-carousel-2/owl.carousel.min.css') }}">
 <link rel="stylesheet" href="{{ url('assets/vendors/owl-carousel-2/owl.theme.default.min.css')}}">
 <!-- End plugin css for this page -->
+
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+
 <!-- inject:css -->
 <!-- endinject -->
 <!-- Layout styles -->
@@ -28,6 +33,7 @@
 
 <link rel="stylesheet" href="{{ url('assets/css/jquery.nestable.css') }}">
 <link rel="stylesheet" href="{{ url('assets/css/category.css') }}">
+<link rel="stylesheet" href="{{ url('assets/css/project.css') }}">
 
 <!-- End layout styles -->
 <link rel="shortcut icon" href="{{ url('assets/images/favicon.png') }}" />
@@ -43,10 +49,18 @@
       <li class="nav-item menu-items"> <a class="nav-link" href="index.html"> <span class="menu-icon"> <i class="fa fa-home"></i> </span> <span class="menu-title">Dashboard</span> </a> </li>
       @can('project-list')
       <li class="nav-item menu-items"> <a class="nav-link" href="{{ route('Project.index') }}"> <span class="menu-icon"> <i class="fa fa-file-text"></i> </span> <span class="menu-title">Project</span> </a> </li>
-      @endcan      
+      @endcan
+
+      <li class="nav-item menu-items"> <a class="nav-link" href="{{ route('Task.index') }}"> <span class="menu-icon"> <i class="fa fa-tasks"></i> </span> <span class="menu-title">Task Assigned To Me</span> </a> </li>
+
+      <li class="nav-item menu-items"> <a class="nav-link" href="{{ url('/task/assignbyme') }}"> <span class="menu-icon"> <i class="fa fa-tasks"></i> </span> <span class="menu-title">Task Assigned By Me</span> </a> </li>
+
       @can('customer-list')     
       <li class="nav-item menu-items"> <a class="nav-link" href="{{ route('Customer.index') }}"> <span class="menu-icon"> <i class="fa fa-address-card-o"></i> </span> <span class="menu-title">Customer</span> </a> </li>
       @endcan
+
+      <li class="nav-item menu-items"> <a class="nav-link" href="{{ route('teams.index') }}"> <span class="menu-icon"> <i class="fa fa-users"></i> </span> <span class="menu-title">Team</span> </a> </li>
+      
       @can('role-list')
       <li class="nav-item menu-items"> <a class="nav-link" href="{{ route('roles.index') }}"> <span class="menu-icon"> <i class="fa fa-registered"></i> </span> <span class="menu-title">Role</span> </a> </li>
       @endcan
@@ -148,7 +162,9 @@
           </li>
           <li class="nav-item dropdown"> <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
             <div class="navbar-profile"> <img class="img-xs rounded-circle" src="assets/images/faces/face15.jpg" alt="">
+              @if( Auth::check())
               <p class="mb-0 d-none d-sm-block navbar-profile-name">{{ Auth::user()->name }}</p>
+              @endif
               <i class="mdi mdi-menu-down d-none d-sm-block"></i> </div>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
@@ -163,7 +179,7 @@
               </div>
               </a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item preview-item">
+              <a class="dropdown-item preview-item" href="{{ route('logout') }}">
               <div class="preview-thumbnail">
                 <div class="preview-icon bg-dark rounded-circle"> <i class="mdi mdi-logout text-danger"></i> </div>
               </div>
@@ -245,4 +261,4 @@
 <!-- End custom js for this page -->
 @yield('footer')
 </body>
-</html>
+</html> 

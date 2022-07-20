@@ -194,6 +194,17 @@
                             <div id="color_red"> @error('customer_id')<li>{{ $message }}</li>@enderror</div>
                         </div>
 
+                        <div class="form-group">
+                            <div id="output" style="display:none;"></div>
+                                <select data-placeholder="-- Choose Team --" name="team[]" multiple class="chosen-select form-control userDiv4">
+                                    @foreach($teams as $team)
+                                    <option value="{{ $team->id }}">{{$team->name}}</option>
+                                    
+                                    @endforeach
+                                </select>
+                                <div id="color_red"> @error('team')<li>{{ $message }}</li>@enderror</div> 
+                        </div>
+
 
                         <!-- <a href="#" class="submitbtn"> Submit </a> -->
                         <div class="full">                
@@ -217,9 +228,11 @@
 
 
 @section('footer')
-
-<script type="text/javascript">
-   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://harvesthq.github.io/chosen/chosen.jquery.js"></script>
+<script >
+   document.getElementById('output').innerHTML = location.search;
+$(".chosen-select").chosen();
 </script>
 
 @endsection

@@ -19,7 +19,16 @@ return [
     | This is the users table name used by Teamwork.
     |
     */
+    
     'users_table' => 'users',
+
+    'team_project_table' => 'team_projects',
+    'project_foreign_key' => 'id',
+    
+    'projects_table' => 'projects',
+    'project_model' => App\Models\Project::class,
+
+
 
     /*
     |--------------------------------------------------------------------------

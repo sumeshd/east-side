@@ -23,7 +23,9 @@
                     <th> Projectnumber </th>
                     <th> project Name </th>
                     <th> Address </th>
-                    <th> </th>                 
+                    <th> Team </th>
+                    <th> Customer</th>
+                
                   </tr>
                 </thead>
                 
@@ -35,7 +37,10 @@
                     <td>  {{ $project->projectnumber }}</td>
                     <td>  {{ $project->projectname }}</td>
                     <td> {{ $project->address_1 }}{{ $project->address_2 }}{{ $project->address_3 }}</td>
-                    <td> </td>
+                    <td>  @foreach($project->getTeam as $team)
+                            {{ $team->name }}
+                          @endforeach</td>
+                    <td>  {{ $project->getCustomers }}      </td>
                   </tr>
 
                   <tr>

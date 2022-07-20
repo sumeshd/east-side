@@ -524,15 +524,15 @@ class SettingsController extends Controller
     public function commentssettings($id,$settings)
     {
         if($settings == 'presales'){
-            $settings = Presales::where('id',$id)->first();
+            $settings = Settings::where('id',$id)->first();
             return view('comment_master.comment',compact('settings'));
 
         }else if($settings == 'postsales'){
-            $settings = Postsales::where('id',$id)->first();
+            $settings = Settings::where('id',$id)->first();
             return view('comment_master.comment',compact('settings'));
 
         }else if($settings == 'execution'){
-            $settings = Execution::where('id',$id)->first();
+            $settings = Settings::where('id',$id)->first();
             return view('comment_master.comment',compact('settings'));
         }
         

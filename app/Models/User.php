@@ -23,7 +23,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        // 'role_id',
         'current_team_id',
     ];
 
@@ -56,10 +55,10 @@ class User extends Authenticatable
     //     return $this->role->permissions()->where('name',$name)->exists();
     // }
 
-    public function project() {
+    // public function project() {
   
-        return $this->hasMany(Project::class);
+    //     return $this->hasMany(Project::class);
      
-    }
+    // }
 
 }

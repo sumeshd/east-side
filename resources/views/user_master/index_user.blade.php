@@ -43,7 +43,13 @@
       <li class="nav-item menu-items"> <a class="nav-link" href="index.html"> <span class="menu-icon"> <i class="fa fa-home"></i> </span> <span class="menu-title">Dashboard</span> </a> </li>
       @can('project-list')
       <li class="nav-item menu-items"> <a class="nav-link" href="{{ route('Project.index') }}"> <span class="menu-icon"> <i class="fa fa-file-text"></i> </span> <span class="menu-title">Project</span> </a> </li>
-      @endcan      
+      @endcan 
+
+      <li class="nav-item menu-items"> <a class="nav-link" href="{{ route('Task.index') }}"> <span class="menu-icon"> <i class="fa fa-tasks"></i> </span> <span class="menu-title">Task Assigned To Me</span> </a> </li>
+
+      <li class="nav-item menu-items"> <a class="nav-link" href="{{ url('/task/assignbyme') }}"> <span class="menu-icon"> <i class="fa fa-tasks"></i> </span> <span class="menu-title">Task Assigned By Me</span> </a> </li>
+      
+
       @can('customer-list')     
       <li class="nav-item menu-items"> <a class="nav-link" href="{{ route('Customer.index') }}"> <span class="menu-icon"> <i class="fa fa-address-card-o"></i> </span> <span class="menu-title">Customer</span> </a> </li>
       @endcan
@@ -152,7 +158,9 @@
         </li>
         <li class="nav-item dropdown"> <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
           <div class="navbar-profile"> <img class="img-xs rounded-circle" src="assets/images/faces/face15.jpg" alt="">
-            <p class="mb-0 d-none d-sm-block navbar-profile-name">Henry Klein</p>
+            @if( Auth::check() )
+            <p class="mb-0 d-none d-sm-block navbar-profile-name">{{ Auth::user()->name }}</p>
+            @endif
             <i class="mdi mdi-menu-down d-none d-sm-block"></i> </div>
           </a>
           <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
@@ -167,7 +175,7 @@
             </div>
             </a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item preview-item">
+            <a class="dropdown-item preview-item" href="{{ route('logout') }}">
             <div class="preview-thumbnail">
               <div class="preview-icon bg-dark rounded-circle"> <i class="mdi mdi-logout text-danger"></i> </div>
             </div>
